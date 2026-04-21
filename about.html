@@ -13,6 +13,8 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="src/css/pages/about.css" />
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -30,52 +32,58 @@
   </nav>
 
   <header class="page-header">
-    <div class="page-header-label fade-in">Giới thiệu nhóm</div>
-    <h1 class="fade-in fade-in-d1">Về chúng tôi</h1>
-    <p class="fade-in fade-in-d2">Nhóm sinh viên môn Kinh tế Chính trị Mác–Lênin, FPT University – cùng nhau nghiên cứu
+    <div class="page-header-label" data-aos="fade-down" data-aos-duration="1000">Giới thiệu nhóm</div>
+    <h1 data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Về chúng tôi</h1>
+    <p data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">Nhóm sinh viên môn Kinh tế Chính trị Mác–Lênin, FPT University – cùng nhau nghiên cứu
       và trình bày bài viết học thuật này.</p>
   </header>
 
   <div class="main-content">
 
     <!-- PROJECT INFO -->
-    <div class="project-card fade-in">
-      <h2><i class="fa-solid fa-clipboard-list" style="color:var(--crimson);margin-right:0.5rem"></i> Thông tin dự án
-      </h2>
-      <div class="info-row">
-        <span class="info-label">Chủ đề</span>
-        <span class="info-value">Sở hữu và phân phối trong nền kinh tế thị trường định hướng XHCN ở Việt Nam</span>
+    <div class="project-card" data-aos="zoom-in" data-aos-duration="800">
+      <div class="project-details">
+        <h2><i class="fa-solid fa-clipboard-list" style="color:var(--crimson);margin-right:0.5rem"></i> Thông tin dự án
+        </h2>
+        <div class="info-row">
+          <span class="info-label">Chủ đề</span>
+          <span class="info-value">Sở hữu và phân phối trong nền kinh tế thị trường định hướng XHCN ở Việt Nam</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Góc tiếp cận</span>
+          <span class="info-value">Lý luận Marxist về quan hệ sản xuất</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Môn học</span>
+          <span class="info-value">Kinh tế Chính trị Mác–Lênin (MLN122)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Trường</span>
+          <span class="info-value">FPT University (Đại học FPT)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Năm học</span>
+          <span class="info-value">2026</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Hình thức báo cáo</span>
+          <span class="info-value">Website học thuật HTML/CSS</span>
+        </div>
       </div>
-      <div class="info-row">
-        <span class="info-label">Góc tiếp cận</span>
-        <span class="info-value">Lý luận Marxist về quan hệ sản xuất</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Môn học</span>
-        <span class="info-value">Kinh tế Chính trị Mác–Lênin (MLN122)</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Trường</span>
-        <span class="info-value">FPT University (Đại học FPT)</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Năm học</span>
-        <span class="info-value">2026</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Hình thức báo cáo</span>
-        <span class="info-value">Website học thuật HTML/CSS</span>
+      
+      <div class="project-illustration">
+        <img src="src/assets/images/about_teamwork_illustration.png" alt="Nghiên cứu học thuật và làm việc nhóm" />
       </div>
     </div>
 
     <!-- MEMBERS -->
-    <span class="section-tag fade-in">Thành viên nhóm</span>
-    <h2 class="section-heading fade-in fade-in-d1">Danh sách thành viên</h2>
-    <div class="title-bar fade-in fade-in-d1"></div>
+    <span class="section-tag" data-aos="fade-right" data-aos-duration="800">Thành viên nhóm</span>
+    <h2 class="section-heading" data-aos="fade-up" data-aos-duration="800">Danh sách thành viên</h2>
+    <div class="title-bar" data-aos="fade-right" data-aos-delay="200" data-aos-duration="800"></div>
 
     <div class="member-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
       <!-- Member 1 -->
-      <div class="member-card fade-in fade-in-d1">
+      <div class="member-card" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
         <div class="member-avatar">VPM</div>
         <div class="member-name">Võ Phương Mỹ</div>
         <div class="member-id">Vai trò: Trưởng nhóm</div>
@@ -86,7 +94,7 @@
       </div>
 
       <!-- Member 2 -->
-      <div class="member-card fade-in fade-in-d2">
+      <div class="member-card" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
         <div class="member-avatar">NTTL</div>
         <div class="member-name">Nguyễn Thị Thùy Linh</div>
         <div class="member-id">Thành viên</div>
@@ -97,7 +105,7 @@
       </div>
 
       <!-- Member 3 -->
-      <div class="member-card fade-in fade-in-d3">
+      <div class="member-card" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
         <div class="member-avatar">MVNQ</div>
         <div class="member-name">Mai Võ Như Quỳnh</div>
         <div class="member-id">Thành viên</div>
@@ -108,7 +116,7 @@
       </div>
 
       <!-- Member 4 -->
-      <div class="member-card fade-in fade-in-d4">
+      <div class="member-card" data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
         <div class="member-avatar">DVM</div>
         <div class="member-name">Điền Viết Minh</div>
         <div class="member-id">Thành viên</div>
@@ -118,7 +126,7 @@
       </div>
 
       <!-- Member 5 -->
-      <div class="member-card fade-in fade-in-d5">
+      <div class="member-card" data-aos="fade-up" data-aos-delay="500" data-aos-duration="800">
         <div class="member-avatar">NVT</div>
         <div class="member-name">Nguyễn Văn Trường</div>
         <div class="member-id">Thành viên</div>
@@ -128,7 +136,7 @@
       </div>
 
       <!-- Member 6 -->
-      <div class="member-card fade-in fade-in-d6">
+      <div class="member-card" data-aos="fade-up" data-aos-delay="600" data-aos-duration="800">
         <div class="member-avatar">NNKN</div>
         <div class="member-name">Nguyễn Ngọc Kim Ngân</div>
         <div class="member-id">Thành viên</div>
@@ -140,11 +148,11 @@
     </div>
 
     <!-- CONTRIBUTION TABLE -->
-    <span class="section-tag fade-in">Phân công đóng góp</span>
-    <h2 class="section-heading fade-in fade-in-d1">Tỷ lệ đóng góp theo mảng</h2>
-    <div class="title-bar fade-in fade-in-d1"></div>
+    <span class="section-tag" data-aos="fade-right" data-aos-duration="800">Phân công đóng góp</span>
+    <h2 class="section-heading" data-aos="fade-up" data-aos-duration="800">Tỷ lệ đóng góp theo mảng</h2>
+    <div class="title-bar" data-aos="fade-right" data-aos-delay="200" data-aos-duration="800"></div>
 
-    <div class="contrib-table-wrapper fade-in fade-in-d2">
+    <div class="contrib-table-wrapper" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
       <table class="contrib-table">
         <thead>
           <tr>
@@ -238,11 +246,11 @@
     </div>
 
     <!-- OUTRO -->
-    <div class="outro fade-in">
+    <div class="outro" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="800">
       <h2>Cảm ơn bạn đã đọc!</h2>
-      <p>Nhóm hy vọng bài tiểu luận này mang lại cái nhìn rõ ràng về sở hữu và phân phối trong mô hình kinh tế đặc thù
+      <p>Nhóm hy vọng bài viết này mang lại cái nhìn rõ ràng về sở hữu và phân phối trong mô hình kinh tế đặc thù
         của Việt Nam. Mọi góp ý đều được trân trọng.</p>
-      <a href="content.html" class="btn-light">Xem lại nội dung tiểu luận →</a>
+      <a href="content.html" class="btn-light">Xem lại nội dung →</a>
     </div>
 
   </div>
@@ -260,6 +268,34 @@
     </p>
   </footer>
 
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      offset: 80,
+      easing: 'ease-in-out',
+    });
+  </script>
+
+  <!-- 3D Animation Script (Vanilla Tilt) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <script>
+    VanillaTilt.init(document.querySelectorAll(".member-card"), {
+      max: 15,
+      speed: 500,
+      glare: true,
+      "max-glare": 0.2,
+      scale: 1.05
+    });
+    VanillaTilt.init(document.querySelectorAll(".project-card, .contrib-table-wrapper, .outro"), {
+      max: 4,
+      speed: 800,
+      glare: true,
+      "max-glare": 0.05,
+      scale: 1.01
+    });
+  </script>
 </body>
 
 </html>

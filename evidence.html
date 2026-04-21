@@ -13,6 +13,8 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="src/css/pages/evidence.css" />
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -30,16 +32,17 @@
   </nav>
 
   <header class="page-header">
-    <div class="page-header-label fade-in">Dẫn chứng thực tiễn</div>
-    <h1 class="fade-in fade-in-d1">Bảng phân tích các doanh nghiệp tiêu biểu</h1>
-    <p class="fade-in fade-in-d2">Minh hoạ sinh động các hình thức sở hữu, thành phần kinh tế và cơ chế phân phối thông
+    <div class="page-header-label" data-aos="fade-down" data-aos-duration="1000">Dẫn chứng thực tiễn</div>
+    <h1 data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Bảng phân tích các doanh nghiệp tiêu biểu</h1>
+    <p data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">Minh hoạ sinh động các hình thức sở hữu, thành
+      phần kinh tế và cơ chế phân phối thông
       qua bốn doanh nghiệp đại diện tại Việt Nam.</p>
   </header>
 
   <div class="main-content">
 
     <!-- STATS -->
-    <div class="stats-bar fade-in">
+    <div class="stats-bar" data-aos="zoom-in" data-aos-duration="800">
       <div class="stat-card">
         <span class="stat-num">4</span>
         <span class="stat-label">Doanh nghiệp phân tích</span>
@@ -59,7 +62,7 @@
     </div>
 
     <!-- TABLE -->
-    <div class="fade-in fade-in-d1">
+    <div data-aos="fade-right" data-aos-duration="800">
       <span class="section-tag">Bảng tổng hợp</span>
       <h2 class="section-heading">Phân tích theo tiêu chí Marxist</h2>
       <div class="title-bar"></div>
@@ -67,7 +70,7 @@
         thành phần kinh tế và cơ chế phân phối thu nhập.</p>
     </div>
 
-    <div class="table-wrapper fade-in fade-in-d2">
+    <div class="table-wrapper" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
       <table>
         <thead>
           <tr>
@@ -124,7 +127,7 @@
     </div>
 
     <!-- DETAIL CARDS -->
-    <div class="fade-in fade-in-d1">
+    <div data-aos="fade-right" data-aos-duration="800">
       <span class="section-tag">Hồ sơ doanh nghiệp</span>
       <h2 class="section-heading">Đặc điểm nổi bật</h2>
       <div class="title-bar"></div>
@@ -132,7 +135,7 @@
       </p>
     </div>
 
-    <div class="detail-grid fade-in fade-in-d2">
+    <div class="detail-grid" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
 
       <div class="detail-card">
         <div class="detail-card-logo logo-1">
@@ -200,7 +203,7 @@
     </div>
 
     <!-- NOTE -->
-    <div class="note-box fade-in">
+    <div class="note-box" data-aos="zoom-in" data-aos-duration="800">
       <div class="icon"><i class="fa-solid fa-thumbtack"></i></div>
       <p>
         Bốn doanh nghiệp trên <strong>minh hoạ sinh động</strong> sự đan xen và cùng tồn tại của nhiều hình thức sở hữu
@@ -225,6 +228,27 @@
     </p>
   </footer>
 
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      offset: 80,
+      easing: 'ease-in-out',
+    });
+  </script>
+
+  <!-- 3D Animation Script (Vanilla Tilt) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <script>
+    VanillaTilt.init(document.querySelectorAll(".stat-card, .detail-card, .note-box"), {
+      max: 8,
+      speed: 600,
+      glare: true,
+      "max-glare": 0.15,
+      scale: 1.03
+    });
+  </script>
 </body>
 
 </html>

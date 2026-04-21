@@ -69,7 +69,7 @@
     /* ---- PAGE HEADER ---- */
     .page-header {
       padding: 120px 6% 60px;
-      background: linear-gradient(150deg, var(--crimson-dk) 0%, var(--crimson) 100%);
+      background: linear-gradient(150deg, rgba(96,0,0,0.85) 0%, rgba(139,0,0,0.85) 100%), url('../../assets/images/content_header_bg.png') center/cover no-repeat;
       position: relative; overflow: hidden;
     }
     .page-header::after {
@@ -163,6 +163,19 @@
       font-size: 1.1rem; color: var(--crimson);
       margin: 1.5rem 0 0.7rem; font-weight: 600;
     }
+    
+    /* Layout with illustration */
+    .split-content-img {
+      display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem; align-items: start; margin-top: 1.5rem;
+    }
+    .content-illustration {
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.4s var(--transition);
+      display: flex; justify-content: center; align-items: center;
+    }
+    .content-section:hover .content-illustration { transform: translateZ(40px); }
+    .content-illustration img { width: 100%; border-radius: var(--radius); filter: drop-shadow(0 15px 30px rgba(139,0,0,0.25)); mix-blend-mode: multiply; }
 
     /* Lists */
     .content-list {
@@ -188,13 +201,20 @@
       background: rgba(139,0,0,0.04);
       border: 1px solid rgba(139,0,0,0.12);
       border-radius: var(--radius); padding: 1.2rem;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: box-shadow var(--transition);
     }
+    .sub-box:hover { box-shadow: 0 10px 25px rgba(139,0,0,0.1); }
     .sub-box h4 {
       font-family: 'Playfair Display', serif;
       font-size: 0.95rem; font-weight: 700; color: var(--crimson-dk);
       margin-bottom: 0.7rem;
+      transform: translateZ(0); transition: transform 0.4s var(--transition);
     }
-    .sub-box ul { list-style: none; padding: 0; }
+    .sub-box:hover h4 { transform: translateZ(25px); }
+    .sub-box ul { list-style: none; padding: 0; transform: translateZ(0); transition: transform 0.4s var(--transition); }
+    .sub-box:hover ul { transform: translateZ(15px); }
     .sub-box ul li {
       font-size: 0.9rem; color: var(--gray-md);
       padding: 0.28rem 0 0.28rem 1.1rem; position: relative;
@@ -209,9 +229,15 @@
       border-radius: var(--radius); padding: 1.3rem 1.6rem;
       margin-top: 1.5rem; color: var(--beige);
       display: flex; align-items: flex-start; gap: 0.9rem;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: box-shadow var(--transition);
     }
-    .callout-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
-    .callout p { color: rgba(245,245,220,0.92); font-size: 0.97rem; margin: 0; }
+    .callout:hover { box-shadow: 0 15px 35px rgba(139,0,0,0.25); }
+    .callout-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; transform: translateZ(0); transition: transform 0.4s var(--transition); }
+    .callout:hover .callout-icon { transform: translateZ(35px) scale(1.1) rotate(5deg); }
+    .callout p { color: rgba(245,245,220,0.92); font-size: 0.97rem; margin: 0; transform: translateZ(0); transition: transform 0.4s var(--transition); }
+    .callout:hover p { transform: translateZ(20px); }
     .callout strong { color: var(--beige); }
 
     /* Badge chips */
@@ -239,6 +265,7 @@
       .layout { grid-template-columns: 1fr; padding: 2rem 1.2rem; }
       .toc { position: static; margin-bottom: 2rem; padding-right: 0; }
       .two-col { grid-template-columns: 1fr; }
+      .split-content-img { grid-template-columns: 1fr; }
       .page-header { padding: 100px 1.2rem 50px; }
       .navbar { padding: 0 1rem; }
       .navbar-nav a { padding: 0.4rem 0.6rem; font-size: 0.8rem; }

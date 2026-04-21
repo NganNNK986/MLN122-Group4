@@ -105,14 +105,16 @@
     .hero {
       min-height: 100vh;
       background:
-        linear-gradient(160deg, rgba(96,0,0,0.92) 0%, rgba(139,0,0,0.80) 50%, rgba(96,0,0,0.70) 100%),
+        linear-gradient(160deg, rgba(96,0,0,0.9) 0%, rgba(139,0,0,0.8) 50%, rgba(96,0,0,0.9) 100%),
         repeating-linear-gradient(
           45deg,
           transparent,
           transparent 40px,
           rgba(255,255,255,0.02) 40px,
           rgba(255,255,255,0.02) 41px
-        );
+        ),
+        url('../../assets/images/index_header_bg_v2.png') center/cover no-repeat;
+      background-attachment: fixed;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -258,18 +260,27 @@
       padding: 1.8rem;
       border: 1px solid rgba(139,0,0,0.1);
       box-shadow: var(--shadow);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      transition: box-shadow var(--transition), border-color var(--transition);
+      transform-style: preserve-3d;
+      will-change: transform;
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 16px 45px rgba(139,0,0,0.15);
-      border-color: rgba(139,0,0,0.35);
+      box-shadow: 0 25px 60px rgba(139,0,0,0.22);
+      border-color: rgba(139,0,0,0.4);
     }
 
     .card:hover .card-icon {
-      transform: scale(1.1) rotate(-5deg);
-      box-shadow: 0 6px 20px rgba(139, 0, 0, 0.25);
+      transform: translateZ(50px) scale(1.15) rotate(-6deg);
+      box-shadow: 0 8px 25px rgba(139, 0, 0, 0.35);
+    }
+
+    .card:hover .card-title {
+      transform: translateZ(35px);
+    }
+
+    .card:hover .card-text {
+      transform: translateZ(20px);
     }
 
     .card-icon {
@@ -283,6 +294,7 @@
       margin-bottom: 1rem;
       color: var(--white);
       transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition);
+      transform: translateZ(0); /* baseline for 3D */
     }
 
     .card-title {
@@ -291,19 +303,25 @@
       font-weight: 700;
       color: var(--crimson-dk);
       margin-bottom: 0.6rem;
+      transition: transform 0.4s var(--transition);
+      transform: translateZ(0);
     }
 
     .card-text {
       font-size: 0.93rem;
       color: var(--gray-md);
       line-height: 1.65;
+      transition: transform 0.4s var(--transition);
+      transform: translateZ(0);
     }
 
     /* ============================================================
        DROPDOWN FAQ (CSS only)
     ============================================================ */
     .faq-section {
-      background: linear-gradient(135deg, var(--crimson-dk) 0%, var(--crimson) 100%);
+      background: linear-gradient(135deg, rgba(96,0,0,0.9) 0%, rgba(139,0,0,0.85) 100%),
+                  url('../../assets/images/index_faq_bg.png') center/cover no-repeat;
+      background-attachment: fixed;
       padding: 5rem 6%;
     }
 

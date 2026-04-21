@@ -108,7 +108,8 @@
     <span class="section-label" data-aos="fade-right" data-aos-duration="800">Câu hỏi nghiên cứu</span>
     <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Hai câu hỏi trọng tâm</h2>
     <div class="title-decor" data-aos="fade-right" data-aos-delay="200" data-aos-duration="800"></div>
-    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">Mở rộng để xem phân tích sơ bộ cho từng câu hỏi nghiên cứu chính của bài tiểu luận.</p>
+    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">Mở rộng để xem phân tích
+      sơ bộ cho từng câu hỏi nghiên cứu chính của bài tiểu luận.</p>
 
     <div class="faq-list">
 
@@ -162,13 +163,14 @@
       <h2>Xem toàn bộ nội dung tiểu luận</h2>
       <p>Phân tích chi tiết lý luận, vận dụng và kết luận đầy đủ.</p>
     </div>
-    <a href="content.html" class="btn" data-aos="zoom-in-left" data-aos-delay="200" data-aos-duration="800">Đọc Nội Dung →</a>
+    <a href="content.html" class="btn" data-aos="zoom-in-left" data-aos-delay="200" data-aos-duration="800">Đọc Nội Dung
+      →</a>
   </div>
 
   <!-- FOOTER -->
   <footer>
     <p><strong>Sở hữu và Phân phối trong Nền kinh tế Thị trường định hướng XHCN ở Việt Nam</strong></p>
-    <p>Tiểu luận môn Kinh tế Chính trị Mác–Lênin · FPT University · 2025–2026</p>
+    <p> MLN122 · FPT University · 2026</p>
     <p style="margin-top:0.5rem;">
       <a href="index.html">Home</a> &nbsp;·&nbsp;
       <a href="content.html">Nội dung</a> &nbsp;·&nbsp;
@@ -186,6 +188,19 @@
       once: true,    // Whether animation should happen only once - while scrolling down
       offset: 80,    // Offset (in px) from the original trigger point
       easing: 'ease-in-out', // Default easing for AOS animations
+    });
+  </script>
+
+  <!-- 3D Animation Script (Vanilla Tilt) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <script>
+    // Khởi tạo hiệu ứng 3D Parallax cho các thẻ Tổng quan
+    VanillaTilt.init(document.querySelectorAll(".card"), {
+      max: 12,           // Góc nghiêng tối đa
+      speed: 600,        // Tốc độ chuyển động
+      glare: true,       // Hiệu ứng ánh sáng bóng kính
+      "max-glare": 0.15, // Độ sáng tối đa của màng loá kính (glassmorphism)
+      scale: 1.02        // Phóng to nhẹ toàn bộ thẻ khi di chuột nảy lên
     });
   </script>
 </body>

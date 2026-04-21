@@ -13,6 +13,8 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="src/css/pages/ai-usage.css" />
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -30,17 +32,16 @@
   </nav>
 
   <header class="page-header">
-    <div class="page-header-label fade-in">Minh bạch học thuật</div>
-    <h1 class="fade-in fade-in-d1">Khai báo sử dụng Trí tuệ nhân tạo</h1>
-    <p class="fade-in fade-in-d2">Theo chuẩn mực học thuật, nhóm công khai toàn bộ phương thức ứng dụng AI trong quá
+    <div class="page-header-label" data-aos="fade-down" data-aos-duration="1000">Minh bạch học thuật</div>
+    <h1 data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Khai báo sử dụng Trí tuệ nhân tạo</h1>
+    <p data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">Theo chuẩn mực học thuật, nhóm công khai toàn bộ phương thức ứng dụng AI trong quá
       trình thực hiện tiểu luận.</p>
   </header>
 
   <div class="main-content">
 
     <!-- PRINCIPLE BANNER -->
-    <div class="principle-banner fade-in">
-      <div class="principle-icon"><i class="fa-solid fa-handshake"></i></div>
+    <div class="principle-banner" data-aos="zoom-in" data-aos-duration="800">
       <div class="principle-text">
         <h2>Nguyên tắc chủ đạo: AI là công cụ hỗ trợ, không thay thế tư duy người học</h2>
         <p>
@@ -49,15 +50,18 @@
           tự nghiên cứu, tổng hợp và chịu trách nhiệm học thuật.
         </p>
       </div>
+      <div class="principle-illustration">
+        <img src="src/assets/images/ai_collaboration_illustration.png" alt="Sự kết hợp giữa AI và trí thức con người" />
+      </div>
     </div>
 
     <!-- AI WAS USED FOR -->
-    <span class="section-tag fade-in">Phạm vi sử dụng</span>
-    <h2 class="section-heading fade-in fade-in-d1">AI hỗ trợ những việc gì?</h2>
-    <div class="title-bar fade-in fade-in-d1"></div>
+    <span class="section-tag" data-aos="fade-right" data-aos-duration="800">Phạm vi sử dụng</span>
+    <h2 class="section-heading" data-aos="fade-up" data-aos-duration="800">AI hỗ trợ những việc gì?</h2>
+    <div class="title-bar" data-aos="fade-right" data-aos-delay="200" data-aos-duration="800"></div>
 
     <div class="usage-list">
-      <div class="usage-item fade-in">
+      <div class="usage-item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
         <div class="usage-icon-box icon-green"><i class="fa-solid fa-folder-open"></i></div>
         <div class="usage-body">
           <h3>Gợi ý cấu trúc & bố cục tài liệu</h3>
@@ -67,7 +71,7 @@
         </div>
       </div>
 
-      <div class="usage-item fade-in fade-in-d1">
+      <div class="usage-item" data-aos="fade-up" data-aos-delay="250" data-aos-duration="800">
         <div class="usage-icon-box icon-blue"><i class="fa-solid fa-pen-nib"></i></div>
         <div class="usage-body">
           <h3>Tối ưu hóa cách diễn đạt nội dung</h3>
@@ -77,7 +81,7 @@
         </div>
       </div>
 
-      <div class="usage-item fade-in fade-in-d2">
+      <div class="usage-item" data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
         <div class="usage-icon-box icon-amber"><i class="fa-solid fa-globe"></i></div>
         <div class="usage-body">
           <h3>Hỗ trợ thiết kế giao diện website</h3>
@@ -89,11 +93,11 @@
     </div>
 
     <!-- BOUNDARY -->
-    <span class="section-tag fade-in">Giới hạn rõ ràng</span>
-    <h2 class="section-heading fade-in fade-in-d1">AI KHÔNG làm thay điều gì?</h2>
-    <div class="title-bar fade-in fade-in-d1"></div>
+    <span class="section-tag" data-aos="fade-right" data-aos-duration="800">Giới hạn rõ ràng</span>
+    <h2 class="section-heading" data-aos="fade-up" data-aos-duration="800">AI KHÔNG làm thay điều gì?</h2>
+    <div class="title-bar" data-aos="fade-right" data-aos-delay="200" data-aos-duration="800"></div>
 
-    <div class="boundary-grid fade-in fade-in-d2">
+    <div class="boundary-grid" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
       <div class="boundary-box yes">
         <h3><i class="fa-solid fa-check" style="color:#006040;margin-right:0.4rem"></i> Nhóm tự thực hiện</h3>
         <ul class="check-list yes-list">
@@ -119,7 +123,7 @@
     </div>
 
     <!-- QUOTE -->
-    <div class="quote-block fade-in">
+    <div class="quote-block" data-aos="zoom-in-right" data-aos-duration="800">
       <blockquote>
         "Sử dụng AI một cách có đạo đức trong học thuật là biết rõ khi nào cần công cụ hỗ trợ và khi nào cần tư duy độc
         lập – ranh giới đó chính là nơi tri thức thật sự được hình thành."
@@ -142,6 +146,27 @@
     </p>
   </footer>
 
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      offset: 80,
+      easing: 'ease-in-out',
+    });
+  </script>
+
+  <!-- 3D Animation Script (Vanilla Tilt) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <script>
+    VanillaTilt.init(document.querySelectorAll(".usage-item, .boundary-box, .quote-block"), {
+      max: 6,
+      speed: 600,
+      glare: true,
+      "max-glare": 0.12,
+      scale: 1.02
+    });
+  </script>
 </body>
 
 </html>
