@@ -1,0 +1,10 @@
+:root {
+    --bg-white: #f3f4f6;
+    --text-primary: #0a1128;
+    --text-secondary: #4a5568;
+    --teal-glow: rgba(0, 168, 168, 0.4);
+    --blue-glow: rgba(10, 36, 99, 0.3);
+    --glass-bg: rgba(255, 255, 255, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.7);
+    --accent-teal: #00a8a8;
+}

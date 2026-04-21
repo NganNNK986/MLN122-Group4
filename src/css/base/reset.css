@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body.synchronous-universe {
+    background-color: var(--bg-white);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 168, 168, 0.04) 0%, transparent 60%),
+        radial-gradient(circle at 90% 80%, rgba(10, 36, 99, 0.04) 0%, transparent 70%);
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--text-primary);
+}
+
+.text-center { text-align: center; }
