@@ -31,24 +31,16 @@
     /* ============================================================
        ANIMATIONS
     ============================================================ */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
     @keyframes fadeIn {
       from { opacity: 0; }
       to   { opacity: 1; }
     }
-    @keyframes slideDown {
-      from { opacity: 0; max-height: 0; }
-      to   { opacity: 1; max-height: 600px; }
+    
+    @keyframes pulseGlow {
+      0% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.7; }
     }
-
-    .fade-in      { animation: fadeInUp 0.8s ease both; }
-    .fade-in-d1   { animation-delay: 0.15s; }
-    .fade-in-d2   { animation-delay: 0.30s; }
-    .fade-in-d3   { animation-delay: 0.45s; }
-    .fade-in-d4   { animation-delay: 0.60s; }
 
     /* ============================================================
        NAVBAR
@@ -136,8 +128,9 @@
       top: -100px; right: -100px;
       width: 500px; height: 500px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(245,245,220,0.06) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(245,245,220,0.08) 0%, transparent 70%);
       pointer-events: none;
+      animation: pulseGlow 8s infinite alternate ease-in-out;
     }
 
     .hero-label {
@@ -269,9 +262,14 @@
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(139,0,0,0.15);
-      border-color: rgba(139,0,0,0.3);
+      transform: translateY(-8px);
+      box-shadow: 0 16px 45px rgba(139,0,0,0.15);
+      border-color: rgba(139,0,0,0.35);
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1) rotate(-5deg);
+      box-shadow: 0 6px 20px rgba(139, 0, 0, 0.25);
     }
 
     .card-icon {
@@ -284,6 +282,7 @@
       font-size: 1.3rem;
       margin-bottom: 1rem;
       color: var(--white);
+      transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition);
     }
 
     .card-title {
@@ -440,8 +439,8 @@
 
     .btn:hover {
       background: var(--crimson-dk);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(139,0,0,0.35);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(139,0,0,0.4);
     }
 
     /* ============================================================
