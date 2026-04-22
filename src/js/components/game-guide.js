@@ -135,15 +135,15 @@ export function initGameGuide() {
 
   // ==================== GAME STATE ====================
   let state = {
-    capital: 120,
+    capital: 150,
     hp: 100,
-    sp: 0,
-    reputation: 50,
-    progress: 0,
+    reputation: 100,
     role: null,
     items: [],
     unlockedEventIds: [],
     usedEventIds: [], // Track events đã sử dụng
+    currentQuizIndex: 0, // Theo dõi tiến trình Quiz
+    score: 0,
     flavorText: '',
     armorMacroUsed: false,
     turnCount: 0
@@ -156,7 +156,7 @@ export function initGameGuide() {
       desc: 'Nội tại: HP < 35 hồi 25 HP. Giảm mọi thiệt hại Vốn từ sự kiện đi 20%.',
       img: 'public/image/role-state.png',
       cls: 'celebrate-state',
-      groupName: 'Sở hữu công',
+      groupName: 'Sở hữu công cộng',
       subGroup: 'Sở hữu toàn dân',
       bgImg: 'public/image/bg-stage2-state.png'
     },
@@ -166,149 +166,402 @@ export function initGameGuide() {
       desc: 'Nội tại: Giảm giá Item 20%. Cộng thêm 2 Vốn mỗi lượt chơi (Chi phí vận hành thấp).',
       img: 'public/image/role-collective.png',
       cls: 'celebrate-collective',
-      groupName: 'Sở hữu công',
+      groupName: 'Sở hữu công cộng',
       subGroup: 'Sở hữu tập thể',
       bgImg: 'public/image/bg-stage2-collective.png'
     },
     private: {
       name: 'Tư nhân',
-      passive: 'SPEED_RISK',
-      desc: 'Nội tại: Tiến độ mỗi lượt x1.2. Sát thương trừ HP x1.25.',
+      passive: 'PROFIT_RISK',
+      desc: 'Nội tại: Tăng 20% lượng Vốn nhận được từ các lựa chọn. Sát thương trừ HP x1.25.',
       img: 'public/image/role-private.png',
       cls: 'celebrate-private',
       groupName: 'Sở hữu tư',
       subGroup: 'Sở hữu tư nhân trong nước',
       bgImg: 'public/image/bg-stage2-private.png'
-    },
-    fdi: {
-      name: 'Vốn Nước ngoài',
-      passive: 'TECH_TRANSFER',
-      desc: 'Nội tại: SP += 2, Vốn +20 đầu game/ -20 cuối game. Giảm mất Uy tín 10%.',
-      img: 'public/image/role-fdi.png',
-      cls: 'celebrate-fdi',
-      groupName: 'Sở hữu tư',
-      subGroup: 'Vốn đầu tư nước ngoài',
-      bgImg: 'public/image/bg-stage2-fdi.png'
     }
   };
 
   const ITEMS = [
-    { id: 'IT01', name: 'Hệ thống Dữ liệu Bộ', tag: 'state', price: 35, img: 'public/image/item-it01-database.png' },
-    { id: 'IT02', name: 'Khai thác Hạ tầng', tag: 'state', price: 35, img: 'public/image/item-it02-infrastructure.png' },
-    { id: 'IT03', name: 'Đất Nông nghiệp', tag: 'collective', price: 30, img: 'public/image/item-it03-farmland.png' },
-    { id: 'IT04', name: 'Dây chuyền Nông sản', tag: 'collective', price: 30, img: 'public/image/item-it04-agri-production.png' },
-    { id: 'IT05', name: 'AI Chốt đơn', tag: 'private', price: 45, img: 'public/image/item-it05-ai-sales.png' },
-    { id: 'IT06', name: 'Kho bãi Logistics', tag: 'private', price: 45, img: 'public/image/item-it06-logistics.png' },
-    { id: 'IT07', name: 'Robot lắp ráp', tag: 'fdi', price: 45, img: 'public/image/item-it07-robot.png' },
-    { id: 'IT08', name: 'Vi mạch lõi', tag: 'fdi', price: 55, img: 'public/image/item-it08-microchip.png' }
+    { id: 'IT01', name: 'Hệ thống Dữ liệu Bộ', tag: 'state', price: 35, img: 'public/image/item-it01-database.png', desc: 'Công cụ quản lý vĩ mô và điều tiết nền kinh tế của Nhà nước.' },
+    { id: 'IT02', name: 'Khai thác Hạ tầng', tag: 'state', price: 35, img: 'public/image/item-it02-infrastructure.png', desc: 'Dự án phát triển hạ tầng chiến lược phục vụ lợi ích toàn dân.' },
+    { id: 'IT03', name: 'Đất Nông nghiệp', tag: 'collective', price: 30, img: 'public/image/item-it03-farmland.png', desc: 'Tư liệu sản xuất thuộc sở hữu chung của các thành viên Hợp tác xã.' },
+    { id: 'IT04', name: 'Dây chuyền Nông sản', tag: 'collective', price: 30, img: 'public/image/item-it04-agri-production.png', desc: 'Hệ thống sản xuất liên kết theo mô hình kinh tế tập thể tương trợ.' },
+    { id: 'IT05', name: 'AI Chốt đơn', tag: 'private', price: 45, img: 'public/image/item-it05-ai-sales.png', desc: 'Công cụ tối ưu hóa lợi nhuận và sức cạnh tranh cho doanh nghiệp tư nhân.' },
+    { id: 'IT06', name: 'Kho bãi Logistics', tag: 'private', price: 45, img: 'public/image/item-it06-logistics.png', desc: 'Hệ thống kho vận hiện đại giúp tối đa hóa chuỗi giá trị của tư nhân.' }
   ];
 
   const TAG_NAMES = {
     state: 'Nhà nước',
     collective: 'Tập thể',
-    private: 'Tư nhân',
-    fdi: 'Vốn Nước ngoài'
+    private: 'Tư nhân'
   };
 
-  const EVENTS = {
-    tier1: [
+  const QUIZ_DATA = {
+    state: [
       {
-        id: 'A', name: 'Tối ưu Quy trình', tier: 'Cọ xát Vi mô', bgImg: 'public/image/toi_ưu_tien_trinh.png',
-        desc: 'Hệ thống vận hành cũ bộc lộ điểm nghẽn, làm giảm hiệu suất chung của toàn doanh nghiệp.',
-        customLayoutBottomRight: true,
-        opt1: { name: 'Mời chuyên gia', desc: '-15 Vốn, +2 Tương thích, +10 Uy tín', effect: () => { applyEffect({ capital: -15, sp: 2, reputation: 10 }); } },
-        opt2: { name: 'Ép nhân viên tự làm', desc: '+15 Vốn (Cắt giảm chi phí), +15% Tiến độ, -15 Uy tín, -2 Tương thích', effect: () => { applyEffect({ capital: 15, progress: 15, reputation: -15, sp: -2 }); } }
+        question: "Thị trường hàng hóa thiết yếu đang biến động mạnh, giá cả tăng cao. Bạn sẽ làm gì?",
+        options: [
+          { 
+            text: "Để thị trường tự điều tiết theo quy luật cung cầu nhằm thu thuế cao hơn", 
+            effect: { capital: 15, hp: -10, reputation: -15 },
+            explanation: "Nếu chỉ vì lợi ích ngân sách mà bỏ mặc an sinh, niềm tin của nhân dân sẽ sụt giảm nghiêm trọng."
+          },
+          { 
+            text: "Sử dụng quỹ dự trữ quốc gia để bình ổn giá, ưu tiên an sinh xã hội", 
+            effect: { capital: -5, hp: 10, reputation: 15 },
+            explanation: "Chính xác! Nhà nước cần can thiệp để bảo vệ đời sống nhân dân trong những thời điểm khó khăn."
+          },
+          { 
+            text: "Nhập khẩu hàng giá rẻ ồ ạt để ép giá các doanh nghiệp tư nhân trong nước", 
+            effect: { hp: -15, reputation: -10 },
+            explanation: "Điều này có thể làm tê liệt sản xuất trong nước và gây mất cân đối kinh tế dài hạn."
+          }
+        ]
       },
       {
-        id: 'B', name: 'Thiếu Vật tư', tier: 'Cọ xát Vi mô', bgImg: 'public/image/bg-stage4-tier1.png',
-        desc: 'Đối tác truyền thống gặp sự cố, trong khi đơn hàng lớn cần bàn giao gấp trong tuần tới.',
-        opt1: { name: 'Mua chợ đen', desc: '-10 Vốn, +15% Tiến độ, -15 Uy tín', effect: () => { applyEffect({ capital: -10, progress: 15, reputation: -15 }); } },
-        opt2: { name: 'Chờ đối tác chuẩn', desc: '+5 Vốn (Tối ưu chi phí), -5 Sức khỏe, +10 Uy tín', effect: () => { applyEffect({ capital: 5, hp: -5, reputation: 10 }); } }
+        question: "Ngân sách quốc gia đang dư dả một phần. Bạn ưu tiên đầu tư vào đâu?",
+        options: [
+          { 
+            text: "Chỉ tập trung vào các đặc khu kinh tế lớn để thu lợi nhuận nhanh nhất", 
+            effect: { capital: 20, hp: -10, reputation: -5 },
+            explanation: "Phát triển lệch tâm sẽ tạo ra gánh nặng xã hội và di dân tự do về các đô thị lớn."
+          },
+          { 
+            text: "Cho các doanh nghiệp Nhà nước vay ưu đãi không cần thẩm định kỹ", 
+            effect: { capital: -30, reputation: -20 },
+            explanation: "Sử dụng ngân sách thiếu kiểm soát sẽ dẫn đến lãng phí và nguy cơ tham nhũng cao."
+          },
+          { 
+            text: "Xây dựng hạ tầng giao thông và viễn thông tại các vùng sâu, vùng xa", 
+            effect: { capital: -10, hp: 15, reputation: 20 },
+            explanation: "Tuyệt vời! Đầu tư công vào hạ tầng vùng khó khăn giúp thu hẹp khoảng cách giàu nghèo."
+          }
+        ]
       },
       {
-        id: 'G', name: 'Đào tạo Nhân sự', tier: 'Cọ xát Vi mô', bgImg: 'public/image/dao_tao_nhan_su.jpg',
-        desc: 'Công nghệ mới được nhập về nhưng đội ngũ hiện tại chưa đủ kỹ năng vận hành trơn tru.',
-        customLayoutCenterWhite: true,
-        opt1: { name: 'Mở lớp nội bộ', desc: '-10 Vốn, +1 Tương thích, +5 Uy tín', effect: () => { applyEffect({ capital: -10, sp: 1, reputation: 5 }); } },
-        opt2: { name: 'Thuê ngoài', desc: '-5 Vốn, +10% Tiến độ', effect: () => { applyEffect({ capital: -5, progress: 10 }); } }
+        question: "Một số dự án công nghiệp gây ô nhiễm môi trường nghiêm trọng. Bạn xử lý sao?",
+        options: [
+          { 
+            text: "Kiên quyết đình chỉ và yêu cầu xử lý triệt để dù tăng trưởng kinh tế chậm lại", 
+            effect: { capital: -5, hp: 20, reputation: 15 },
+            explanation: "Phát triển bền vững không thể đánh đổi môi trường lấy tăng trưởng bằng mọi giá."
+          },
+          { 
+            text: "Nới lỏng quy định để các doanh nghiệp duy trì sản xuất và đóng góp GDP", 
+            effect: { capital: 15, hp: -30, reputation: -15 },
+            explanation: "Hệ lụy về sức khỏe cộng đồng và môi trường sẽ tốn kém hơn nhiều so với lợi ích kinh tế trước mắt."
+          },
+          { 
+            text: "Chỉ phạt tiền tượng trưng để răn đe và cho phép tiếp tục hoạt động", 
+            effect: { capital: 5, hp: -15, reputation: -10 },
+            explanation: "Hình phạt không đủ mạnh sẽ khiến các doanh nghiệp tiếp tục coi thường pháp luật bảo vệ môi trường."
+          }
+        ]
       },
       {
-        id: 'J', name: 'Hạ tầng số yếu kém', tier: 'Cọ xát Vi mô', bgImg: 'public/image/ha_tang_so_yeu_kem.png',
-        desc: 'Hệ thống bị lag và treo trong giờ cao điểm do hạ tầng máy chủ cũ kỹ.',
-        customLayoutBottomRight: true,
-        opt1: { name: 'Nâng cấp server', desc: '-15 Vốn, +1 Tương thích, +5 Uy tín', effect: () => { applyEffect({ capital: -15, sp: 1, reputation: 5 }); } },
-        opt2: { name: 'Vá lỗi tạm thời', desc: '+5% Tiến độ, -5 Tương thích, -10 Sức khỏe', effect: () => { applyEffect({ progress: 5, sp: -5, hp: -10 }); } }
+        question: "Bạn cần nâng cao chất lượng nguồn nhân lực quốc gia. Phương án nào là tốt nhất?",
+        options: [
+          { 
+            text: "Chỉ tập trung đào tạo chuyên gia cấp cao, để mặc lao động phổ thông tự bơi", 
+            effect: { capital: -10, hp: 5, reputation: -10 },
+            explanation: "Sự thiếu hụt lao động tay nghề cao ở diện rộng sẽ làm kìm hãm đà phát triển của toàn nền kinh tế."
+          },
+          { 
+            text: "Miễn phí đào tạo nghề cho người lao động và đầu tư mạnh vào giáo dục công", 
+            effect: { capital: -10, hp: 15, reputation: 15 },
+            explanation: "Nhân lực là tài sản quý giá nhất. Đầu tư vào con người là khoản đầu tư sinh lời nhất của Nhà nước."
+          },
+          { 
+            text: "Yêu cầu các doanh nghiệp tự bỏ kinh phí đào tạo, Nhà nước không hỗ trợ", 
+            effect: { capital: 5, hp: -10 },
+            explanation: "Thiếu sự điều tiết của Nhà nước sẽ dẫn đến sự mất cân đối về kỹ năng lao động giữa các ngành nghề."
+          }
+        ]
       },
       {
-        id: 'K', name: 'Cơ hội kết nối', tier: 'Cọ xát Vi mô', bgImg: 'public/image/co_hoi_ket_noi.jpg',
-        desc: 'Một hộ kinh doanh địa phương muốn tham gia vào chuỗi cung ứng của bạn.',
-        customLayout: true, // Flag để positioning đặc biệt
-        opt1: { name: 'Hợp tác hỗ trợ', desc: '-10 Vốn, +2 Tương thích, +5 Uy tín', effect: () => { applyEffect({ capital: -10, sp: 2, reputation: 5 }); } },
-        opt2: { name: 'Từ chối', desc: '+5% Tiến độ (Tập trung nguồn lực)', effect: () => { applyEffect({ progress: 5 }); } }
+        question: "Dự phòng ngân sách cho các tình huống khẩn cấp. Bạn ưu tiên phân bổ thế nào?",
+        options: [
+          { 
+            text: "Dùng để bù lỗ cho các tập đoàn Nhà nước làm ăn kém hiệu quả", 
+            effect: { capital: -20, reputation: -15, hp: -10 },
+            explanation: "Dùng tiền thuế của dân để nuôi dưỡng sự yếu kém sẽ gây bất mãn lớn trong xã hội."
+          },
+          { 
+            text: "Cắt giảm thuế mạnh cho tầng lớp thượng lưu để kích cầu tiêu dùng", 
+            effect: { capital: -15, reputation: -15 },
+            explanation: "Chính sách này thường làm gia tăng sự bất bình đẳng xã hội thay vì giúp ích cho đa số người dân."
+          },
+          { 
+            text: "Dành cho y tế, cứu trợ thiên tai và mạng lưới an sinh xã hội", 
+            effect: { capital: -15, hp: 20, reputation: 20 },
+            explanation: "An toàn của nhân dân là ưu tiên hàng đầu của một Nhà nước định hướng xã hội chủ nghĩa."
+          }
+        ]
+      },
+      {
+        question: "Vị thế của kinh tế Nhà nước trong nền kinh tế nhiều thành phần nên như thế nào?",
+        options: [
+          { 
+            text: "Giữ vai trò chủ đạo ở các ngành then chốt và dẫn dắt các thành phần khác", 
+            effect: { capital: 30, hp: 10, reputation: 15 },
+            explanation: "Sự dẫn dắt của Nhà nước đảm bảo nền kinh tế đi đúng hướng xã hội chủ nghĩa và ổn định."
+          },
+          { 
+            text: "Nhà nước độc quyền toàn bộ các lĩnh vực để kiểm soát tuyệt đối", 
+            effect: { capital: -15, hp: -15, reputation: -20 },
+            explanation: "Sự độc quyền thái quá sẽ triệt tiêu động lực cạnh tranh và sự năng động của thị trường."
+          },
+          { 
+            text: "Rút toàn bộ vốn khỏi thị trường, để tư nhân tự quyết định mọi thứ", 
+            effect: { capital: 25, hp: -20, reputation: -25 },
+            explanation: "Khi thiếu sự điều tiết của Nhà nước, lợi ích công cộng dễ bị xâm phạm bởi lòng tham lợi nhuận."
+          }
+        ]
       }
     ],
-    tier2: [
+    collective: [
       {
-        id: 'C', name: 'Xung đột Lao động', tier: 'Đạo đức & Lợi ích', bgImg: 'public/image/bg-stage4-tier2.png',
-        desc: 'Cường độ làm việc cao khiến công nhân mệt mỏi, bắt đầu xuất hiện tin đồn đình công.',
-        opt1: { name: 'Tăng phúc lợi', desc: '-20 Vốn, +20 Uy tín', effect: () => { applyEffect({ capital: -20, reputation: 20 }); } },
-        opt2: { name: 'Đuổi việc', desc: '+10 Vốn (Tiết kiệm lương), -20 Uy tín, -15 Sức khỏe', effect: () => { applyEffect({ capital: 10, reputation: -20, hp: -15 }); } }
+        question: "Một thành viên trong tổ hợp tác chăn nuôi muốn áp dụng kỹ thuật mới nhưng các thành viên khác còn nghi ngờ hiệu quả. Bạn xử lý sao?",
+        options: [
+          { 
+            text: "Thành viên đó tách ra làm riêng để tự chứng minh, không cần thuyết phục ai", 
+            effect: { hp: -15, reputation: -10 },
+            explanation: "Tư tưởng cá nhân chủ nghĩa làm suy yếu sức mạnh đoàn kết của tổ hợp tác."
+          },
+          { 
+            text: "Báo cáo lên cơ quan khuyến nông nhà nước nhờ phân xử và ra quyết định", 
+            effect: { capital: -5, reputation: 5 },
+            explanation: "Quá phụ thuộc vào cơ quan bên ngoài sẽ làm giảm tính chủ động và tự chủ của tập thể."
+          },
+          { 
+            text: "Đề xuất thí điểm trên một phần diện tích chung, sau một vụ cả tổ cùng đánh giá rồi biểu quyết", 
+            effect: { capital: 10, hp: 10, reputation: 15 },
+            explanation: "Tuyệt vời! Dân chủ bàn bạc và thực chứng là cách tốt nhất để tạo sự đồng thuận."
+          }
+        ]
       },
       {
-        id: 'D', name: 'Thanh tra', tier: 'Đạo đức & Lợi ích', bgImg: 'public/image/bg-stage4-tier2.png',
-        desc: 'Đoàn kiểm tra liên ngành ghé thăm đột xuất rà soát tiêu chuẩn và bảo vệ môi trường.',
-        opt1: { name: 'Bôi trơn', desc: '+15% Tiến độ, -25 Vốn, -20 Uy tín', effect: () => { applyEffect({ progress: 15, capital: -25, reputation: -20 }); } },
-        opt2: { name: 'Hợp tác', desc: '-10 Vốn, +10 Uy tín, +1 Tương thích', effect: () => { applyEffect({ capital: -10, reputation: 10, sp: 1 }); } }
+        question: "Cuối năm Hợp tác xã (HTX) có lợi nhuận, các xã viên đang tranh luận về cách chia. Bạn chọn phương án nào?",
+        options: [
+          { 
+            text: "Chủ nhiệm HTX quyết định mức chia theo đánh giá cá nhân", 
+            effect: { hp: -10, reputation: -25 },
+            explanation: "Sự độc đoán trong phân phối lợi nhuận sẽ phá vỡ niềm tin của các thành viên HTX."
+          },
+          { 
+            text: "Chia theo tỷ lệ ngày công lao động và vốn góp của từng thành viên", 
+            effect: { capital: 15, hp: 10, reputation: 10 },
+            explanation: "Chính xác! Đây là nguyên tắc phân phối công bằng theo đóng góp trong kinh tế tập thể."
+          },
+          { 
+            text: "Chia đều cho tất cả xã viên, không phân biệt công đóng góp", 
+            effect: { capital: -15, reputation: 5 },
+            explanation: "Tính cào bằng sẽ triệt tiêu động lực làm việc của những thành viên tích cực nhất."
+          }
+        ]
       },
       {
-        id: 'H', name: 'Scandal Truyền thông', tier: 'Đạo đức & Lợi ích', bgImg: 'public/image/bg-stage4-tier2.png',
-        desc: 'Báo chí đăng tin thiếu khách quan về quy trình sản xuất của bạn, cộng đồng mạng phẫn nộ.',
-        opt1: { name: 'Họp báo xin lỗi', desc: '-15 Vốn, +15 Uy tín', effect: () => { applyEffect({ capital: -15, reputation: 15 }); } },
-        opt2: { name: 'Im lặng', desc: '+10 Vốn (Không tốn truyền thông), -25 Uy tín', effect: () => { applyEffect({ capital: 10, reputation: -25 }); } }
+        question: "Nhóm thợ thủ công trong làng muốn cùng nhau bán hàng ra thị trường lớn hơn. Bạn tư vấn hướng đi nào?",
+        options: [
+          { 
+            text: "Cùng góp vốn thành lập tổ hợp tác, cùng quản lý và chia lợi nhuận theo đóng góp", 
+            effect: { capital: 15, hp: 15, reputation: 10 },
+            explanation: "Hợp tác giúp quy tụ nguồn lực và tăng sức cạnh tranh mà vẫn giữ được quyền làm chủ."
+          },
+          { 
+            text: "Một người bỏ vốn mở xưởng, thuê những người còn lại làm công ăn lương", 
+            effect: { hp: -20, reputation: -10 },
+            explanation: "Mô hình này chuyển từ kinh tế tập thể sang tư hữu, làm mất tính bình đẳng của nhóm."
+          },
+          { 
+            text: "Đề nghị UBND xã đứng ra thành lập doanh nghiệp nhà nước quản lý làng nghề", 
+            effect: { capital: -10, reputation: 15 },
+            explanation: "Kinh tế tập thể cần tự đứng trên đôi chân của mình thay vì ỷ lại hoàn toàn vào Nhà nước."
+          }
+        ]
       },
       {
-        id: 'L', name: 'Tiêu chuẩn Xanh', tier: 'Đạo đức & Lợi ích', bgImg: 'public/image/bg-stage4-tier2.png',
-        desc: 'Quy định mới về bảo vệ môi trường yêu cầu doanh nghiệp phải có hệ thống lọc thải đạt chuẩn.',
-        opt1: { name: 'Lắp bộ lọc chuẩn', desc: '-20 Vốn, +20 Uy tín (Phát triển bền vững)', effect: () => { applyEffect({ capital: -20, reputation: 20 }); } },
-        opt2: { name: 'Vận động trì hoãn', desc: '+10 Vốn, -15 Uy tín, -5 Sức khỏe', effect: () => { applyEffect({ capital: 10, reputation: -15, hp: -5 }); } }
+        question: "Đội tàu đánh cá của ngư dân gặp mùa biển động, sản lượng giảm mạnh. Giải pháp nào là tốt nhất?",
+        options: [
+          { 
+            text: "Chủ tàu lớn mua lại tàu của người thua lỗ, tập trung sở hữu vào một tay", 
+            effect: { hp: -25, reputation: -30 },
+            explanation: "Sự thâu tóm tư bản làm mất đi tính chất tương trợ của cộng đồng ngư dân."
+          },
+          { 
+            text: "Báo cáo lên Bộ Nông nghiệp xin hỗ trợ khẩn cấp từ ngân sách nhà nước", 
+            effect: { capital: 10, reputation: 5 },
+            explanation: "Hỗ trợ của Nhà nước là cần thiết nhưng cần kết hợp với sự nỗ lực tự thân của tập thể."
+          },
+          { 
+            text: "Ngư dân cùng họp, thống nhất luân phiên ra khơi và chia sẻ sản lượng để không ai bị bỏ lại", 
+            effect: { hp: 20, reputation: 25, capital: -10 },
+            explanation: "Rất nhân văn! Tinh thần 'lá lành đùm lá rách' là sức mạnh cốt lõi của kinh tế tập thể."
+          }
+        ]
       },
       {
-        id: 'M', name: 'Tối ưu Thuế', tier: 'Đạo đức & Lợi ích', bgImg: 'public/image/bg-stage4-tier2.png',
-        desc: 'Kế toán trưởng đề xuất một phương án "tối ưu" thuế thông qua các kẽ hở pháp lý mới.',
-        opt1: { name: 'Đóng đủ nghĩa vụ', desc: '+15 Uy tín, -15 Vốn', effect: () => { applyEffect({ reputation: 15, capital: -15 }); } },
-        opt2: { name: 'Tối ưu tối đa', desc: '+20 Vốn, -25 Uy tín', effect: () => { applyEffect({ capital: 20, reputation: -25 }); } }
+        question: "Liên hiệp HTX tiêu dùng muốn mở thêm điểm bán hàng ở khu dân cư mới. Cách huy động vốn nào phù hợp nhất?",
+        options: [
+          { 
+            text: "Phát hành cổ phiếu ra công chúng để huy động vốn mở rộng nhanh", 
+            effect: { capital: 30, reputation: -15 },
+            explanation: "Huy động vốn đại chúng có thể làm loãng quyền kiểm soát của các thành viên lao động."
+          },
+          { 
+            text: "Kết nạp thêm thành viên mới ở khu vực đó, để chính người dân cùng góp vốn và làm chủ", 
+            effect: { capital: 20, hp: 20, reputation: 25 },
+            explanation: "Tuyệt vời! Đây chính là cách phát triển HTX bền vững: Người dùng cũng chính là người chủ."
+          },
+          { 
+            text: "Xin ngân sách nhà nước đầu tư xây dựng cơ sở vật chất", 
+            effect: { capital: 10, hp: -10 },
+            explanation: "Dựa quá nhiều vào bao cấp sẽ làm suy yếu năng lực cạnh tranh thực tế của HTX."
+          }
+        ]
+      },
+      {
+        question: "HTX đang phát triển tốt và muốn mở rộng sản xuất. Bạn chọn nguồn lực nào?",
+        options: [
+          { 
+            text: "Kêu gọi thêm hộ dân và người lao động tự nguyện tham gia góp vốn, mở rộng thành viên", 
+            effect: { capital: 20, hp: 25, reputation: 30 },
+            explanation: "Đúng nguyên tắc! Tự nguyện và bình đẳng là chìa khóa mở rộng quy mô kinh tế tập thể."
+          },
+          { 
+            text: "Lập dự án trình Nhà nước phê duyệt, sử dụng vốn ngân sách và đầu tư công", 
+            effect: { capital: 15, reputation: 15 },
+            explanation: "Đầu tư công có thể giúp quy mô lớn nhanh nhưng thiếu tính linh hoạt của kinh tế thị trường."
+          },
+          { 
+            text: "Huy động vốn từ nhà đầu tư bên ngoài, phát hành cổ phần cho người không tham gia lao động", 
+            effect: { capital: 40, hp: -35, reputation: -20 },
+            explanation: "Cẩn thận! Việc ưu tiên lợi nhuận vốn hơn lợi ích lao động sẽ làm hỏng bản chất của HTX."
+          }
+        ]
       }
     ],
-    tier3: [
+    private: [
       {
-        id: 'E', name: 'Siết nợ', tier: 'Khủng hoảng Vĩ mô', bgImg: 'public/image/bg-stage4-tier3.png',
-        desc: 'Dòng tiền bị nghẽn mạch do nợ xấu từ đối tác, ngân hàng thắt chặt hạn mức tín dụng.',
-        opt1: { name: 'Vay tín dụng đen', desc: '+30 Vốn, -30 Uy tín, -20 Sức khỏe', effect: () => { applyEffect({ capital: 30, reputation: -30, hp: -20 }); } },
-        opt2: { name: 'Cắt giảm phòng thủ', desc: '-20% Tiến độ, +10 Uy tín', effect: () => { applyEffect({ progress: -20, reputation: 10 }); } }
+        question: "Thị trường xuất hiện nhiều đối thủ mới với sản phẩm giá rẻ. Bạn sẽ làm gì để cạnh tranh?",
+        options: [
+          { 
+            text: "Sử dụng các mối quan hệ cá nhân để gây khó dễ cho đối thủ mới", 
+            effect: { capital: 10, reputation: -30 },
+            explanation: "Cạnh tranh không lành mạnh sẽ hủy hoại uy tín và đạo đức kinh doanh của bạn về lâu dài."
+          },
+          { 
+            text: "Tối ưu hóa quy trình sản xuất và không ngừng đổi mới sáng tạo để nâng cao chất lượng", 
+            effect: { capital: 15, hp: 10, reputation: 10 },
+            explanation: "Chính xác! Sự năng động và sáng tạo là lợi thế cạnh tranh cốt lõi của kinh tế tư nhân."
+          },
+          { 
+            text: "Sao chép y hệt sản phẩm của đối thủ và bán với giá thấp hơn nữa", 
+            effect: { capital: 5, reputation: -20 },
+            explanation: "Vi phạm bản quyền và thiếu sáng tạo sẽ khiến doanh nghiệp không thể phát triển bền vững."
+          }
+        ]
       },
       {
-        id: 'F', name: 'Bão Thị trường', tier: 'Khủng hoảng Vĩ mô', bgImg: 'public/image/bg-stage4-tier3.png',
-        desc: 'Nhu cầu toàn cầu giảm sâu, hàng tồn kho bắt đầu chạm ngưỡng báo động đỏ.',
-        opt1: { name: 'Phá giá hốt cú chót', desc: '+20% Tiến độ, -30 Uy tín, -25 Sức khỏe', effect: () => { applyEffect({ progress: 20, reputation: -30, hp: -25 }); } },
-        opt2: { name: 'Giữ giá bảo vệ TH', desc: '-20 Vốn, +20 Uy tín', effect: () => { applyEffect({ capital: -20, reputation: 20 }); } }
+        question: "Bạn cần quyết định chính sách nhân sự cho năm tới. Ưu tiên của bạn là gì?",
+        options: [
+          { 
+            text: "Cắt giảm tối đa phúc lợi để tập trung vốn đầu tư cho máy móc hiện đại", 
+            effect: { capital: 20, hp: -30, reputation: -10 },
+            explanation: "Máy móc không thể thay thế hoàn toàn con người. Sự bất mãn của nhân viên sẽ dẫn đến đình công."
+          },
+          { 
+            text: "Thay thế toàn bộ nhân công bằng robot ngay lập tức để giảm chi phí vận hành", 
+            effect: { capital: 30, hp: -40, reputation: -20 },
+            explanation: "Thay đổi quá đột ngột mà không có lộ trình hỗ trợ sẽ gây ra khủng hoảng xã hội nghiêm trọng."
+          },
+          { 
+            text: "Tăng lương thưởng và cải thiện điều kiện làm việc để thu hút nhân tài", 
+            effect: { capital: -15, hp: 20, reputation: 15 },
+            explanation: "Con người là tài sản quý nhất. Đội ngũ hạnh phúc sẽ tạo ra năng suất lao động vượt trội."
+          }
+        ]
       },
       {
-        id: 'I', name: 'Đối thủ Phá giá', tier: 'Khủng hoảng Vĩ mô', bgImg: 'public/image/bg-stage4-tier3.png',
-        desc: 'Đối thủ lớn tung chiến dịch giảm giá sốc nhằm thâu tóm toàn bộ thị phần của bạn.',
-        opt1: { name: 'Giảm giá cạnh tranh', desc: '-25 Vốn, +15% Tiến độ', effect: () => { applyEffect({ capital: -25, progress: 15 }); } },
-        opt2: { name: 'Giữ chất lượng', desc: '+5 Vốn (Duy trì biên lợi nhuận), -10 Sức khỏe, +15 Uy tín', effect: () => { applyEffect({ capital: 5, hp: -10, reputation: 15 }); } }
+        question: "Một cơ hội đầu tư mạo hiểm nhưng tiềm năng lợi nhuận cực lớn xuất hiện. Bạn chọn sao?",
+        options: [
+          { 
+            text: "Nghiên cứu kỹ lưỡng và chỉ đầu tư một phần vốn trong ngưỡng an toàn", 
+            effect: { capital: 10, hp: 5, reputation: 10 },
+            explanation: "Quản trị rủi ro thông minh là chìa khóa của sự thành công trong kinh doanh tư nhân."
+          },
+          { 
+            text: "Dồn toàn bộ vốn liếng và vay mượn thêm để 'tất tay' vào một cơ hội duy nhất", 
+            effect: { capital: -50, hp: -20 },
+            explanation: "Tư duy cờ bạc trong kinh doanh thường dẫn đến sự sụp đổ nhanh chóng khi thị trường biến động."
+          },
+          { 
+            text: "Chờ xem các doanh nghiệp khác làm thế nào rồi mới bắt chước theo", 
+            effect: { capital: -5, reputation: -5 },
+            explanation: "Sự thụ động sẽ khiến bạn luôn là người đi sau và bỏ lỡ những 'thời điểm vàng'."
+          }
+        ]
       },
       {
-        id: 'N', name: 'Đứt gãy Chuỗi cung ứng', tier: 'Khủng hoảng Vĩ mô', bgImg: 'public/image/bg-stage4-tier3.png',
-        desc: 'Khủng hoảng vận tải toàn cầu khiến nguyên liệu đầu vào bị đình trệ nghiêm trọng.',
-        opt1: { name: 'Vận tải hàng không', desc: '-30 Vốn, +10% Tiến độ (Cứu vãn tiến độ)', effect: () => { applyEffect({ capital: -30, progress: 10 }); } },
-        opt2: { name: 'Chấp nhận chờ đợi', desc: '-15% Tiến độ, +15 Uy tín (Bình ổn giá)', effect: () => { applyEffect({ progress: -15, reputation: 15 }); } }
+        question: "Doanh nghiệp gặp khủng hoảng truyền thông về chất lượng sản phẩm. Cách xử lý nào tốt nhất?",
+        options: [
+          { 
+            text: "Chi tiền cho các đơn vị truyền thông để che đậy thông tin và hướng dư luận sang hướng khác", 
+            effect: { capital: -15, reputation: -40 },
+            explanation: "Dùng tiền để che giấu sự thật chỉ là giải pháp tạm thời và sẽ gây hậu quả tồi tệ hơn khi bị phát hiện."
+          },
+          { 
+            text: "Công khai xin lỗi, thu hồi sản phẩm lỗi và bồi thường thỏa đáng cho khách hàng", 
+            effect: { capital: -20, hp: 15, reputation: 35 },
+            explanation: "Sự trung thực và trách nhiệm là cách tốt nhất để lấy lại niềm tin từ khách hàng."
+          },
+          { 
+            text: "Giữ im lặng và hy vọng khách hàng sẽ sớm quên đi sự việc", 
+            effect: { reputation: -25, hp: -10 },
+            explanation: "Sự thờ ơ với quyền lợi khách hàng là con đường ngắn nhất dẫn đến sự tẩy chay của thị trường."
+          }
+        ]
       },
       {
-        id: 'O', name: 'Cách mạng AI', tier: 'Khủng hoảng Vĩ mô', bgImg: 'public/image/bg-stage4-tier3.png',
-        desc: 'Công nghệ AI bùng nổ, đối thủ đang số hóa toàn bộ quy trình để ép chết các doanh nghiệp truyền thống.',
-        opt1: { name: 'Chuyển đổi tổng lực', desc: '-35 Vốn, +3 Tương thích, +20% Tiến độ', effect: () => { applyEffect({ capital: -35, sp: 3, progress: 20 }); } },
-        opt2: { name: 'Thích nghi dần dần', desc: '+10% Tiến độ, -10 Vốn', effect: () => { applyEffect({ progress: 10, capital: -10 }); } }
+        question: "Bạn có nguồn vốn nhàn rỗi lớn. Bạn sẽ sử dụng nó như thế nào?",
+        options: [
+          { 
+            text: "Chỉ mua lại các bằng sáng chế có sẵn để tiết kiệm thời gian và rủi ro", 
+            effect: { capital: -20, hp: 5 },
+            explanation: "An toàn nhưng thiếu tính độc bản, bạn sẽ luôn phải phụ thuộc vào nền tảng của người khác."
+          },
+          { 
+            text: "Dùng toàn bộ vốn để mua lại các đối thủ nhỏ nhằm độc chiếm thị trường", 
+            effect: { capital: -40, reputation: -20 },
+            explanation: "Độc quyền làm giảm động lực đổi mới của chính bạn và có thể vi phạm luật cạnh tranh."
+          },
+          { 
+            text: "Đầu tư mạnh vào nghiên cứu và phát triển (R&D) để tạo ra sản phẩm đột phá", 
+            effect: { capital: -25, hp: 20, reputation: 15 },
+            explanation: "Sáng tạo là động lực phát triển. Doanh nghiệp dẫn đầu công nghệ sẽ dẫn đầu thị trường."
+          }
+        ]
+      },
+      {
+        question: "Quan điểm của bạn về trách nhiệm xã hội của doanh nghiệp (CSR) là gì?",
+        options: [
+          { 
+            text: "Chủ động thực hiện các dự án cộng đồng và bảo vệ môi trường như một phần chiến lược", 
+            effect: { capital: -15, hp: 15, reputation: 30 },
+            explanation: "Tuyệt vời! Doanh nghiệp phát triển bền vững là doanh nghiệp gắn liền với lợi ích xã hội."
+          },
+          { 
+            text: "Chỉ thực hiện các hoạt động từ thiện khi cần làm hình ảnh quảng bá thương hiệu", 
+            effect: { capital: -5, reputation: 10 },
+            explanation: "CSR mang tính đối phó sẽ không tạo ra giá trị thực sự cho cả cộng đồng và doanh nghiệp."
+          },
+          { 
+            text: "Mục tiêu duy nhất là tối đa hóa lợi nhuận, đóng thuế đầy đủ là đủ trách nhiệm", 
+            effect: { capital: 20, reputation: -20 },
+            explanation: "Tư duy cũ kỹ. Trong thế giới hiện đại, người tiêu dùng ưu tiên các thương hiệu có trách nhiệm xã hội."
+          }
+        ]
       }
     ]
   };
@@ -316,79 +569,12 @@ export function initGameGuide() {
   const IDEOLOGY_GROUP = {
     state: 'public',
     collective: 'public',
-    private: 'private',
-    fdi: 'private'
+    private: 'private'
   };
 
-  const CONTRADICTIONS = {
-    state: {
-      title: '🏛️🌪️ Tư hữu hoá Quá khích',
-      desc: 'Tư nhân hoá điện lưới và dữ liệu bộ khiến An ninh kinh tế lung lay. Lợi nhuận cao nhưng uy tín chạm đáy.',
-      bonus: { capital: 40, reputation: -40, hp: -15 },
-      unlockEventId: 'HIDDEN_STATE_PRIVATIZE',
-      flavor: 'Cơ sở hạ tầng đang dần chuyển sang vận hành theo mô hình lợi nhuận tư nhân.',
-      bgImg: 'public/image/bg-egg-state-privatize.png'
-    },
-    collective: {
-      title: '🤝🌪️ Hệ luỵ "Nhảy Cóc" Công nghệ',
-      desc: 'Nông dân phải cày code C++ để sửa AI robot. Ngân sách Hợp tác xã thâm hụt nặng nề để trả lương kỹ sư ngoại quốc.',
-      bonus: { capital: -20, hp: -30, progress: 15 },
-      unlockEventId: 'HIDDEN_COLL_TECH_JUMP',
-      flavor: 'Đội ngũ nông dân đang nỗ lực học lập trình để vận hành dây chuyền robot ngoại nhập.',
-      bgImg: 'public/image/bg-egg-coll-tech.png'
-    },
-    private: {
-      title: '💼🌪️ Bội thực Bộ máy',
-      desc: 'Ôm đồm hạ tầng công và đất nông nghiệp khiến doanh nghiệp phình to, đánh mất tính linh hoạt vốn có.',
-      bonus: { hp: -30, sp: -2, progress: -10, reputation: 20 },
-      unlockEventId: 'HIDDEN_PRIV_OVERSIZE',
-      flavor: 'Quy trình quản trị đang trở nên cồng kềnh do gánh vác quá nhiều hạ tầng công vật lý.',
-      bgImg: 'public/image/bg-egg-priv-oversize.png'
-    },
-    fdi: {
-      title: '🌐🌪️ Xung đột Quy trình Bản địa',
-      desc: 'Bộ máy quản lý rập khuôn của tư bản va chạm mạnh với cách làm việc tại Hợp tác xã địa phương. Chảy máu nhân sự!',
-      bonus: { capital: -25, hp: -20 },
-      unlockEventId: 'HIDDEN_FDI_CULTURE_CLASH',
-      flavor: 'Sự khác biệt văn hoá giữa quản lý ngoại quốc và nhân công bản địa đang ở mức báo động.',
-      bgImg: 'public/image/bg-egg-fdi-clash.png'
-    }
-  };
-
-  const HIDDEN_EVENTS = {
-    HIDDEN_STATE_PRIVATIZE: {
-      id: 'S1', name: 'Độc quyền Tư nhân', tier: 'Hệ luỵ Mâu thuẫn', bgImg: 'public/image/bg-event-s1.png',
-      desc: 'Quá trình tư nhân hóa diễn ra quá nhanh khiến các nhóm lợi ích mới trỗi dậy, thao túng thị trường và gây lũng đoạn giá cả, tạo nên làn sóng bức xúc trong dư luận.',
-      opt1: { name: 'Thanh tra lại', desc: '-20 Vốn, +20 Uy tín, -10% Tiến độ', effect: () => { applyEffect({ capital: -20, reputation: 20, progress: -10 }); } },
-      opt2: { name: 'Mặc kệ thị trường', desc: '+20 Vốn, -30 Uy tín', effect: () => { applyEffect({ capital: 20, reputation: -30 }); } }
-    },
-    HIDDEN_COLL_TECH_JUMP: {
-      id: 'S2', name: 'Chuyên gia Tống tiền', tier: 'Hệ luỵ Mâu thuẫn', bgImg: 'public/image/bg-event-s2.png',
-      desc: 'Việc phụ thuộc hoàn toàn vào công nghệ ngoại nhập mà không có đội ngũ làm chủ kỹ thuật đã biến doanh nghiệp thành "con tin". Các chuyên gia nước ngoài bắt đầu đưa ra những yêu sách phí bảo trì cực kỳ phi lý.',
-      opt1: { name: 'Cắn răng trả phí', desc: '-25 Vốn, +15% Tiến độ', effect: () => { applyEffect({ capital: -25, progress: 15 }); } },
-      opt2: { name: 'Tự sửa bằng tay', desc: '-15 Sức khỏe, -10% Tiến độ, +10 Uy tín', effect: () => { applyEffect({ hp: -15, progress: -10, reputation: 10 }); } }
-    },
-    HIDDEN_PRIV_OVERSIZE: {
-      id: 'S3', name: 'Đình trệ Quyết định', tier: 'Hệ luỵ Mâu thuẫn', bgImg: 'public/image/bg-event-s3.png',
-      desc: 'Bộ máy quản lý phình to với quá nhiều tầng nấc trung gian khiến các quyết định kinh doanh quan trọng bị treo lại nhiều tuần, làm bỏ lỡ các cơ hội thị trường ngắn hạn.',
-      opt1: { name: 'Cắt giảm bộ máy', desc: '-20 Uy tín, +15 Sức khỏe, -5% Tiến độ', effect: () => { applyEffect({ reputation: -20, hp: 15, progress: -5 }); } },
-      opt2: { name: 'Giữ nguyên cấu trúc', desc: '-15% Tiến độ, -10 Vốn', effect: () => { applyEffect({ progress: -15, capital: -10 }); } }
-    },
-    HIDDEN_FDI_CULTURE_CLASH: {
-      id: 'S4', name: 'Làn sóng Nghỉ việc', tier: 'Hệ luỵ Mâu thuẫn', bgImg: 'public/image/lan_song_nghi_viec.jpg',
-      desc: 'Sự bất đồng sâu sắc về văn hóa làm việc và phong cách quản lý giữa chuyên gia nước ngoài và nhân công bản địa đã đạt tới đỉnh điểm. Một cuộc đình công và làn sóng nghỉ việc hàng loạt đang diễn ra.',
-      opt1: { name: 'Tăng lương giữ người', desc: '-30 Vốn, +15 Uy tín', effect: () => { applyEffect({ capital: -30, reputation: 15 }); } },
-      opt2: { name: 'Thay máu nhân sự', desc: '-15% Tiến độ, -20 Sức khỏe, +10 Vốn', effect: () => { applyEffect({ progress: -15, hp: -20, capital: 10 }); } }
-    }
-  };
-
-  const EASTER_EGGS = {
-    fdi: {
-      state: { title: '🌐🏛️ Ưu đãi Đầu tư', desc: 'Chính phủ ưu đãi nhà đầu tư: Uy tín tăng!', bonus: { reputation: 15 }, bgImg: 'public/image/bg-egg-fdi-state.png' },
-      collective: { title: '🌐🤝 CSR Nông thôn', desc: 'Trách nhiệm xã hội doanh nghiệp: Uy tín + Sức khỏe!', bonus: { reputation: 10, hp: 10 }, bgImg: 'public/image/bg-egg-fdi-coll.png' },
-      private: { title: '🌐💼 Gia công Xuất khẩu', desc: 'Chuỗi cung ứng toàn cầu: Vốn + Tương thích!', bonus: { capital: 5, sp: 1 }, bgImg: 'public/image/bg-egg-fdi-priv.png' }
-    }
-  };
+  const CONTRADICTIONS = {};
+  const HIDDEN_EVENTS = {};
+  const EASTER_EGGS = {};
 
   let gameScreen = document.getElementById('gamePlayScreen');
   if (!gameScreen) {
@@ -480,9 +666,14 @@ export function initGameGuide() {
       }
     });
 
-    // Cấu hình không cuộn page (khóa overflow của body và html)
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
+    // Cấu hình không cuộn page cho các màn hình đặc thù
+    if (stageId === 'gameHero') {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    } else {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    }
 
     // Reset scroll when switching stages
     window.scrollTo(0, 0);
@@ -517,51 +708,59 @@ export function initGameGuide() {
     }
   });
 
-  if (startGameBtn && navbar && videoScreen && introVideo && roleScreen) {
+  if (startGameBtn && videoScreen && roleScreen) {
     startGameBtn.addEventListener('click', () => {
+      console.log('🚀 Start Game clicked!');
       resetState();
-      navbar.classList.add('hidden');
+      
+      if (navbar) navbar.classList.add('hidden');
       switchStage('gameVideoScreen');
 
-      // Reset video
-      introVideo.currentTime = 0;
-      introVideo.load(); // Force reload video
+      if (introVideo) {
+        // Reset video
+        introVideo.currentTime = 0;
+        introVideo.load(); // Force reload video
 
-      // Try to play video with better error handling
-      const playPromise = introVideo.play();
+        // Try to play video with better error handling
+        const playPromise = introVideo.play();
 
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            console.log('✅ Video playing successfully');
-          })
-          .catch((error) => {
-            console.warn('⚠️ Video failed to play, skipping to role selection:', error.name, error.message);
-            showRoleSelection();
-          });
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log('✅ Video playing successfully');
+            })
+            .catch((error) => {
+              console.warn('⚠️ Video failed to play, skipping to role selection:', error.name, error.message);
+              showRoleSelection();
+            });
+        } else {
+          // Fallback for older browsers
+          console.warn('⚠️ Play promise not supported, skipping video');
+          showRoleSelection();
+        }
+
+        // Add ended listener
+        introVideo.addEventListener('ended', showRoleSelection, { once: true });
       } else {
-        // Fallback for older browsers
-        console.warn('⚠️ Play promise not supported, skipping video');
         showRoleSelection();
       }
-
-      // Add ended listener
-      introVideo.addEventListener('ended', showRoleSelection, { once: true });
+    });
 
       // Add error listener for video load errors
-      introVideo.addEventListener('error', (e) => {
-        const errorCode = introVideo.error?.code;
-        const errorMessages = {
-          1: 'MEDIA_ERR_ABORTED - Video load aborted',
-          2: 'MEDIA_ERR_NETWORK - Network error loading video',
-          3: 'MEDIA_ERR_DECODE - Video decode error',
-          4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - Video format not supported'
-        };
-        console.error('❌ Video load error:', errorMessages[errorCode] || 'Unknown error');
-        console.error('Video src:', introVideo.currentSrc);
-        showRoleSelection();
-      }, { once: true });
-    });
+      if (introVideo) {
+        introVideo.addEventListener('error', (e) => {
+          const errorCode = introVideo.error?.code;
+          const errorMessages = {
+            1: 'MEDIA_ERR_ABORTED - Video load aborted',
+            2: 'MEDIA_ERR_NETWORK - Network error loading video',
+            3: 'MEDIA_ERR_DECODE - Video decode error',
+            4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - Video format not supported'
+          };
+          console.error('❌ Video load error:', errorMessages[errorCode] || 'Unknown error');
+          console.error('Video src:', introVideo.currentSrc);
+          showRoleSelection();
+        }, { once: true });
+      }
   }
 
   if (videoSkipBtn && introVideo) {
@@ -573,35 +772,51 @@ export function initGameGuide() {
 
   function resetState() {
     state = {
-      capital: 120,
+      capital: 150,
       hp: 100,
-      sp: 0,
-      reputation: 50,
-      progress: 0,
+      reputation: 100,
       role: null,
       items: [],
       unlockedEventIds: [],
-      usedEventIds: [], // Reset events đã sử dụng
+      usedEventIds: [],
+      currentQuizIndex: 0,
+      score: 0,
       flavorText: '',
       armorMacroUsed: false,
       turnCount: 0
     };
     selectedRole = null;
 
-    // Reset video screen về trạng thái ban đầu
+    // Reset UI
+    if (navbar) navbar.classList.remove('hidden');
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+
+    // Reset screens
     if (videoScreen) {
       videoScreen.classList.remove('active');
       videoScreen.style.display = 'none';
+      if (introVideo) introVideo.pause();
     }
 
-    // Reset game play screen
     if (gameScreen) {
       gameScreen.classList.remove('active');
       gameScreen.style.display = 'none';
+      updateGameScreenContent('');
     }
+
+    if (celebrateOverlay) {
+      celebrateOverlay.classList.remove('active');
+      celebrateOverlay.style.display = 'none';
+    }
+
+    disableVideoBackground();
   }
 
   function showRoleSelection() {
+    if (introVideo) introVideo.pause();
+    if (modal) modal.classList.remove('active');
+    document.body.style.overflow = '';
     switchStage('gameRoleScreen');
   }
 
@@ -648,8 +863,7 @@ export function initGameGuide() {
     const colors = {
       'celebrate-state': '#2563EB',
       'celebrate-collective': '#16A34A',
-      'celebrate-private': '#EA580C',
-      'celebrate-fdi': '#9333EA'
+      'celebrate-private': '#EA580C'
     };
     const color = colors[cls] || '#F8BD72';
 
@@ -670,11 +884,6 @@ export function initGameGuide() {
     celebrateContinueBtn.addEventListener('click', () => {
       state.role = selectedRole;
       updateBackground(ROLE_DATA[state.role].bgImg);
-
-      if (state.role === 'fdi') {
-        state.sp += 2;
-        state.capital += 20;
-      }
 
       celebrateOverlay.classList.remove('active');
       roleScreen.classList.remove('active');
@@ -700,11 +909,6 @@ export function initGameGuide() {
     const repClass = state.reputation < 40 ? 'val-danger' : (state.reputation >= 60 ? 'val-good' : 'val-warning');
     const roleName = state.role ? ROLE_DATA[state.role].name : '—';
     
-    // Đổi màu thanh tiến độ theo ngưỡng rủi ro
-    let progColor = '#3b82f6'; // Blue
-    if (state.progress >= 85) progColor = '#ef4444'; // Red
-    else if (state.progress >= 60) progColor = '#f59e0b'; // Yellow
-
     return `
       <div class="gps-header">
         <div class="gps-header-left">
@@ -723,22 +927,9 @@ export function initGameGuide() {
             <span class="gps-stat-value ${hpClass}" data-stat="hp">${Math.floor(state.hp)}</span>
           </div>
           <div class="gps-stat">
-            <img src="public/image/icon-synergy.png" alt="Tương thích" class="gps-stat-icon">
-            <span class="gps-stat-label">Tương thích</span>
-            <span class="gps-stat-value val-good" data-stat="sp">${state.sp}</span>
-          </div>
-          <div class="gps-stat">
             <img src="public/image/icon-reputation.png" alt="Uy tín" class="gps-stat-icon">
             <span class="gps-stat-label">Uy tín</span>
             <span class="gps-stat-value ${repClass}" data-stat="reputation">${state.reputation}</span>
-          </div>
-          <div class="gps-stat gps-stat-progress">
-            <img src="public/image/icon-progress.png" alt="Tiến độ" class="gps-stat-icon">
-            <span class="gps-stat-label">Tiến độ</span>
-            <span class="gps-stat-value" data-stat="progress">${Math.min(100, Math.floor(state.progress))}%</span>
-            <div class="gps-progress-bar">
-              <div class="gps-progress-fill" style="width: ${Math.min(100, state.progress)}%; background: ${progColor}; shadow: 0 0 10px ${progColor}55;"></div>
-            </div>
           </div>
         </div>
       </div>
@@ -752,7 +943,7 @@ export function initGameGuide() {
   }
 
   function showFloatingText(statName, value, overrideColor = null) {
-    const statMap = { 'Vốn': 'capital', 'Sức khỏe': 'hp', 'Tương thích': 'sp', 'Uy tín': 'reputation', 'Tiến độ': 'progress' };
+    const statMap = { 'Vốn': 'capital', 'Sức khỏe': 'hp', 'Uy tín': 'reputation' };
     const dataKey = statMap[statName];
     if (!dataKey) return;
 
@@ -774,25 +965,19 @@ export function initGameGuide() {
   }
 
   function applyEffect(diff) {
-    let actualDiffs = { capital: 0, hp: 0, sp: 0, reputation: 0, progress: 0 };
+    let actualDiffs = { capital: 0, hp: 0, reputation: 0 };
 
     if (diff.capital) actualDiffs.capital = diff.capital;
     if (diff.reputation) actualDiffs.reputation = diff.reputation;
-    if (diff.sp) actualDiffs.sp = diff.sp;
     if (diff.hp) actualDiffs.hp = diff.hp;
-    if (diff.progress) actualDiffs.progress = diff.progress;
 
     if (state.role === 'private') {
-      if (actualDiffs.hp < 0) actualDiffs.hp *= 1.4;
-      if (actualDiffs.progress > 0 && !diff.isTurnProgress) actualDiffs.progress *= 1.15;
+      if (actualDiffs.hp < 0) actualDiffs.hp *= 1.25;
+      if (actualDiffs.capital > 0) actualDiffs.capital *= 1.2;
     }
 
     if (state.role === 'state') {
-      if (actualDiffs.capital < 0) actualDiffs.capital *= 0.85; // Bảo hộ vốn
-    }
-
-    if (state.role === 'fdi') {
-      if (actualDiffs.reputation < 0) actualDiffs.reputation *= 0.9; // Uy tín quốc tế
+      if (actualDiffs.capital < 0) actualDiffs.capital *= 0.8; // Bảo hộ vốn tốt hơn
     }
 
     if (state.role === 'state' && (state.hp + actualDiffs.hp) < 30 && !state.armorMacroUsed) {
@@ -803,16 +988,18 @@ export function initGameGuide() {
 
     state.capital += actualDiffs.capital;
     state.reputation = Math.max(0, Math.min(100, state.reputation + actualDiffs.reputation));
-    state.sp = Math.max(0, Math.min(20, state.sp + actualDiffs.sp));
-    state.hp += actualDiffs.hp;
-    state.progress = Math.max(0, state.progress + actualDiffs.progress);
+    state.hp = Math.max(0, state.hp + actualDiffs.hp);
 
     if (actualDiffs.capital !== 0) showFloatingText('Vốn', actualDiffs.capital);
-    if (actualDiffs.hp !== 0 && !diff.isTurnProgress) showFloatingText('Sức khỏe', actualDiffs.hp);
-    if (actualDiffs.progress > 0 && !diff.isTurnProgress) showFloatingText('Tiến độ', '+' + actualDiffs.progress.toFixed(1) + '%');
-    if (actualDiffs.progress < 0) showFloatingText('Tiến độ', actualDiffs.progress.toFixed(1) + '%');
+    if (actualDiffs.hp !== 0) showFloatingText('Sức khỏe', actualDiffs.hp);
     if (actualDiffs.reputation !== 0) showFloatingText('Uy tín', actualDiffs.reputation);
-    if (actualDiffs.sp !== 0) showFloatingText('Tương thích', actualDiffs.sp);
+  }
+
+  function applyTurnPassives() {
+    if (state.role === 'collective') {
+      state.capital += 2;
+      setTimeout(() => showFloatingText('Vốn', '+2 Nội tại', '#10b981'), 500);
+    }
   }
 
   function startItemPhase() {
@@ -831,7 +1018,7 @@ export function initGameGuide() {
         <div class="gps-phase-header">
           <span class="gps-phase-tag">Giai đoạn 3</span>
           <h2 class="gps-phase-title">Xây dựng Lực lượng Sản xuất</h2>
-          <p class="gps-phase-desc">Chọn <strong>Chính xác 2 Items</strong> từ Cửa Hàng. Items khớp vai trò sẽ cho <strong>+3 Tương thích</strong>. Hãy cẩn thận: Tham lam tiêu cạn nguồn Vốn sẽ khiến bạn phá sản ngay lập tức!</p>
+          <p class="gps-phase-desc">Chọn <strong>2 Items chiến lược</strong>. Hãy cẩn thận: Chọn sai Items không phù hợp với vai trò sẽ khiến doanh nghiệp <strong>khủng hoảng hoặc phá sản</strong> ngay lập tức!</p>
         </div>
         <div class="gps-items-grid" id="gpsItemsGrid"></div>
         <div class="gps-action-row">
@@ -869,11 +1056,6 @@ export function initGameGuide() {
           card.classList.add('selected');
           selectedItems.push(it.id);
           state.capital -= finalPrice;
-
-          if (state.capital < 0) {
-            showEnding('bankrupt_shop');
-            return;
-          }
         }
 
         updateHeaderInPlace();
@@ -886,236 +1068,122 @@ export function initGameGuide() {
 
     confirmBtn.addEventListener('click', () => {
       state.items = selectedItems;
-
-      selectedItems.forEach(itemId => {
-        const it = ITEMS.find(i => i.id === itemId);
-        if (it.tag === state.role) state.sp += 3;
-        else state.sp += 1;
-      });
-
       const selectedItemObjs = selectedItems.map(id => ITEMS.find(i => i.id === id));
-      const roleIdeo = IDEOLOGY_GROUP[state.role];
-      const strictCrossItems = selectedItemObjs.filter(it => IDEOLOGY_GROUP[it.tag] !== roleIdeo);
+      const matchCount = selectedItemObjs.filter(it => it.tag === state.role).length;
 
-      let easterEggs = [];
-
-      if (strictCrossItems.length >= 2) {
-        const egg = CONTRADICTIONS[state.role];
-        easterEggs.push(egg);
-        applyEffect(egg.bonus);
-
-        // if (egg.bgImg) updateBackground(egg.bgImg);
-
-        if (egg.unlockEventId) state.unlockedEventIds.push(egg.unlockEventId);
-        if (egg.flavor) state.flavorText = egg.flavor;
+      if (matchCount === 0) {
+        // Thất bại ngay lập tức - Trừ hết chỉ số để biểu thị sự sụp đổ
+        applyEffect({ capital: -state.capital, hp: -state.hp, reputation: -state.reputation });
+        showItemConfirmation(0);
+      } else if (matchCount === 1) {
+        // Phạt nặng vì chọn sai 1 item
+        applyEffect({ capital: -30, hp: -30, reputation: -20 });
+        showItemConfirmation(1);
       } else {
-        const crossTags = [...new Set(selectedItemObjs.filter(it => it.tag !== state.role).map(it => it.tag))];
-        crossTags.forEach(tag => {
-          const egg = EASTER_EGGS[state.role]?.[tag];
-          if (egg) {
-            easterEggs.push(egg);
-            applyEffect(egg.bonus);
-            // if (egg.bgImg) updateBackground(egg.bgImg);
-          }
-        });
+        // Thành công tuyệt đối
+        showItemConfirmation(2);
       }
-
-      showItemConfirmation(easterEggs);
     });
   }
 
-  function showItemConfirmation(easterEggs = []) {
+  function showItemConfirmation(matchCount) {
     const selectedItemObjs = state.items.map(id => ITEMS.find(i => i.id === id));
-    const hasEgg = easterEggs.length > 0;
+    
+    let resultTitle = "Chuẩn bị Hoàn tất!";
+    let resultDesc = "Lực lượng sản xuất đã sẵn sàng để bước vào giai đoạn vận hành thực tế.";
+    let icon = "✅";
+    let color = "#10b981";
+    let penaltyHTML = "";
 
-    const eggHTML = hasEgg ? `
-      <div class="gps-easter-egg-section">
-        ${easterEggs.map(egg => `
-          <div class="gps-easter-egg">
-            <div class="gps-egg-title">${egg.title}</div>
-            <p class="gps-egg-desc">${egg.desc}</p>
-          </div>
-        `).join('')}
-      </div>
-    ` : '';
-
-    // Tạo HTML cho các thẻ items với flip effect
-    const itemCardsHTML = selectedItemObjs.map((item, index) => {
-      const isMatch = item.tag === state.role;
-      const spGain = isMatch ? 3 : 1;
-      const roleName = ROLE_DATA[state.role].name;
-      const itemRoleName = TAG_NAMES[item.tag];
-      
-      // Giải thích logic SP cho mặt sau
-      let spExplanation = '';
-      let spTitle = '';
-      if (isMatch) {
-        spTitle = `✓ Khớp vai trò ${roleName}`;
-        spExplanation = `Lực lượng sản xuất phù hợp với quan hệ sản xuất → Quản lý dễ dàng, hiệu quả cao`;
-      } else {
-        spTitle = `⚠ Không khớp vai trò`;
-        spExplanation = `${itemRoleName} ≠ ${roleName}<br><br>Phối hợp khó khăn do khác biệt về cơ chế phân phối và ra quyết định → Hiệu quả thấp hơn`;
-      }
-      
-      return `
-      <div class="gps-flip-card" style="animation-delay: ${index * 0.15}s">
-        <div class="gps-flip-card-inner">
-          <!-- Mặt trước -->
-          <div class="gps-flip-card-front ${isMatch ? 'card-match' : 'card-mismatch'}">
-            <div class="gps-card-sp-badge ${isMatch ? 'badge-match' : 'badge-mismatch'}">+${spGain} Tương thích</div>
-            <img src="${item.img}" alt="${item.name}" class="gps-confirm-large-icon">
-            <h3 class="gps-confirm-large-name">${item.name}</h3>
-            <p class="gps-confirm-large-tag">${itemRoleName}</p>
-            <div class="gps-flip-hint">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-              </svg>
-              <span>Click để xem giải thích</span>
-            </div>
-          </div>
-          
-          <!-- Mặt sau -->
-          <div class="gps-flip-card-back ${isMatch ? 'card-match' : 'card-mismatch'}">
-            <div class="gps-back-sp-display ${isMatch ? 'badge-match' : 'badge-mismatch'}">
-              +${spGain} Tương thích
-            </div>
-            <h4 class="gps-back-title">${spTitle}</h4>
-            <p class="gps-back-explanation">${spExplanation}</p>
-            <div class="gps-flip-hint">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6"></polyline>
-              </svg>
-              <span>Click để quay lại</span>
-            </div>
-          </div>
+    if (matchCount === 0) {
+      resultTitle = "Thất Bại Chiến Lược!";
+      resultDesc = "Toàn bộ vật phẩm bạn chọn không phù hợp với vai trò hiện tại. Doanh nghiệp sụp đổ ngay lập tức do thiếu định hướng cốt lõi.";
+      icon = "❌";
+      color = "#ef4444";
+      penaltyHTML = `
+        <div class="gps-penalty-box" style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; color: #ef4444; font-weight: bold; text-align: center;">
+          HỆ QUẢ: DOANH NGHIỆP PHÁ SẢN LẬP TỨC
         </div>
-      </div>
-    `}).join('');
+      `;
+    } else if (matchCount === 1) {
+      resultTitle = "Cảnh báo: Sai lệch Chiến lược!";
+      resultDesc = "Bạn đã chọn một Item không phù hợp với bản chất vai trò của mình. Điều này gây ra sự lãng phí và mâu thuẫn trong quản lý.";
+      icon = "⚠️";
+      color = "#f59e0b";
+      penaltyHTML = `
+        <div class="gps-penalty-box" style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; color: #ef4444; font-weight: bold;">
+          Hệ quả: Vốn -30, Sức khỏe -30, Uy tín -20
+        </div>
+      `;
+    }
 
     updateGameScreenContent(`
       ${renderHeader()}
       <div class="gps-body gps-center-body">
-        <div class="gps-confirmation-layout">
-          <!-- Bên trái: Các thẻ items -->
-          <div class="gps-confirm-left">
-            <h2 class="gps-confirm-title">${hasEgg ? 'Combo Liên ngành Phát hiện!' : 'Lực lượng sản xuất đã sẵn sàng!'}</h2>
-            
-            <div class="gps-confirm-cards-container">
-              ${itemCardsHTML}
+        <div class="gps-event-card">
+          <div class="gps-card-top-bar" style="background: ${color}"></div>
+          
+          <div class="gps-event-main-content">
+            <div style="font-size: 3.5rem; margin-bottom: 0.5rem; text-align: center;">${icon}</div>
+            <h2 class="gps-event-name" style="text-align: center;">${resultTitle}</h2>
+            <div class="gps-event-story" style="font-size: 1.1rem; line-height: 1.6; text-align: center; margin-bottom: 1rem;">
+              ${resultDesc}
             </div>
-            
-            <!-- Di chuyển text và nút xuống dưới cards bên trái -->
-            <div class="gps-confirm-action-section">
-              <p class="gps-confirm-flavor">${hasEgg ? 'Bạn đã kích hoạt combo đặc biệt! Thị trường đang mở ra nhiều cơ hội mới.' : 'Thị trường đang chờ bạn. Mỗi lượt sẽ có một sự kiện — hãy đưa ra quyết định khôn ngoan.'}</p>
-              
-              <button class="gps-btn gps-btn-primary gps-btn-glow" id="gpsStartLoop">
-                Bước vào Thị trường →
-              </button>
+
+            ${penaltyHTML}
+
+            <div class="gps-confirm-items-list" style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem;">
+              ${selectedItemObjs.map(it => {
+                const isMatch = it.tag === state.role;
+                return `
+                <div class="gps-mini-item" style="padding: 12px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 2px solid ${isMatch ? '#10b981' : '#ef4444'}; width: 180px; text-align: center;">
+                  <img src="${it.img}" style="width: 35px; height: 35px; margin-bottom: 5px;">
+                  <div style="font-size: 0.9rem; font-weight: bold; color: #fff;">${it.name}</div>
+                  <div style="font-size: 0.7rem; color: ${isMatch ? '#10b981' : '#ef4444'}; margin: 5px 0;">
+                    ${isMatch ? '✓ Phù hợp vai trò' : '✗ Sai lệch vai trò'}
+                  </div>
+                  <p style="font-size: 0.75rem; font-style: italic; opacity: 0.8; margin: 0; line-height: 1.2;">
+                    ${it.desc}
+                  </p>
+                </div>
+                `;
+              }).join('')}
             </div>
           </div>
-          
-          <!-- Bên phải: Thông tin -->
-          <div class="gps-confirm-right">
-            <div class="gps-confirm-info-panel">
-              <h3 class="gps-info-title">THÔNG TIN GAME</h3>
-              
-              <div class="gps-info-stats">
-                <div class="gps-info-stat-row">
-                  <div class="gps-info-stat-label">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                      <line x1="8" y1="21" x2="16" y2="21"></line>
-                      <line x1="12" y1="17" x2="12" y2="21"></line>
-                    </svg>
-                    <span>Số thẻ đã chọn</span>
-                  </div>
-                  <div class="gps-info-stat-value">${selectedItemObjs.length}</div>
-                </div>
-                
-                <div class="gps-info-stat-row highlight-row">
-                  <div class="gps-info-stat-label">
-                    <img src="public/image/icon-synergy.png" alt="Tương thích" width="20" height="20">
-                    <span>Tương thích</span>
-                  </div>
-                  <div class="gps-info-stat-value highlight">${state.sp}</div>
-                </div>
-                
-                <div class="gps-info-stat-row">
-                  <div class="gps-info-stat-label">
-                    <img src="public/image/icon-capital.png" alt="Vốn" width="20" height="20">
-                    <span>Vốn còn lại</span>
-                  </div>
-                  <div class="gps-info-stat-value">${Math.floor(state.capital)}</div>
-                </div>
-                
-                <div class="gps-info-stat-row">
-                  <div class="gps-info-stat-label">
-                    <img src="public/image/icon-hp.png" alt="Sức khỏe" width="20" height="20">
-                    <span>Sức khỏe</span>
-                  </div>
-                  <div class="gps-info-stat-value">${Math.floor(state.hp)}</div>
-                </div>
-                
-                <div class="gps-info-stat-row">
-                  <div class="gps-info-stat-label">
-                    <img src="public/image/icon-reputation.png" alt="Uy tín" width="20" height="20">
-                    <span>Uy tín</span>
-                  </div>
-                  <div class="gps-info-stat-value">${state.reputation}</div>
-                </div>
-              </div>
-              
-              ${eggHTML}
-            </div>
+
+          <div class="gps-event-actions-area">
+            <button class="gps-btn gps-btn-primary" id="gpsStartQuiz" style="width: 100%; padding: 1.1rem; font-size: 1.05rem;">
+              ${matchCount === 0 ? 'Xem kết quả cuối cùng →' : 'Bắt đầu Vận hành →'}
+            </button>
           </div>
         </div>
       </div>
     `);
 
-    // Add flip card event listeners
-    document.querySelectorAll('.gps-flip-card').forEach(card => {
-      card.addEventListener('click', () => {
-        card.classList.toggle('flipped');
-      });
-    });
-
-    document.getElementById('gpsStartLoop').addEventListener('click', () => {
-      nextTurn();
+    document.getElementById('gpsStartQuiz').addEventListener('click', () => {
+      if (matchCount === 0) {
+        showEnding('item_fail');
+      } else {
+        nextTurn();
+      }
     });
   }
 
   function checkEndGame() {
-    // Kiểm tra kết thúc sớm (chỉ áp dụng cho non-FDI hoặc khi chưa đạt 100% progress)
-    if (state.progress < 100 && (state.capital < 0 || state.hp <= 0)) {
-      showEnding('gameover');
-      return true;
-    }
-    
-    // Kiểm tra kết thúc khi đạt 100% progress
-    if (state.progress >= 100) {
-      // Áp dụng cơ chế FDI: trả vốn cho công ty mẹ
-      if (state.role === 'fdi') {
-        state.capital -= 20;
-        console.log(`🏢 FDI: Trả 20 vốn cho công ty mẹ. Vốn còn lại: ${state.capital}`);
-      }
-      
-      // Kiểm tra phá sản sau khi trả công ty mẹ
-      if (state.capital < 0 || state.hp <= 0) {
-        if (state.role === 'fdi' && state.capital < 0 && state.hp > 0) {
-          showEnding('fdi_strategic');
-        } else {
-          showEnding('gameover');
-        }
+    if (state.currentQuizIndex >= 6) {
+      // Logic kết cục đặc thù cho Nhà nước
+      if (state.role === 'state' && state.capital < 30 && state.hp > 80 && state.reputation > 60) {
+        showEnding('debt_welfare');
         return true;
       }
-      
-      // Kiểm tra các ending thành công
-      if (state.reputation >= 60 && state.capital >= 0 && state.hp > 20) {
+
+      const isTrue = state.capital > 60 && state.hp > 60 && state.reputation > 60;
+      const isBad = state.capital < 30 || state.hp < 30 || state.reputation < 30;
+
+      if (isTrue) {
         showEnding('true');
         return true;
-      } else if (state.reputation < 40) {
+      } else if (isBad) {
         showEnding('bad');
         return true;
       } else {
@@ -1123,187 +1191,121 @@ export function initGameGuide() {
         return true;
       }
     }
+    
+    // Đã loại bỏ kiểm tra phá sản giữa chừng để người chơi đi hết 6 câu
     return false;
-  }
-
-  // ==================== DEBUG HELPERS ====================
-  function debugEventUsage() {
-    console.log('📊 Event Usage Debug:');
-    console.log('Current progress:', state.progress + '%');
-    console.log('Used events:', state.usedEventIds);
-    
-    let currentTier = 'tier1';
-    if (state.progress >= 36 && state.progress <= 75) currentTier = 'tier2';
-    if (state.progress >= 76) currentTier = 'tier3';
-    
-    const tierEvents = EVENTS[currentTier].map(e => e.id);
-    const usedInCurrentTier = state.usedEventIds.filter(id => tierEvents.includes(id));
-    const availableInCurrentTier = tierEvents.filter(id => !state.usedEventIds.includes(id));
-    
-    console.log(`Current tier: ${currentTier}`);
-    console.log(`Total events in tier: ${tierEvents.length}`);
-    console.log(`Used in current tier: ${usedInCurrentTier.length} (${usedInCurrentTier})`);
-    console.log(`Available in current tier: ${availableInCurrentTier.length} (${availableInCurrentTier})`);
   }
 
   function nextTurn() {
     if (checkEndGame()) return;
-
-    // Đảm bảo video background được tạo và sẵn sàng cho Phase 4
+    
     ensureVideoBackground();
-
-    state.turnCount++;
+    enableVideoBackground();
     
-    // Debug event usage (có thể comment out khi production)
-    // debugEventUsage();
-
-    let repFactor = 0;
-    if (state.reputation >= 70) repFactor = 3;
-    else if (state.reputation <= 30) repFactor = -3;
-
-    let turnProgress = 2 + state.sp + repFactor;
-    if (state.role === 'private') turnProgress *= 1.15;
-
-    applyEffect({ progress: turnProgress, isTurnProgress: true });
-
-    if (state.role === 'collective') {
-      applyEffect({ capital: 2 });
-      setTimeout(() => showFloatingText('Vốn', '+2 Nội tại', '#10b981'), 700);
-    }
+    // Áp dụng nội tại theo lượt (ví dụ: Tập thể +2 vốn)
+    applyTurnPassives();
     
-    // ==================== CƠ CHẾ DOANH THU CƠ BẢN ====================
-    // Thu nhập cơ bản thấp, chủ yếu dựa vào lựa chọn chiến lược
-    const basicRevenue = Math.max(1, Math.floor(state.sp * 0.5)); // Giảm từ 5+(SP*1.5) xuống SP*0.5
-    applyEffect({ capital: basicRevenue });
-    
-    // Hiệu ứng số bay cho Doanh thu cơ bản
-    if (basicRevenue > 0) {
-      setTimeout(() => {
-        showFloatingText('Vốn', `+${basicRevenue} Thu nhập`, '#10b981');
-      }, 500);
-    }
-
-    if (checkEndGame()) return;
-
-    let tierKey = 'tier1';
-    if (state.progress >= 36 && state.progress <= 75) tierKey = 'tier2';
-    if (state.progress >= 76) tierKey = 'tier3';
-
-    let eventList = [...EVENTS[tierKey]];
-    state.unlockedEventIds.forEach(id => {
-      if (HIDDEN_EVENTS[id]) eventList.push(HIDDEN_EVENTS[id]);
-    });
-
-    // Lọc bỏ events đã sử dụng trong tier hiện tại
-    const currentTierEventIds = eventList.map(e => e.id);
-    let availableEvents = eventList.filter(event => !state.usedEventIds.includes(event.id));
-    
-    // Nếu tất cả events trong tier hiện tại đã được sử dụng, reset cho tier này
-    if (availableEvents.length === 0) {
-      console.log(`🔄 All events used in ${tierKey}, resetting available events`);
-      availableEvents = [...eventList];
-      // Chỉ xóa events của tier hiện tại khỏi usedEventIds
-      state.usedEventIds = state.usedEventIds.filter(id => !currentTierEventIds.includes(id));
-    }
-
-    const ev = availableEvents[Math.floor(Math.random() * availableEvents.length)];
-    
-    // Đánh dấu event đã sử dụng
-    state.usedEventIds.push(ev.id);
-    console.log(`🎲 Selected event: ${ev.id} (${ev.name}) | Used: ${state.usedEventIds.length} | Available: ${availableEvents.length - 1} remaining in ${tierKey}`);
-    
-    renderEvent(ev);
+    renderQuizQuestion();
   }
 
-  function renderEvent(ev) {
-    // Sử dụng video background thay vì ảnh cho tất cả sự kiện
-    console.log('🎬 renderEvent: Enabling video background for event:', ev.name);
-    enableVideoBackground();
-
-    if (window._gameKeydownHandler) {
-      document.removeEventListener('keydown', window._gameKeydownHandler);
-      window._gameKeydownHandler = null;
+  function renderQuizQuestion() {
+    const roleQuestions = QUIZ_DATA[state.role];
+    if (!roleQuestions || state.currentQuizIndex >= roleQuestions.length) {
+      checkEndGame();
+      return;
     }
 
-    // Định nghĩa các biến cần thiết
-    const eventObj = ev;
-    let tierColor = '#6366f1';
-    let tierLabel = ev.tier || 'Sự kiện';
-    
-    // Xác định màu sắc theo tier
-    if (ev.tier === 'Cọ xát Vi mô') {
-      tierColor = '#10b981';
-    } else if (ev.tier === 'Đạo đức & Lợi ích') {
-      tierColor = '#f59e0b';
-    } else if (ev.tier === 'Khủng hoảng Vĩ mô') {
-      tierColor = '#ef4444';
-    } else if (ev.tier === 'Hệ luỵ Mâu thuẫn') {
-      tierColor = '#8b5cf6';
-    }
+    const q = roleQuestions[state.currentQuizIndex];
+    state.turnCount = state.currentQuizIndex + 1;
 
     updateGameScreenContent(`
       ${renderHeader()}
-      <div class="gps-body ${ev.customLayout ? 'gps-custom-layout' : (ev.customLayoutBottomRight ? 'gps-custom-layout-bottom-right' : (ev.customLayoutCenterWhite ? 'gps-center-body' : 'gps-center-body'))}">
-        <div class="gps-event-card ${ev.customLayout ? 'gps-event-card-left' : (ev.customLayoutBottomRight ? 'gps-event-card-bottom-right gps-event-theme-white' : (ev.customLayoutCenterWhite ? 'gps-event-theme-white' : ''))}">
-          <div class="gps-card-top-bar" style="background: ${tierColor}"></div>
+      <div class="gps-body gps-center-body">
+        <div class="gps-event-card">
+          <div class="gps-card-top-bar" style="background: #3b82f6"></div>
           
           <div class="gps-event-main-content">
-            <div class="gps-event-tier" style="color: ${tierColor}">${tierLabel}</div>
-            <h2 class="gps-event-name">${eventObj.name}</h2>
-            <div class="gps-event-story">${eventObj.desc || 'Đang cập nhật bối cảnh...'}</div>
-            ${state.flavorText ? `<div class="gps-event-flavor"><span class="gps-flavor-icon">⚠️</span> ${state.flavorText}</div>` : ''}
+            <div class="gps-event-tier" style="color: #3b82f6">Câu hỏi ${state.turnCount}/6</div>
+            <h2 class="gps-event-name">Thử thách Chiến lược</h2>
+            <div class="gps-event-story" style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 2rem;">
+              ${q.question}
+            </div>
           </div>
 
           <div class="gps-event-sep"></div>
 
           <div class="gps-event-actions-area">
-            <div class="gps-event-options">
-              <button class="gps-event-option gps-opt-a" id="gpsOpt1">
-                <span class="gps-opt-key">1</span>
-                <h3>${eventObj.opt1.name}</h3>
-                <p>${eventObj.opt1.desc}</p>
-              </button>
-              <div class="gps-event-or">HOẶC</div>
-              <button class="gps-event-option gps-opt-b" id="gpsOpt2">
-                <span class="gps-opt-key">2</span>
-                <h3>${eventObj.opt2.name}</h3>
-                <p>${eventObj.opt2.desc}</p>
-              </button>
+            <div class="gps-quiz-options" style="display: flex; flex-direction: column; gap: 1rem; width: 100%;">
+              ${q.options.map((opt, idx) => `
+                <button class="gps-event-option" id="quizOpt${idx}" style="text-align: left; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                  <span class="gps-opt-key">${idx + 1}</span>
+                  <div style="font-size: 1rem; font-weight: 500;">${opt.text}</div>
+                </button>
+              `).join('')}
             </div>
           </div>
         </div>
       </div>
     `);
 
-    const chooseOpt1 = () => {
-      if (window._gameKeydownHandler) document.removeEventListener('keydown', window._gameKeydownHandler);
-      window._gameKeydownHandler = null;
-      eventObj.opt1.effect();
-      updateHeaderInPlace();
-      setTimeout(() => nextTurn(), 800);
-    };
-
-    const chooseOpt2 = () => {
-      if (window._gameKeydownHandler) document.removeEventListener('keydown', window._gameKeydownHandler);
-      window._gameKeydownHandler = null;
-      eventObj.opt2.effect();
-      updateHeaderInPlace();
-      setTimeout(() => nextTurn(), 800);
-    };
-
-    document.getElementById('gpsOpt1').addEventListener('click', chooseOpt1);
-    document.getElementById('gpsOpt2').addEventListener('click', chooseOpt2);
-
-    window._gameKeydownHandler = (e) => {
-      if (e.key === '1') chooseOpt1();
-      if (e.key === '2') chooseOpt2();
-    };
-    document.addEventListener('keydown', window._gameKeydownHandler);
+    q.options.forEach((opt, idx) => {
+      document.getElementById(`quizOpt${idx}`).addEventListener('click', () => {
+        handleQuizChoice(opt);
+      });
+    });
   }
+
+  function handleQuizChoice(option) {
+    // Áp dụng ảnh hưởng chỉ số
+    applyEffect(option.effect);
+    updateHeaderInPlace();
+
+    // Hiển thị giải thích
+    updateGameScreenContent(`
+      ${renderHeader()}
+      <div class="gps-body gps-center-body">
+        <div class="gps-event-card">
+          <div class="gps-card-top-bar" style="background: #10b981"></div>
+          
+          <div class="gps-event-main-content">
+            <div class="gps-event-tier" style="color: #10b981">Phân tích kết quả</div>
+            <h2 class="gps-event-name">Hệ quả Quyết định</h2>
+            <div class="gps-event-story" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #10b981;">
+              ${option.explanation}
+            </div>
+            
+            <div class="gps-quiz-impacts" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              ${Object.entries(option.effect).map(([key, val]) => {
+                const labelMap = { capital: 'Vốn', reputation: 'Uy tín', hp: 'Sức khỏe' };
+                const color = val > 0 ? '#10b981' : '#ef4444';
+                const sign = val > 0 ? '+' : '';
+                return `<div style="background: rgba(0,0,0,0.2); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; color: ${color}; border: 1px solid ${color}44;">
+                  ${labelMap[key] || key}: ${sign}${val}
+                </div>`;
+              }).join('')}
+            </div>
+          </div>
+
+          <div class="gps-event-sep"></div>
+
+          <div class="gps-event-actions-area" style="display: flex; justify-content: flex-end;">
+            <button class="gps-btn gps-btn-primary" id="gpsNextQuiz" style="min-width: 200px;">
+              ${state.currentQuizIndex >= 5 ? 'Xem kết quả cuối cùng →' : 'Câu hỏi tiếp theo →'}
+            </button>
+          </div>
+        </div>
+      </div>
+    `);
+
+    document.getElementById('gpsNextQuiz').addEventListener('click', () => {
+      state.currentQuizIndex++;
+      nextTurn();
+    });
+  }
+
 
   // ==================== PHASE 5: ENDINGS ====================
   function showEnding(type) {
-    // Tắt video background khi chuyển sang phần 5 (Ending)
     disableVideoBackground();
     
     if (window._gameKeydownHandler) {
@@ -1311,565 +1313,188 @@ export function initGameGuide() {
       window._gameKeydownHandler = null;
     }
 
-    // Cấu hình cứng không cuộn page
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
     window.scrollTo(0, 0);
 
     const endings = {
-      gameover: {
-        title: 'Phá Sản',
-        subtitle: 'GAME OVER',
-        category: 'Thất Bại',
-        desc: `Doanh nghiệp kiệt quệ tài nguyên, không thể tiếp tục hoạt động.`,
-        consequences: [
-          'Đóng cửa doanh nghiệp - Ngừng hoạt động sản xuất kinh doanh',
-          'Thanh lý tài sản - Bán máy móc, thiết bị để trả nợ', 
-          'Lao động mất việc - Công nhân thất nghiệp, mất thu nhập',
-          'Nợ ngân hàng - Tài sản cá nhân có thể bị kê biên',
-          'Ảnh hưởng chuỗi cung ứng - Đối tác, nhà cung cấp bị ảnh hưởng'
-        ],
-        lesson: 'Quản trị rủi ro kém, không cân đối giữa tăng trưởng và an toàn tài chính. Trong kinh tế xã hội chủ nghĩa, doanh nghiệp cần bảo vệ người lao động và phát triển bền vững.',
-        color: '#ef4444',
-        bgGrad: 'linear-gradient(135deg, rgba(127,29,29,0.4), rgba(15,23,42,0.95))',
-        bgImg: 'public/image/bg-ending-gameover.png',
-        useCustomLayout: true
-      },
-      bankrupt_shop: {
-        title: 'Bẫy Lòng Tham',
-        subtitle: 'TRẮNG TAY TỪ TRỨNG NƯỚC',
-        category: 'Thất Bại',
-        desc: `Tham lam thâu tóm quá nhiều tư liệu sản xuất khiến dòng tiền bị đứt gãy ngay từ giai đoạn đầu tư.`,
-        consequences: [
-          'Phá sản trước khi sản xuất - Không có vốn lưu động để vận hành',
-          'Tài sản bị thanh lý - Máy móc, thiết bị phải bán tháo với giá rẻ',
-          'Nợ ngân hàng chồng chất - Lãi suất tích lũy, tín dụng bị đóng băng',
-          'Lao động thất nghiệp - Công nhân chưa kịp làm việc đã mất việc',
-          'Mất niềm tin thị trường - Nhà đầu tư, đối tác từ chối hợp tác'
-        ],
-        lesson: 'Trong kinh tế xã hội chủ nghĩa, phát triển phải dựa trên khả năng thực tế, không được đầu tư ồ ạt vượt quá nguồn lực. "Vừa sức, vừa tầm" là nguyên tắc vàng.',
-        color: '#ef4444',
-        bgGrad: 'linear-gradient(135deg, rgba(127,29,29,0.5), rgba(15,23,42,0.95))',
-        bgImg: 'public/image/Trang_tay.jpg',
-        useCustomLayout: true
-      },
       true: {
-        title: 'Dân Giàu Nước Mạnh',
-        subtitle: 'TRUE ENDING',
-        category: 'Thành Công Xuất Sắc',
-        desc: `Chúc mừng! Bạn đã xây dựng thành công mô hình kinh tế xã hội chủ nghĩa lý tưởng.`,
+        title: 'Kỷ Nguyên Hưng Thịnh',
+        subtitle: 'DÂN GIÀU - NƯỚC MẠNH',
+        category: 'Thành Công Tuyệt Đối',
+        desc: 'Chúc mừng! Bạn đã xây dựng thành công một mô hình kinh tế lý tưởng, nơi các thành phần kinh tế vận hành nhịp nhàng, tạo ra sự thặng dư lớn cho xã hội và sự tin tưởng tuyệt đối từ nhân dân.',
         consequences: [
-          'Tăng trưởng bền vững - Tiến độ 100%, vốn dương, sức khỏe tốt',
-          'Uy tín cao (≥60) - Được nhân dân và xã hội tín nhiệm',
-          'Cân bằng lợi ích - Hài hòa giữa hiệu quả kinh tế và công bằng xã hội',
-          'Người lao động hạnh phúc - Thu nhập ổn định, môi trường làm việc tốt',
-          'Đóng góp xã hội - Nộp thuế đầy đủ, tạo việc làm, phát triển cộng đồng'
+          'Kinh tế tăng trưởng bền vững nhờ phân bổ nguồn lực tối ưu.',
+          'Chỉ số hạnh phúc đạt đỉnh cùng sự công bằng xã hội được đảm bảo.',
+          'Vị thế kinh tế quốc gia được khẳng định vững chắc trên trường quốc tế.'
         ],
-        lesson: 'Đây chính là mục tiêu "Dân giàu, nước mạnh, dân chủ, công bằng, văn minh" của chủ nghĩa xã hội Việt Nam.',
+        lesson: 'Sự phối hợp chặt chẽ giữa các thành phần kinh tế dưới sự điều tiết hợp lý là chìa khóa cho sự phát triển bền vững.',
         color: '#10b981',
-        bgGrad: 'linear-gradient(135deg, rgba(6,78,59,0.4), rgba(15,23,42,0.95))',
-        bgImg: 'public/image/dan_giau_nuoc_manh.jpg',
-        useCustomLayout: true
-      },
-      bad: {
-        title: 'Lợi Nhuận Lệch Hướng',
-        subtitle: 'BAD ENDING',
-        category: 'Thành Công Có Điều Kiện',
-        desc: `Đạt mục tiêu kinh tế nhưng đánh mất giá trị xã hội chủ nghĩa.`,
-        consequences: [
-          'Uy tín thấp (<40) - Mất lòng tin của người lao động và xã hội',
-          'Phát triển không bền vững - Chỉ chạy theo lợi nhuận, bỏ qua con người',
-          'Vi phạm nguyên tắc xã hội chủ nghĩa - "Con người là trung tâm" bị lãng quên',
-          'Bóc lột lao động - Lương thấp, điều kiện làm việc kém, không phúc lợi',
-          'Gây bất bình xã hội - Khoảng cách giàu nghèo, mâu thuẫn lao động'
-        ],
-        lesson: 'Trong kinh tế xã hội chủ nghĩa, phát triển kinh tế phải gắn liền với tiến bộ và công bằng xã hội. Lợi nhuận không phải là mục tiêu duy nhất.',
-        color: '#f59e0b',
-        bgGrad: 'linear-gradient(135deg, rgba(120,53,15,0.4), rgba(15,23,42,0.95))',
-        bgImg: 'public/image/bg-ending-bad.png',
-        useCustomLayout: true
-      },
-      fdi_strategic: {
-        title: 'Chuyển Giá Nghệ Thuật',
-        subtitle: 'FDI STRATEGIC LOSS',
-        category: 'Kết Quả Đặc Biệt',
-        desc: `Dự án đạt 100% tiến độ nhưng báo cáo tài chính ghi nhận "Lỗ" sau khi hoàn tất chuyển vốn về nước.`,
-        consequences: [
-          'Thực trạng "Chuyển giá" (Transfer Pricing) - Tối ưu thuế cho tập đoàn mẹ',
-          'Đưa lợi nhuận về nước ngoài - Giảm đóng góp ngân sách quốc gia',
-          'Thắng về mặt kinh doanh - Hoàn thành mục tiêu của tập đoàn',
-          'Gây tranh cãi về đạo đức - Vấn đề minh bạch tài chính',
-          'Ảnh hưởng đến chính sách FDI - Cần giám sát chặt chẽ hơn'
-        ],
-        lesson: 'Đây là thực trạng phức tạp của đầu tư nước ngoài trong nền kinh tế toàn cầu hóa.',
-        color: '#fbbf24',
-        bgGrad: 'linear-gradient(135deg, rgba(146,64,14,0.4), rgba(15,23,42,0.95))',
-        bgImg: 'public/image/fdi_ed.jpg',
-        useCustomLayout: true,
-        imageOnlyMode: true  // Flag đặc biệt để chỉ hiển thị ảnh
+        bgImg: 'public/image/dan_giau_nuoc_manh.jpg'
       },
       normal: {
-        title: 'Tồn Tại Trung Bình',
-        subtitle: 'NORMAL ENDING',
-        category: 'Thành Công Cơ Bản',
-        desc: `Doanh nghiệp vượt qua thử thách nhưng chưa tạo được đột phá.`,
+        title: 'Ổn Định & Phát Triển',
+        subtitle: 'TIỀM NĂNG CÒN BỎ NGỎ',
+        category: 'Thành Công Một Phần',
+        desc: 'Doanh nghiệp của bạn đã vượt qua các thử thách và đạt được mức tăng trưởng ổn định. Tuy nhiên, vẫn còn những mâu thuẫn nhỏ và tiềm năng chưa được khai thác hết.',
         consequences: [
-          'Hoàn thành mục tiêu cơ bản - Tiến độ 100%, không phá sản',
-          'Uy tín trung bình (40-59) - Chưa được tin tưởng hoàn toàn',
-          'Thiếu sự xuất sắc - Không nổi bật trong cạnh tranh thị trường',
-          'Chưa tối ưu hóa - Còn nhiều tiềm năng chưa khai thác',
-          'Rủi ro tiềm ẩn - Nền tảng chưa vững, dễ bị ảnh hưởng bởi biến động'
+          'Duy trì thị phần và lợi nhuận ổn định qua các giai đoạn.',
+          'Đời sống nhân viên và người lao động được cải thiện đáng kể.',
+          'Cần thêm các chính sách cải cách mạnh mẽ để đạt bứt phá.'
         ],
-        lesson: 'Trong kinh tế xã hội chủ nghĩa, "tồn tại" chưa đủ - cần phấn đấu để phát triển mạnh mẽ, bền vững và có trách nhiệm xã hội cao hơn.',
-        color: '#6366f1',
-        bgGrad: 'linear-gradient(135deg, rgba(49,46,129,0.4), rgba(15,23,42,0.95))',
-        bgImg: 'public/image/bg-ending-normal.png',
-        useCustomLayout: true
+        lesson: 'Trong kinh tế xã hội chủ nghĩa, "tồn tại" chưa đủ - cần không ngừng phấn đấu để phát triển mạnh mẽ và bền vững hơn.',
+        color: '#3b82f6',
+        bgImg: 'public/image/bg-ending-normal.png'
+      },
+      bad: {
+        title: 'Khủng Hoảng Suy Thoái',
+        subtitle: 'BÀI HỌC VỀ SỰ MẤT CÂN ĐỐI',
+        category: 'Hạn Chế',
+        desc: 'Mô hình kinh tế của bạn gặp phải nhiều trục trặc nghiêm trọng. Sự thiếu hụt nguồn lực hoặc mất niềm tin từ xã hội đã đẩy doanh nghiệp vào tình trạng bế tắc.',
+        consequences: [
+          'Các chỉ số quan trọng rơi xuống ngưỡng nguy hiểm.',
+          'Nguồn lực bị cạn kiệt hoặc sử dụng sai mục tiêu chiến lược.',
+          'Cần phải thay đổi hoàn toàn tư duy quản trị để cứu vãn tình hình.'
+        ],
+        lesson: 'Kinh tế là sự cân bằng nghệ thuật. Sự mất cân đối quá lớn ở bất kỳ chỉ số nào cũng dẫn đến hệ quả dây chuyền tồi tệ.',
+        color: '#f59e0b',
+        bgImg: 'public/image/bg-ending-bad.png'
+      },
+      debt_welfare: {
+        title: 'Hy Sinh Vì An Sinh',
+        subtitle: 'NỢ CÔNG VÌ NHÂN DÂN',
+        category: 'Thành Công Nhân Văn',
+        desc: 'Mặc dù ngân sách Nhà nước rơi vào tình trạng thâm hụt (nợ công), nhưng bạn đã ưu tiên tuyệt đối cho sức khỏe và phúc lợi của nhân dân. Đây là một sự đánh đổi đầy rủi ro nhưng mang tính nhân văn sâu sắc.',
+        consequences: [
+          'Chỉ số sức khỏe cộng đồng đạt mức ấn tượng nhờ đầu tư mạnh tay.',
+          'Niềm tin của nhân dân được duy trì nhưng gánh nặng tài chính là thách thức lớn.',
+          'Cần một lộ trình thắt lưng buộc bụng và cải cách thuế để cân bằng ngân sách.'
+        ],
+        lesson: 'Trong định hướng xã hội chủ nghĩa, con người là trung tâm. Tuy nhiên, bền vững tài chính là điều kiện cần để duy trì phúc lợi lâu dài.',
+        color: '#8b5cf6',
+        bgImg: 'public/image/bg-ending-debt-welfare.png'
+      },
+      item_fail: {
+        title: 'Sai Lầm Chiến Lược',
+        subtitle: 'THẤT BẠI NGAY TỪ ĐẦU',
+        category: 'Thất Bại',
+        desc: 'Bạn đã chọn toàn bộ vật phẩm không phù hợp với vai trò của mình. Doanh nghiệp sụp đổ ngay lập tức do thiếu định hướng và mâu thuẫn cốt lõi.',
+        consequences: [
+          'Chiến lược sai lầm khi tư liệu sản xuất không khớp với mô hình.',
+          'Nội bộ tan rã do không tìm được tiếng nói chung.',
+          'Doanh nghiệp phá sản lập tức trước khi bắt đầu vận hành.'
+        ],
+        lesson: 'Lực lượng sản xuất phải phù hợp với Quan hệ sản xuất. Chọn sai công cụ cho mô hình sẽ dẫn đến sự sụp đổ nhanh chóng.',
+        color: '#ef4444',
+        bgImg: 'public/image/bg-ending-bad.png'
       }
     };
 
-    const end = endings[type];
-    if (end.bgImg) updateBackground(end.bgImg);
+    const end = endings[type] || endings.normal;
     const roleName = state.role ? ROLE_DATA[state.role].name : '—';
 
-    // Special layout for true ending with custom background
-    const isCustomLayout = end.useCustomLayout;
-    const isImageOnly = end.imageOnlyMode; // Chế độ chỉ hiển thị ảnh
-    const backgroundStyle = isCustomLayout 
-      ? `background-image: url('${end.bgImg}'); background-size: cover; background-position: center; background-repeat: no-repeat;`
-      : `background: ${end.bgGrad};`;
-
-    // Nếu là imageOnlyMode, chỉ hiển thị ảnh nền với nút replay
-    if (isImageOnly) {
-      updateGameScreenContent(`
-        <div class="gps-ending-screen" style="
-          ${backgroundStyle}
-          position: fixed; 
-          top: 0; 
-          left: 0; 
-          width: 100vw; 
-          height: 100vh; 
-          overflow: hidden; 
-          z-index: 9999;
-          display: flex;
-          align-items: flex-end;
-          justify-content: center;
-          padding-bottom: 3rem;
-        ">
-          <!-- Chỉ có nút replay, không có text overlay -->
-          <div style="
-            display: flex;
-            gap: 1rem;
-            z-index: 10;
-          ">
-            <button class="gps-btn gps-btn-primary" id="gpsReplayBtn" style="
-              background: rgba(59, 130, 246, 0.95);
-              backdrop-filter: blur(10px);
-              border: 2px solid rgba(59, 130, 246, 0.5);
-              color: white;
-              padding: 1rem 2.5rem;
-              border-radius: 8px;
-              font-size: 1rem;
-              font-weight: 600;
-              cursor: pointer;
-              transition: all 0.3s ease;
-              text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(59, 130, 246, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.3)'">Chơi Lại</button>
-            <button class="gps-btn gps-btn-secondary" id="gpsBackToMenuBtn" style="
-              background: rgba(75, 85, 99, 0.95);
-              backdrop-filter: blur(10px);
-              border: 2px solid rgba(75, 85, 99, 0.5);
-              color: white;
-              padding: 1rem 2.5rem;
-              border-radius: 8px;
-              font-size: 1rem;
-              font-weight: 600;
-              cursor: pointer;
-              transition: all 0.3s ease;
-              text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(75, 85, 99, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.3)'">Menu Chính</button>
-          </div>
-        </div>
-      `);
-      
-      // Add event listeners for image-only mode
-      document.getElementById('gpsReplayBtn').addEventListener('click', () => {
-        gameScreen.classList.remove('active');
-        updateGameScreenContent('');
-        resetState();
-        startItemPhase();
-      });
-      
-      document.getElementById('gpsBackToMenuBtn').addEventListener('click', () => {
-        gameScreen.classList.remove('active');
-        updateGameScreenContent('');
-        navbar.classList.remove('hidden');
-        resetState();
-        switchStage('gameHero');
-      });
-      
-      return; // Thoát sớm, không render phần còn lại
-    }
+    const capitalLabel = (state.role === 'state' && state.capital < 0) ? 'Nợ công' : 'Vốn còn lại';
+    const capitalDisplay = (state.role === 'state' && state.capital < 0) ? Math.abs(Math.floor(state.capital)) : Math.floor(state.capital);
 
     updateGameScreenContent(`
       <div class="gps-ending-screen" style="
-        ${backgroundStyle}
-        position: fixed; 
-        top: 0; 
-        left: 0; 
-        width: 100vw; 
-        height: 100vh; 
-        overflow: hidden; 
-        z-index: 9999;
+        background: #0f172a;
+        position: fixed; top: 0; left: 0; 
+        width: 100vw; height: 100vh; 
+        overflow: hidden; z-index: 9999;
+        display: flex; align-items: center; justify-content: center;
       ">
-        ${isCustomLayout ? `
-          <!-- Overlay trong suốt KHÔNG blur ảnh nền -->
-          <div style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-              to bottom,
-              rgba(0,0,0,0.1) 0%,
-              rgba(0,0,0,0.2) 30%,
-              rgba(0,0,0,0.4) 60%,
-              rgba(0,0,0,0.6) 100%
-            );
-            z-index: 1;
-          "></div>
-        ` : ''}
         <div class="gps-ending-container" style="
-          display: flex;
-          flex-direction: column;
-          height: 100vh;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 2rem;
-          box-sizing: border-box;
-          overflow: hidden;
-          position: relative;
-          z-index: 2;
-          ${isCustomLayout ? 'padding-top: 35vh;' : ''}
+          display: flex; width: 90vw; height: 85vh; max-width: 1400px;
+          background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px;
+          overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         ">
-          <style>
-            .gps-ending-container::-webkit-scrollbar { display: none; }
-          </style>
-          
-          <!-- Header Section -->
-          <div class="gps-ending-header" style="
-            text-align: center;
-            margin-bottom: 2rem;
-            flex-shrink: 0;
-            ${isCustomLayout ? 'margin-top: -15vh;' : ''}
-          ">
-            <div class="gps-ending-category" style="
-              font-size: 0.875rem;
-              font-weight: 600;
-              text-transform: uppercase;
-              letter-spacing: 0.1em;
-              color: ${end.color};
-              margin-bottom: 0.5rem;
-              opacity: 0.9;
-              text-shadow: ${isCustomLayout ? '2px 2px 4px rgba(0,0,0,0.8)' : 'none'};
-            ">${end.category}</div>
-            
-            <h1 class="gps-ending-title" style="
-              font-size: 2.5rem;
-              font-weight: 700;
-              color: white;
-              margin: 0 0 0.5rem 0;
-              text-shadow: ${isCustomLayout ? '3px 3px 6px rgba(0,0,0,0.9)' : '2px 2px 4px rgba(0,0,0,0.5)'};
-              line-height: 1.2;
-            ">${end.title}</h1>
-            
-            <p class="gps-ending-subtitle" style="
-              font-size: 1rem;
-              font-weight: 500;
-              color: ${end.color};
-              margin: 0;
-              opacity: 0.9;
-              text-shadow: ${isCustomLayout ? '2px 2px 4px rgba(0,0,0,0.8)' : 'none'};
-            ">${end.subtitle}</p>
+          <!-- Left Column -->
+          <div class="gps-ending-image-side" style="flex: 1.2; position: relative; overflow: hidden; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+            <img src="${end.bgImg}" style="width: 100%; height: 100%; object-fit: cover;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, transparent 70%, rgba(15, 23, 42, 0.3));"></div>
           </div>
 
-          <!-- Main Content -->
-          <div class="gps-ending-main" style="
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 2rem;
-            flex: 1;
-            min-height: 0;
-            overflow: hidden;
-          ">
-            
-            <!-- Left Column: Description & Consequences -->
-            <div class="gps-ending-left" style="
-              display: flex;
-              flex-direction: column;
-              gap: 1.5rem;
-              overflow: hidden;
-            ">
-              
-              <!-- Description -->
-              <div class="gps-ending-desc-section" style="
-                background: ${isCustomLayout ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.1)'};
-                backdrop-filter: blur(20px);
-                border-radius: 12px;
-                padding: 1.5rem;
-                border: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.2)'};
-                flex-shrink: 0;
-              ">
-                <p style="
-                  font-size: 1.125rem;
-                  line-height: 1.6;
-                  color: white;
-                  margin: 0;
-                  font-weight: 400;
-                  text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};
-                ">${end.desc}</p>
+          <!-- Right Column -->
+          <div class="gps-ending-content-side" style="flex: 1; display: flex; flex-direction: column; padding: 3rem; overflow-y: auto; background: rgba(15, 23, 42, 0.4);">
+            <style>
+              .gps-ending-content-side::-webkit-scrollbar { width: 6px; }
+              .gps-ending-content-side::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+            </style>
+
+            <div class="gps-ending-header" style="margin-bottom: 2rem;">
+              <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: ${end.color}; margin-bottom: 0.5rem;">
+                ${end.category}
+              </div>
+              <h1 style="font-size: 2.75rem; font-weight: 800; color: white; margin: 0; line-height: 1.1;">
+                ${end.title}
+              </h1>
+              <div style="font-size: 1.1rem; font-weight: 500; color: ${end.color}; margin-top: 0.5rem; opacity: 0.8;">
+                ${end.subtitle}
+              </div>
+            </div>
+
+            <div class="gps-ending-scroll-content">
+              <div style="margin-bottom: 2rem;">
+                <p style="font-size: 1.1rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin: 0;">
+                  ${end.desc}
+                </p>
               </div>
 
-              <!-- Consequences -->
-              <div class="gps-ending-consequences" style="
-                background: ${isCustomLayout ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.1)'};
-                backdrop-filter: blur(20px);
-                border-radius: 12px;
-                padding: 1.5rem;
-                border: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.2)'};
-                flex: 1;
-                overflow: hidden;
-              ">
-                <h3 style="
-                  font-size: 1rem;
-                  font-weight: 600;
-                  color: ${end.color};
-                  margin: 0 0 1rem 0;
-                  text-transform: uppercase;
-                  letter-spacing: 0.05em;
-                  text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};
-                ">${isCustomLayout ? (type === 'true' ? 'Thành Tựu Đạt Được' : type === 'bad' ? 'Vấn Đề Phát Sinh' : type === 'fdi_strategic' ? 'Phân Tích Chiến Lược' : type === 'gameover' ? 'Nguyên Nhân Thất Bại' : 'Đánh Giá Tổng Quan') : 'Hậu Quả & Tác Động'}</h3>
-                
-                <div class="gps-consequences-list" style="
-                  display: flex;
-                  flex-direction: column;
-                  gap: 0.75rem;
-                  max-height: 300px;
-                  overflow: hidden;
-                ">
-                  ${end.consequences.map(consequence => `
-                    <div style="
-                      display: flex;
-                      align-items: flex-start;
-                      gap: 0.75rem;
-                      padding: 0.75rem;
-                      background: ${isCustomLayout ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.05)'};
-                      border-radius: 8px;
-                      border-left: 3px solid ${end.color};
-                    ">
-                      <div style="
-                        width: 6px;
-                        height: 6px;
-                        background: ${end.color};
-                        border-radius: 50%;
-                        margin-top: 0.5rem;
-                        flex-shrink: 0;
-                      "></div>
-                      <span style="
-                        color: white;
-                        font-size: 0.9rem;
-                        line-height: 1.5;
-                        font-weight: 400;
-                        text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};
-                      ">${consequence}</span>
+              <!-- Stats Grid -->
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-size: 0.75rem; color: rgba(255,255,255,0.4); text-transform: uppercase; font-weight: 700;">Vai trò</span>
+                  <span style="font-size: 1.2rem; font-weight: 600; color: white;">${roleName}</span>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-size: 0.75rem; color: rgba(255,255,255,0.4); text-transform: uppercase; font-weight: 700;">Sức khỏe</span>
+                  <span style="font-size: 1.2rem; font-weight: 600; color: white;">${Math.floor(state.hp)}</span>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-size: 0.75rem; color: rgba(255,255,255,0.4); text-transform: uppercase; font-weight: 700;">${capitalLabel}</span>
+                  <span style="font-size: 1.2rem; font-weight: 600; color: ${state.capital <= 0 ? '#ef4444' : '#10b981'};">${capitalDisplay}</span>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-size: 0.75rem; color: rgba(255,255,255,0.4); text-transform: uppercase; font-weight: 700;">Uy tín xã hội</span>
+                  <span style="font-size: 1.2rem; font-weight: 600; color: white;">${state.reputation}/100</span>
+                </div>
+              </div>
+
+              <!-- Details -->
+              <div style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1rem; font-weight: 700; color: white; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem;">
+                  <span style="width: 4px; height: 16px; background: ${end.color}; border-radius: 2px;"></span>
+                  Phân tích kết cục
+                </h3>
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                  ${end.consequences.map(c => `
+                    <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+                      <div style="width: 8px; height: 8px; background: ${end.color}; border-radius: 50%; margin-top: 0.45rem; flex-shrink: 0;"></div>
+                      <span style="font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.5;">${c}</span>
                     </div>
                   `).join('')}
                 </div>
               </div>
 
               <!-- Lesson -->
-              <div class="gps-ending-lesson" style="
-                background: ${isCustomLayout ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.1)'};
-                backdrop-filter: blur(20px);
-                border-radius: 12px;
-                padding: 1.5rem;
-                border: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.2)'};
-                flex-shrink: 0;
-              ">
-                <h3 style="
-                  font-size: 1rem;
-                  font-weight: 600;
-                  color: ${end.color};
-                  margin: 0 0 0.75rem 0;
-                  text-transform: uppercase;
-                  letter-spacing: 0.05em;
-                  text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};
-                ">${isCustomLayout ? (type === 'true' ? 'Ý Nghĩa Lịch Sử' : type === 'bad' ? 'Cảnh Báo & Khuyến Nghị' : type === 'fdi_strategic' ? 'Thực Trạng Toàn Cầu' : type === 'gameover' ? 'Bài Học Đắng Cay' : 'Hướng Phát Triển') : 'Bài Học Kinh Nghiệm'}</h3>
-                <p style="
-                  font-size: 0.95rem;
-                  line-height: 1.6;
-                  color: white;
-                  margin: 0;
-                  font-weight: 400;
-                  font-style: italic;
-                  text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};
-                ">${end.lesson}</p>
+              <div style="background: ${end.color}15; padding: 1.75rem; border-radius: 16px; border-left: 5px solid ${end.color}; margin-bottom: 2rem;">
+                <h4 style="margin: 0 0 0.75rem 0; color: ${end.color}; font-size: 0.95rem; text-transform: uppercase; font-weight: 800;">Bài học kinh tế</h4>
+                <p style="margin: 0; font-size: 1.05rem; color: rgba(255,255,255,0.95); font-style: italic; line-height: 1.6;">
+                  "${end.lesson}"
+                </p>
               </div>
             </div>
 
-            <!-- Right Column: Stats & Actions -->
-            <div class="gps-ending-right" style="
-              display: flex;
-              flex-direction: column;
-              gap: 1.5rem;
-              overflow: hidden;
-            ">
-              
-              <!-- Stats -->
-              <div class="gps-ending-stats" style="
-                background: ${isCustomLayout ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.1)'};
-                backdrop-filter: blur(20px);
-                border-radius: 12px;
-                padding: 1.5rem;
-                border: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.2)'};
-                flex: 1;
-                overflow-y: visible;
-              ">
-                <h3 style="
-                  font-size: 1rem;
-                  font-weight: 600;
-                  color: ${end.color};
-                  margin: 0 0 1rem 0;
-                  text-transform: uppercase;
-                  letter-spacing: 0.05em;
-                  text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};
-                ">Thống Kê Cuối Game</h3>
-                
-                <div class="gps-stats-grid" style="
-                  display: flex;
-                  flex-direction: column;
-                  gap: 0.75rem;
-                ">
-                  <div class="gps-stat-row" style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.5rem 0;
-                    border-bottom: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)'};
-                  ">
-                    <span style="color: rgba(255,255,255,0.8); font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">Vai trò</span>
-                    <span style="color: white; font-weight: 600; font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">${roleName}</span>
-                  </div>
-                  
-                  <div class="gps-stat-row" style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.5rem 0;
-                    border-bottom: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)'};
-                  ">
-                    <span style="color: rgba(255,255,255,0.8); font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">Số lượt</span>
-                    <span style="color: white; font-weight: 600; font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">${state.turnCount}</span>
-                  </div>
-                  
-                  <div class="gps-stat-row" style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.5rem 0;
-                    border-bottom: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)'};
-                  ">
-                    <span style="color: rgba(255,255,255,0.8); font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">Vốn</span>
-                    <span style="color: ${state.capital < 0 ? '#ef4444' : 'white'}; font-weight: 600; font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">${Math.floor(state.capital)}</span>
-                  </div>
-                  
-                  <div class="gps-stat-row" style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.5rem 0;
-                    border-bottom: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)'};
-                  ">
-                    <span style="color: rgba(255,255,255,0.8); font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">Sức khỏe</span>
-                    <span style="color: ${state.hp <= 0 ? '#ef4444' : 'white'}; font-weight: 600; font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">${Math.floor(state.hp)}</span>
-                  </div>
-                  
-                  <div class="gps-stat-row" style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.5rem 0;
-                    border-bottom: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)'};
-                  ">
-                    <span style="color: rgba(255,255,255,0.8); font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">Uy tín</span>
-                    <span style="color: white; font-weight: 600; font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">${state.reputation}</span>
-                  </div>
-
-                  <div class="gps-stat-row" style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.5rem 0;
-                    border-bottom: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)'};
-                  ">
-                    <span style="color: rgba(255,255,255,0.8); font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">Tương thích</span>
-                    <span style="color: white; font-weight: 600; font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">${state.sp}</span>
-                  </div>
-                  
-                  <div class="gps-stat-row" style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.5rem 0;
-                  ">
-                    <span style="color: rgba(255,255,255,0.8); font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">Tiến độ</span>
-                    <span style="color: white; font-weight: 600; font-size: 0.9rem; text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">${Math.min(100, Math.floor(state.progress))}%</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Actions -->
-              <div class="gps-ending-actions" style="
-                display: flex;
-                flex-direction: column;
-                gap: 0.75rem;
-                flex-shrink: 0;
-              ">
-                <button class="gps-btn gps-btn-primary" id="gpsPlayAgain" style="
-                  background: ${end.color};
-                  color: white;
-                  border: none;
-                  padding: 0.875rem 1.5rem;
-                  border-radius: 8px;
-                  font-size: 1rem;
-                  font-weight: 600;
-                  cursor: pointer;
-                  transition: all 0.2s ease;
-                  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                  text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};
-                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)'">
-                  Chơi lại
-                </button>
-                
-                <button class="gps-btn gps-btn-secondary" id="gpsBackHome" style="
-                  background: ${isCustomLayout ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.1)'};
-                  color: white;
-                  border: 1px solid ${isCustomLayout ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.3)'};
-                  padding: 0.875rem 1.5rem;
-                  border-radius: 8px;
-                  font-size: 1rem;
-                  font-weight: 500;
-                  cursor: pointer;
-                  transition: all 0.2s ease;
-                  backdrop-filter: blur(15px);
-                  text-shadow: ${isCustomLayout ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};
-                " onmouseover="this.style.background='${isCustomLayout ? 'rgba(0,0,0,0.7)' : 'rgba(255,255,255,0.2)'}'" onmouseout="this.style.background='${isCustomLayout ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.1)'}'">
-                  ← Về Trang Chính
-                </button>
-              </div>
+            <!-- Footer -->
+            <div style="display: flex; gap: 1rem; margin-top: auto; padding-top: 2rem;">
+              <button id="gpsPlayAgain" style="flex: 1.5; padding: 1.1rem; border-radius: 12px; border: none; background: ${end.color}; color: white; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 20px -5px ${end.color}44;">
+                CHƠI LẠI
+              </button>
+              <button id="gpsBackHome" style="flex: 1; padding: 1.1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: white; font-weight: 600; cursor: pointer;">
+                VỀ TRANG CHỦ
+              </button>
             </div>
           </div>
         </div>
@@ -1877,15 +1502,11 @@ export function initGameGuide() {
     `);
 
     document.getElementById('gpsPlayAgain').addEventListener('click', () => {
-      // Reset overflow
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
-      
       gameScreen.classList.remove('active');
       updateGameScreenContent('');
       resetState();
-
-      // Restart from video
       navbar.classList.add('hidden');
       switchStage('gameVideoScreen');
       introVideo.currentTime = 0;
@@ -1894,17 +1515,8 @@ export function initGameGuide() {
     });
 
     document.getElementById('gpsBackHome').addEventListener('click', () => {
-      // Reset overflow
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-      
-      gameScreen.classList.remove('active');
-      updateGameScreenContent('');
-      navbar.classList.remove('hidden');
-      resetState();
-      
-      // Switch to hero screen
-      switchStage('gameHero');
+      // Chuyển hướng về trang chủ thực sự của website
+      window.location.href = 'index.html';
     });
   }
 }

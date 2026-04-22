@@ -87,44 +87,41 @@
             <div class="role-screen-content">
                 <h2 class="role-screen-title">Giai đoạn 2: Chọn Vai Trò</h2>
                 <div class="role-selection-grid">
-                    <div class="role-selection-card" data-role="state">
-                        <div class="role-avatar-wrapper">
-                            <img src="public/image/role-state.png" alt="Nhà nước">
+                    <!-- Nhóm Sở hữu Công (2 vai trò) -->
+                    <div class="public-roles">
+                        <div class="role-selection-card" data-role="state">
+                            <div class="role-avatar-wrapper">
+                                <img src="public/image/role-state.png" alt="Nhà nước">
+                            </div>
+                            <div class="role-card-content">
+                                <h3>Nhà nước</h3>
+                                <p class="role-flag state-color">ARMOR_MACRO</p>
+                                <button class="role-select-btn" data-role="state">Chọn</button>
+                            </div>
                         </div>
-                        <div class="role-card-content">
-                            <h3>Nhà nước</h3>
-                            <p class="role-flag state-color">ARMOR_MACRO</p>
-                            <button class="role-select-btn" data-role="state">Chọn</button>
-                        </div>
-                    </div>
-                    <div class="role-selection-card" data-role="collective">
-                        <div class="role-avatar-wrapper">
-                            <img src="public/image/role-collective.png" alt="Tập thể">
-                        </div>
-                        <div class="role-card-content">
-                            <h3>Tập thể</h3>
-                            <p class="role-flag collective-color">DISCOUNT_GROUP</p>
-                            <button class="role-select-btn" data-role="collective">Chọn</button>
-                        </div>
-                    </div>
-                    <div class="role-selection-card" data-role="private">
-                        <div class="role-avatar-wrapper">
-                            <img src="public/image/role-private.png" alt="Tư nhân">
-                        </div>
-                        <div class="role-card-content">
-                            <h3>Tư nhân</h3>
-                            <p class="role-flag private-color">SPEED_RISK</p>
-                            <button class="role-select-btn" data-role="private">Chọn</button>
+                        <div class="role-selection-card" data-role="collective">
+                            <div class="role-avatar-wrapper">
+                                <img src="public/image/role-collective.png" alt="Tập thể">
+                            </div>
+                            <div class="role-card-content">
+                                <h3>Tập thể</h3>
+                                <p class="role-flag collective-color">DISCOUNT_GROUP</p>
+                                <button class="role-select-btn" data-role="collective">Chọn</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="role-selection-card" data-role="fdi">
-                        <div class="role-avatar-wrapper">
-                            <img src="public/image/role-fdi.png" alt="FDI">
-                        </div>
-                        <div class="role-card-content">
-                            <h3>FDI</h3>
-                            <p class="role-flag fdi-color">TECH_TRANSFER</p>
-                            <button class="role-select-btn" data-role="fdi">Chọn</button>
+                    
+                    <!-- Nhóm Sở hữu Tư (1 vai trò) -->
+                    <div class="private-roles">
+                        <div class="role-selection-card" data-role="private">
+                            <div class="role-avatar-wrapper">
+                                <img src="public/image/role-private.png" alt="Tư nhân">
+                            </div>
+                            <div class="role-card-content">
+                                <h3>Tư nhân</h3>
+                                <p class="role-flag private-color">SPEED_RISK</p>
+                                <button class="role-select-btn" data-role="private">Chọn</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -246,14 +243,6 @@
                                 <h4>Tư nhân</h4>
                                 <p class="role-passive">Speed_Risk</p>
                                 <p>Progress x1.15, Sát thương HP x1.4</p>
-                            </div>
-                        </div>
-                        <div class="role-item role-fdi">
-                            <img src="public/image/role-fdi.png" alt="FDI" width="40" height="40">
-                            <div>
-                                <h4>FDI</h4>
-                                <p class="role-passive">Tech_Transfer</p>
-                                <p>SP += 2, Vốn ±20. Giảm mất Uy tín 10%</p>
                             </div>
                         </div>
                     </div>
