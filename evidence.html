@@ -44,7 +44,7 @@
     <!-- STATS -->
     <div class="stats-bar" data-aos="zoom-in" data-aos-duration="800">
       <div class="stat-card">
-        <span class="stat-num">4</span>
+        <span class="stat-num">3</span>
         <span class="stat-label">Doanh nghiệp phân tích</span>
       </div>
       <div class="stat-card">
@@ -52,11 +52,11 @@
         <span class="stat-label">Hình thức sở hữu</span>
       </div>
       <div class="stat-card">
-        <span class="stat-num">4</span>
+        <span class="stat-num">3</span>
         <span class="stat-label">Thành phần kinh tế</span>
       </div>
       <div class="stat-card">
-        <span class="stat-num">5</span>
+        <span class="stat-num">3</span>
         <span class="stat-label">Kênh phân phối thu nhập</span>
       </div>
     </div>
@@ -85,42 +85,43 @@
           <tr>
             <td>01</td>
             <td>
-              <strong>PetroVietnam</strong><br />
-              <span style="font-size:0.82rem; color:var(--gray-lt);">Tập đoàn Dầu khí Quốc gia Việt Nam</span>
+              <strong>EVN</strong><br />
+              <span style="font-size:0.82rem; color:var(--gray-lt);">Tập đoàn điện lực Việt Nam</span>
             </td>
-            <td><span class="badge badge-state">Nhà nước (Toàn dân)</span></td>
-            <td>Kinh tế nhà nước (chủ đạo)</td>
-            <td>Lương CBCNV · Nộp ngân sách nhà nước · Tái đầu tư công</td>
+            <td><span class="badge badge-state">Sở hữu toàn dân</span></td>
+            <td>Kinh tế nhà nước</td>
+            <td>
+              - Phân phối lao động và hiệu quả kinh tế<br/>
+              - Phân phối theo giá cả sức lao động<br/>
+              - Phân phối theo vốn và tài sản
+            </td>
           </tr>
           <tr>
             <td>02</td>
             <td>
-              <strong>Vingroup</strong><br />
-              <span style="font-size:0.82rem; color:var(--gray-lt);">Tập đoàn Vingroup JSC</span>
+              <strong>Saigon Co.op</strong><br />
+              <span style="font-size:0.82rem; color:var(--gray-lt);">Liên hiệp Hợp tác xã Thương mại TP.HCM</span>
             </td>
-            <td><span class="badge badge-private">Tư nhân</span></td>
-            <td>Kinh tế tư nhân</td>
-            <td>Lương theo lao động · Cổ tức cho cổ đông · Thuế doanh nghiệp</td>
+            <td><span class="badge badge-collective">Sở hữu tập thể</span></td>
+            <td>Kinh tế tập thể</td>
+            <td>
+              - Phân phối theo giá cả sức lao động và hiệu quả kinh tế<br/>
+              - Phân phối theo giá cả sức lao động
+            </td>
           </tr>
           <tr>
             <td>03</td>
             <td>
-              <strong>Vinamilk</strong><br />
-              <span style="font-size:0.82rem; color:var(--gray-lt);">Công ty CP Sữa Việt Nam</span>
+              <strong>VinGroup</strong><br />
+              <span style="font-size:0.82rem; color:var(--gray-lt);">Tập đoàn VinGroup</span>
             </td>
-            <td><span class="badge badge-mixed">Hỗn hợp (Nhà nước + Tư nhân)</span></td>
-            <td>Kinh tế tư bản nhà nước</td>
-            <td>Lương · Cổ tức đa dạng · Nộp ngân sách · Phúc lợi nội bộ</td>
-          </tr>
-          <tr>
-            <td>04</td>
+            <td><span class="badge badge-private">Sở hữu tư nhân</span></td>
+            <td>Kinh tế tư bản tư nhân</td>
             <td>
-              <strong>Samsung Electronics Việt Nam</strong><br />
-              <span style="font-size:0.82rem; color:var(--gray-lt);">Samsung Electronics Vietnam Co., Ltd.</span>
+              - Phân phối theo giá cả sức lao động và hiệu quả kinh tế<br/>
+              - Phân phối theo giá cả sức lao động<br/>
+              - Phân phối theo vốn và tài sản
             </td>
-            <td><span class="badge badge-fdi">Vốn FDI (Tư nhân nước ngoài)</span></td>
-            <td>Kinh tế FDI</td>
-            <td>Lương công nhân · Xuất khẩu giá trị gia tăng · Thuế nhà nước VN</td>
           </tr>
         </tbody>
       </table>
@@ -137,67 +138,46 @@
 
     <div class="detail-grid" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
 
-      <div class="detail-card">
+      <div class="detail-card" style="cursor: pointer;" onclick="openEvidenceModal('evn')" title="Nhấn để xem chi tiết">
         <div class="detail-card-logo logo-1">
           <img
-            src="https://upload.wikimedia.org/wikipedia/vi/thumb/e/e9/PetroVietnam_logo.svg/240px-PetroVietnam_logo.svg.png"
-            alt="PetroVietnam logo" />
+            src="src/assets/images/env.png"
+            alt="EVN logo" />
         </div>
-        <h3>PetroVietnam</h3>
-        <div class="detail-row"><span class="key">Sở hữu</span><span class="val">100% Nhà nước</span></div>
+        <h3>Tập đoàn điện lực Việt Nam</h3>
+        <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Toàn dân</span></div>
         <div class="detail-row"><span class="key">Thành phần</span><span class="val">Kinh tế nhà nước</span></div>
-        <div class="detail-row"><span class="key">Vai trò</span><span class="val">Chủ đạo năng lượng quốc gia</span>
-        </div>
-        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Ngân sách + lương CBCNV</span></div>
-        <div class="detail-row"><span class="key">Định hướng</span><span class="val">XHCN – Nhà nước kiểm soát</span>
-        </div>
+        <div class="detail-row"><span class="key">Quy mô</span><span class="val">DT 645.195 tỷ (2025)</span></div>
+        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Lao động, Giá cả sức LĐ, Vốn</span></div>
+        <div class="detail-row"><span class="key">Vai trò</span><span class="val">Đảm bảo an ninh năng lượng</span></div>
       </div>
 
-      <div class="detail-card">
+      <div class="detail-card" style="cursor: pointer;" onclick="openEvidenceModal('saigon-coop')" title="Nhấn để xem chi tiết">
         <div class="detail-card-logo logo-2">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Vingroup_logo.svg/240px-Vingroup_logo.svg.png"
-            alt="Vingroup logo" />
+            src="src/assets/images/coop.png"
+            alt="Saigon Co.op logo" style="max-height: 50px;" />
         </div>
-        <h3>Vingroup</h3>
-        <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Tư nhân trong nước</span></div>
-        <div class="detail-row"><span class="key">Thành phần</span><span class="val">Kinh tế tư nhân</span></div>
-        <div class="detail-row"><span class="key">Vai trò</span><span class="val">Tập đoàn BĐS, CN, Y tế</span></div>
-        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Lương + cổ tức + thuế</span></div>
-        <div class="detail-row"><span class="key">Định hướng</span><span class="val">Thị trường – Nhà nước điều
-            tiết</span></div>
+        <h3>Liên hiệp HTX Thương mại TP.HCM</h3>
+        <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Tập thể</span></div>
+        <div class="detail-row"><span class="key">Thành phần</span><span class="val">Kinh tế tập thể</span></div>
+        <div class="detail-row"><span class="key">Quy mô</span><span class="val">&gt;800 điểm bán</span></div>
+        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Lao động, Giá cả sức LĐ</span></div>
+        <div class="detail-row"><span class="key">Vai trò</span><span class="val">Bình ổn giá 9 nhóm hàng</span></div>
       </div>
 
-      <div class="detail-card">
+      <div class="detail-card" style="cursor: pointer;" onclick="openEvidenceModal('vingroup')" title="Nhấn để xem chi tiết">
         <div class="detail-card-logo logo-3">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Vinamilk_logo.svg/240px-Vinamilk_logo.svg.png"
-            alt="Vinamilk logo" />
+            src="src/assets/images/vin.png"
+            alt="Vingroup logo" />
         </div>
-        <h3>Vinamilk</h3>
-        <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Hỗn hợp (NN ~36%, tư nhân)</span></div>
-        <div class="detail-row"><span class="key">Thành phần</span><span class="val">Tư bản nhà nước</span></div>
-        <div class="detail-row"><span class="key">Vai trò</span><span class="val">Đầu ngành sữa, xuất khẩu</span></div>
-        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Đa dạng – lương, cổ tức, NS</span>
-        </div>
-        <div class="detail-row"><span class="key">Định hướng</span><span class="val">Kết hợp Nhà nước + thị
-            trường</span></div>
-      </div>
-
-      <div class="detail-card">
-        <div class="detail-card-logo logo-4">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/240px-Samsung_Logo.svg.png"
-            alt="Samsung logo" />
-        </div>
-        <h3>Samsung Việt Nam</h3>
-        <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Vốn nước ngoài (Hàn Quốc)</span></div>
-        <div class="detail-row"><span class="key">Thành phần</span><span class="val">Kinh tế FDI</span></div>
-        <div class="detail-row"><span class="key">Vai trò</span><span class="val">>25% xuất khẩu VN</span></div>
-        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Lương + xuất khẩu + thuế VN</span>
-        </div>
-        <div class="detail-row"><span class="key">Định hướng</span><span class="val">Thu hút FDI theo luật VN</span>
-        </div>
+        <h3>Tập đoàn VinGroup</h3>
+        <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Tư nhân</span></div>
+        <div class="detail-row"><span class="key">Thành phần</span><span class="val">Tư bản tư nhân</span></div>
+        <div class="detail-row"><span class="key">Quy mô</span><span class="val">DT 332.770 tỷ (2025)</span></div>
+        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Lao động, Giá cả sức LĐ, Vốn</span></div>
+        <div class="detail-row"><span class="key">Vai trò</span><span class="val">Động lực phát triển</span></div>
       </div>
 
     </div>
@@ -227,6 +207,79 @@
       <a href="about.html">About Us</a>
     </p>
   </footer>
+
+  <!-- Modal Structure -->
+  <div class="modal-overlay" id="evidenceModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeEvidenceModal()">&times;</button>
+      <div class="modal-body" id="evidenceModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Hidden Content Templates -->
+  <template id="modal-evn">
+    <h3>1. Tập đoàn điện lực Việt Nam (EVN)</h3>
+    <p><strong>Hình thức sở hữu:</strong> Sở hữu toàn dân — toàn bộ tư liệu sản xuất chiến lược bao gồm hệ thống nhà máy điện, đường dây truyền tải 500kV, trạm biến áp và hạ tầng lưới điện quốc gia đều thuộc sở hữu của toàn thể nhân dân, do Nhà nước đại diện quản lý và định đoạt.</p>
+    <p><strong>Quy mô:</strong> Tổng doanh thu hợp nhất năm 2025 ước đạt 645.195 tỷ đồng, tăng 10,3% so với 2024; vốn chủ sở hữu ước đạt 245.000 tỷ đồng. Về hạ tầng, tổng công suất nguồn điện toàn hệ thống đạt khoảng 87.600 MW, đứng thứ 2 khu vực ASEAN — phản ánh quy mô khổng lồ của khối tư liệu sản xuất đang được đặt dưới chế độ sở hữu toàn dân.</p>
+    <p><strong>Thành phần kinh tế:</strong> Thuộc kinh tế nhà nước — EVN hoạt động theo định hướng Nhà nước giao, đảm bảo an ninh năng lượng quốc gia và cung cấp điện ổn định cho toàn bộ nền kinh tế, kể cả các vùng sâu vùng xa không có giá trị thương mại, không thuần túy vì lợi nhuận. Điều này thể hiện đúng vai trò "chủ đạo" mà Đại hội X xác định cho kinh tế nhà nước trong nền kinh tế thị trường định hướng xã hội chủ nghĩa.</p>
+    <p><strong>Hình thức phân phối:</strong></p>
+    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+      <li><strong>Phân phối theo lao động và hiệu quả kinh tế:</strong> người lao động được trả lương dựa trên vị trí, đóng góp, và năng suất làm việc; năm 2025, tập đoàn EVN nộp ngân sách nhà nước đạt 26.351 tỷ đồng, phần lợi nhuận còn lại tái đầu tư vào hạ tầng điện theo quyết định của Nhà nước</li>
+      <li><strong>Phân phối theo giá cả sức lao động:</strong> Đối với lao động hợp đồng ngắn hạn, lao động thời vụ (thi công đường dây, bảo trì...), EVN trả lương theo thỏa thuận hợp đồng, phản ánh quan hệ cung–cầu lao động trên thị trường</li>
+      <li><strong>Phân phối theo vốn và tài sản:</strong> EVN sở hữu hệ thống cơ sở hạ tầng điện lực như nhà máy, đường dây, trạm biến áp... do Nhà nước đầu tư vốn. Lợi nhuận từ hoạt động kinh doanh điện được phân phối lại cho Nhà nước với tư cách là chủ sở hữu vốn. Ngoài ra, EVN có phát hành trái phiếu để huy động vốn — người mua trái phiếu nhận lãi suất theo tỷ lệ đầu tư</li>
+    </ul>
+    <p><strong>&rarr;</strong> EVN là doanh nghiệp thuộc sở hữu toàn dân, do Nhà nước nắm giữ 100% vốn. Vì vậy, EVN còn có nghĩa vụ nộp toàn bộ lợi nhuận sau thuế về ngân sách Nhà nước. Nguồn thu này sau đó được Nhà nước sử dụng để tái phân phối lại cho xã hội thông qua các hình thức như trợ giá điện cho hộ nghèo và vùng sâu vùng xa, đầu tư kéo điện lưới đến những khu vực không có lợi nhuận thương mại, xây dựng đường, trường, trạm y tế tại các địa bàn khó khăn.</p>
+  </template>
+
+  <template id="modal-saigon-coop">
+    <h3>2. Liên hiệp Hợp tác xã Thương mại TP.HCM (Saigon Co.op)</h3>
+    <p><strong>Hình thức sở hữu:</strong> Sở hữu tập thể — toàn bộ tư liệu sản xuất và hệ thống phân phối bao gồm chuỗi siêu thị, kho bãi, hạ tầng logistics đều thuộc sở hữu chung của tập thể thành viên. Các thành viên cùng góp vốn, cùng quản lý và cùng thụ hưởng lợi ích theo nguyên tắc dân chủ, bình đẳng.</p>
+    <p><strong>Quy mô:</strong> Tổng doanh thu năm 2025 đạt hơn 32.000 tỷ đồng, với hơn 800 điểm bán trên toàn quốc và gần 15.000 lao động, là hợp tác xã bán lẻ lớn nhất Việt Nam.</p>
+    <p><strong>Thành phần kinh tế:</strong> Thuộc kinh tế tập thể — lợi nhuận phân chia theo mức đóng góp của từng thành viên, không tồn tại quan hệ thuê mướn lao động như trong kinh tế tư bản tư nhân. Saigon Co.op không chỉ kinh doanh vì lợi nhuận mà còn thực hiện vai trò bình ổn giá 9 nhóm hàng thiết yếu theo định hướng Nhà nước — thể hiện đúng bản chất kinh tế tập thể theo quan điểm Marx: quan hệ sở hữu chung phục vụ lợi ích chung, đặt dưới sự quản lý và định hướng của Nhà nước xã hội chủ nghĩa.</p>
+    <p><strong>Hình thức phân phối:</strong></p>
+    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+      <li><strong>Phân phối theo lao động và hiệu quả kinh tế:</strong> Các xã viên được phân phối thu nhập dựa trên mức độ tham gia lao động và đóng góp thực tế vào hoạt động của hợp tác xã. Ngoài ra, một phần lợi nhuận của toàn hệ thống (Co.opmart, Co.opXtra...) được chia lại cho xã viên theo tỷ lệ giao dịch và đóng góp lao động</li>
+      <li><strong>Phân phối theo giá cả sức lao động:</strong> Saigon Co.op thuê số lượng lớn nhân viên bán hàng, kho vận, bảo vệ... theo hợp đồng lao động. Nhóm lao động làm thuê này được trả lương theo thỏa thuận và quan hệ cung–cầu thị trường lao động</li>
+    </ul>
+  </template>
+
+  <template id="modal-vingroup">
+    <h3>3. Tập đoàn VinGroup</h3>
+    <p><strong>Hình thức sở hữu:</strong> Sở hữu tư nhân — toàn bộ tư liệu sản xuất bao gồm nhà máy VinFast, hệ thống Vinhomes, Vinmec, Vinschool và các cơ sở kinh doanh khác đều thuộc sở hữu tư nhân của các cổ đông, do Hội đồng quản trị đại diện quản lý và định đoạt.</p>
+    <p><strong>Quy mô:</strong> Doanh thu thuần hợp nhất năm 2025 đạt 332.770 tỷ đồng, tăng 76% so với năm trước — mốc cao nhất lịch sử tập đoàn; lợi nhuận sau thuế đạt 11.146 tỷ đồng, tăng 111%. Đặc biệt, doanh thu Vingroup tương đương khoảng 2,6% GDP toàn quốc, là doanh nghiệp tư nhân đầu tiên đứng ngang hàng với các tập đoàn năng lượng quốc gia.</p>
+    <p><strong>Thành phần kinh tế:</strong> Thuộc kinh tế tư bản tư nhân — vận hành theo cơ chế thị trường vì mục tiêu lợi nhuận, có quan hệ thuê mướn lao động với hơn 104.000 nhân viên. Vingroup là "động lực quan trọng" mà Đại hội X xác định cho kinh tế tư nhân — vừa thúc đẩy lực lượng sản xuất thông qua đầu tư công nghệ cao, vừa chịu sự điều tiết của pháp luật và định hướng Nhà nước. Đây là điểm sáng tạo của Việt Nam: không xóa bỏ sở hữu tư nhân mà để nó phát triển có kiểm soát, phù hợp với trình độ lực lượng sản xuất trong thời kỳ quá độ.</p>
+    <p><strong>Hình thức phân phối:</strong></p>
+    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+      <li><strong>Phân phối theo lao động và hiệu quả kinh tế:</strong> Thu nhập của người lao động được xác định qua thương lượng, phụ thuộc vào cung–cầu lao động trong ngành. Ví dụ: kỹ sư phần mềm tại VinAI hay VinFast được trả mức lương cạnh tranh theo giá thị trường công nghệ; Lợi nhuận sau thuế (11.146 tỷ đồng năm 2025) được tái đầu tư vào mở rộng sản xuất theo quyết định của ban lãnh đạo tập đoàn</li>
+      <li><strong>Phân phối theo vốn và tài sản:</strong> Vingroup là công ty cổ phần niêm yết trên sàn chứng khoán (VIC). Cổ đông góp vốn được nhận cổ tức theo tỷ lệ sở hữu cổ phần. Tỷ phú Phạm Nhật Vượng - cổ đông lớn nhất hưởng lợi nhuận tương ứng với phần vốn đầu tư.</li>
+      <li><strong>Phân phối theo giá cả sức lao động:</strong> Vingroup áp dụng hệ thống KPI và đánh giá hiệu suất rõ ràng. Nhân viên, quản lý được thưởng doanh số, hoa hồng hoặc lương tháng 13–14 tùy theo đóng góp thực tế vào kết quả kinh doanh của từng mảng. Ví dụ: nhân viên Sales BĐS Vinhomes bán được nhiều căn hộ sẽ nhận hoa hồng cao hơn</li>
+    </ul>
+  </template>
+
+  <script>
+    function openEvidenceModal(targetId) {
+      const modal = document.getElementById('evidenceModal');
+      const modalBody = document.getElementById('evidenceModalBody');
+      const template = document.getElementById('modal-' + targetId);
+      if (template) {
+        modalBody.innerHTML = template.innerHTML;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeEvidenceModal() {
+      const modal = document.getElementById('evidenceModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('evidenceModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeEvidenceModal();
+      }
+    });
+  </script>
 
   <!-- AOS Animation Script -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
