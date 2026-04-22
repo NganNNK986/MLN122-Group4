@@ -497,3 +497,133 @@
       .faq-section { padding: 3.5rem 1.2rem; }
       .cta-strip { padding: 2.5rem 1.2rem; flex-direction: column; text-align: center; }
     }
+
+    /* ============================================================
+       MODAL (PUMP OUT CONTENT)
+    ============================================================ */
+    .card.clickable {
+      cursor: pointer;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+      padding: 2rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--beige);
+      width: 100%;
+      max-width: 900px;
+      max-height: 85vh;
+      border-radius: 12px;
+      position: relative;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      transform: translateY(40px) scale(0.95);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+      border: 3px solid var(--crimson);
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .modal-close {
+      position: sticky;
+      top: 15px;
+      right: 15px;
+      float: right;
+      width: 36px; height: 36px;
+      background: var(--crimson);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: background var(--transition), transform var(--transition);
+      box-shadow: 0 4px 12px rgba(139,0,0,0.3);
+    }
+
+    .modal-close:hover {
+      background: var(--crimson-dk);
+      transform: scale(1.1) rotate(90deg);
+    }
+
+    .modal-body {
+      padding: 2rem 3rem;
+      padding-top: 0.5rem;
+      clear: both;
+    }
+
+    /* Modal Content Styles (imported from content.css) */
+    .modal-body .content-section {
+      background: transparent; box-shadow: none; padding: 0; margin-bottom: 0; border: none;
+    }
+    .modal-body .content-section:hover { transform: none; box-shadow: none; }
+    .modal-body h2 {
+      font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--crimson-dk); margin-bottom: 1.2rem; line-height: 1.3;
+    }
+    .modal-body .section-num {
+      display: inline-block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--crimson); margin-bottom: 0.5rem;
+    }
+    .modal-body h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--crimson); margin: 1.5rem 0 0.7rem; font-weight: 600;
+    }
+    .modal-body p { color: var(--gray-md); font-size: 1.05rem; margin-bottom: 1rem; }
+    .modal-body .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 1.2rem 0; }
+    .modal-body .sub-box {
+      background: rgba(139,0,0,0.04); border: 1px solid rgba(139,0,0,0.12); border-radius: var(--radius); padding: 1.2rem;
+    }
+    .modal-body .sub-box h4 {
+      font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--crimson-dk); margin-bottom: 0.7rem;
+    }
+    .modal-body .sub-box ul { list-style: none; padding: 0; }
+    .modal-body .sub-box ul li {
+      font-size: 0.95rem; color: var(--gray-md); padding: 0.28rem 0 0.28rem 1.1rem; position: relative;
+    }
+    .modal-body .sub-box ul li::before { content: '–'; position: absolute; left: 0; color: var(--crimson); font-weight: bold; }
+    .modal-body .callout {
+      background: linear-gradient(135deg, var(--crimson-dk), var(--crimson));
+      border-radius: var(--radius); padding: 1.3rem 1.6rem; margin-top: 1.5rem; color: var(--beige);
+      display: flex; align-items: flex-start; gap: 0.9rem; box-shadow: 0 10px 20px rgba(139,0,0,0.2);
+    }
+    .modal-body .callout-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .modal-body .callout p { color: rgba(245,245,220,0.95); font-size: 0.97rem; margin: 0; }
+    .modal-body .callout strong { color: var(--beige); }
+    .modal-body .chip-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1rem 0; }
+    .modal-body .chip {
+      display: inline-block; padding: 0.3rem 0.85rem; background: rgba(139,0,0,0.08); border: 1px solid rgba(139,0,0,0.15);
+      border-radius: 20px; font-size: 0.85rem; color: var(--crimson-dk); font-weight: 600;
+    }
+    .modal-body .content-list { list-style: none; padding: 0; margin: 0.5rem 0 1rem; }
+    .modal-body .content-list > li {
+      padding: 0.4rem 0 0.4rem 1.5rem; position: relative; color: var(--gray-md); font-size: 0.98rem; border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    .modal-body .content-list > li::before { content: '▸'; position: absolute; left: 0; color: var(--crimson); font-size: 0.9rem; top: 0.5rem; }
+
+    @media (max-width: 900px) {
+      .modal-body .two-col { grid-template-columns: 1fr; }
+      .modal-overlay { padding: 1rem; }
+      .modal-body { padding: 1.5rem; }
+    }
