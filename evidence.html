@@ -41,12 +41,10 @@
     </ul>
   </nav>
 
-  <header class="page-header">
-    <div class="page-header-label" data-aos="fade-down" data-aos-duration="1000">Dẫn chứng thực tiễn</div>
-    <h1 data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Phân tích thực tế & Minh chứng doanh nghiệp
-    </h1>
-    <p data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">Minh hoạ sinh động các hình thức sở hữu, thành
-      phần kinh tế và cơ chế phân phối thông qua các doanh nghiệp đại diện và chính sách điều tiết tại Việt Nam.</p>
+  <header class="page-header" data-aos="fade">
+    <div class="page-header-label">Dẫn chứng thực tiễn</div>
+    <h1>Phân tích thực tế & Minh chứng doanh nghiệp</h1>
+    <p>Minh hoạ sinh động các hình thức sở hữu, thành phần kinh tế và cơ chế phân phối thông qua các doanh nghiệp đại diện và chính sách điều tiết tại Việt Nam.</p>
   </header>
   <!-- PART 1 -->
   <main class="main-content">
@@ -102,10 +100,12 @@
             <td><span class="badge badge-state">Sở hữu toàn dân</span></td>
             <td>Kinh tế nhà nước</td>
             <td class="phun-phoi-col">
-              • Phân phối lao động & hiệu quả kinh tế<br />
-              • Phân phối theo giá cả sức lao động<br />
-              • Phân phối theo vốn và tài sản<br />
-              • Phân phối qua công cụ điều tiết Nhà nước
+              <ul class="cell-list">
+                <li>Phân phối lao động & hiệu quả kinh tế</li>
+                <li>Phân phối theo giá cả sức lao động</li>
+                <li>Phân phối theo vốn và tài sản</li>
+                <li>Phân phối qua công cụ điều tiết Nhà nước</li>
+              </ul>
             </td>
           </tr>
           <tr>
@@ -117,8 +117,10 @@
             <td><span class="badge badge-collective">Sở hữu tập thể</span></td>
             <td>Kinh tế tập thể</td>
             <td class="phun-phoi-col">
-              • Phân phối lao động & hiệu quả kinh tế<br />
-              • Phân phối theo giá cả sức lao động
+              <ul class="cell-list">
+                <li>Phân phối lao động & hiệu quả kinh tế</li>
+                <li>Phân phối theo giá cả sức lao động</li>
+              </ul>
             </td>
           </tr>
           <tr>
@@ -130,9 +132,11 @@
             <td><span class="badge badge-private">Sở hữu tư nhân</span></td>
             <td>Kinh tế tư bản tư nhân</td>
             <td class="phun-phoi-col">
-              • Phân phối lao động & hiệu quả kinh tế<br />
-              • Phân phối theo giá cả sức lao động<br />
-              • Phân phối theo vốn và tài sản
+              <ul class="cell-list">
+                <li>Phân phối lao động & hiệu quả kinh tế</li>
+                <li>Phân phối theo giá cả sức lao động</li>
+                <li>Phân phối theo vốn và tài sản</li>
+              </ul>
             </td>
           </tr>
         </tbody>
@@ -192,10 +196,26 @@
           </thead>
           <tbody>
             <tr>
-              <td>• Thuế TNCN lũy tiến<br>• Thuế tiêu thụ đặc biệt<br>• Thuế tài sản</td>
-              <td>• Trợ cấp trực tiếp (người nghèo, người có công)<br>• Miễn giảm học phí, BHYT<br>• Đầu tư hạ tầng
-                vùng sâu</td>
-              <td>• Quy định lương tối thiểu vùng<br>• Cải cách tiền lương khu vực công</td>
+              <td>
+                <ul class="cell-list">
+                  <li>Thuế TNCN lũy tiến</li>
+                  <li>Thuế tiêu thụ đặc biệt</li>
+                  <li>Thuế tài sản</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="cell-list">
+                  <li>Trợ cấp trực tiếp (người nghèo, người có công)</li>
+                  <li>Miễn giảm học phí, BHYT</li>
+                  <li>Đầu tư hạ tầng vùng sâu</li>
+                </ul>
+              </td>
+              <td>
+                <ul class="cell-list">
+                  <li>Quy định lương tối thiểu vùng</li>
+                  <li>Cải cách tiền lương khu vực công</li>
+                </ul>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -523,7 +543,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       AOS.init({ once: true, duration: 800 });
       VanillaTilt.init(document.querySelectorAll(".detail-card"), {
-        max: 6, speed: 600, glare: true, "max-glare": 0.1
+        max: 3, speed: 800, glare: true, "max-glare": 0.05
       });
     });
   </script>
