@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sự thay đổi: Chiến lược kinh tế Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="src/css/base/variables.css">
+    <link rel="stylesheet" href="src/css/base/reset.css">
+    <link rel="stylesheet" href="src/css/components/animations.css">
+    <link rel="stylesheet" href="src/css/components/liquid-button.css">
+    <link rel="stylesheet" href="src/css/components/game.css">
+    <link rel="stylesheet" href="src/css/game-styles.css">
+</head>
+
+<body class="synchronous-universe">
+    <!-- Global Anti-Gravity Background Layer -->
+    <div class="physics-bg">
+        <div class="low-poly pol-1 grav-1"></div>
+        <div class="low-poly pol-2 grav-3"></div>
+        <div class="low-poly pol-3 grav-2"></div>
+        <div class="low-poly pol-4 grav-1"></div>
+        <div class="low-poly pol-5 grav-2"></div>
+    </div>
+
+    <nav class="navbar">
+        <a class="navbar-brand" href="index.html"><span class="brand-code">MLN122</span> · Nhóm 4</a>
+        <ul class="navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="content.html">Nội dung</a></li>
+            <li><a href="evidence.html">Dẫn chứng</a></li>
+            <li><a href="game.html" class="active">Game</a></li>
+            <li><a href="ai-usage.html">AI Usage</a></li>
+            <li><a href="about.html">About Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Game Section -->
+    <section id="game" class="journey-section game-layout active">
+        <div class="game-hero" id="gameHero">
+            <div class="game-overlay"></div>
+            <div class="game-hero-content grav-2">
+                <h1 class="game-title">Sự thay đổi: Chiến lược kinh tế</h1>
+                <p class="game-tagline">Bạn không chọn đúng/sai. Bạn chọn cách tồn tại.</p>
+                <div class="game-buttons">
+                    <button class="game-start-btn liquid-button" id="startGameBtn">
+                        <span class="btn-text">Bắt đầu chơi</span>
+                        <div class="fluid-core"></div>
+                    </button>
+                    <button class="game-guide-btn" id="openGuideBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                        </svg>
+                        <span>Cách chơi</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Intro Screen -->
+        <div class="game-video-screen" id="gameVideoScreen">
+            <video id="gameIntroVideo" class="game-video" preload="metadata" muted playsinline>
+                <source src="public/image/video1.mp4" type="video/mp4">
+                Trình duyệt của bạn không hỗ trợ video.
+            </video>
+            <button class="video-skip-btn" id="videoSkipBtn">
+                <span>Bỏ qua</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 4 15 12 5 20 5 4" />
+                    <line x1="19" y1="5" x2="19" y2="19" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Role Selection Screen -->
+        <div class="game-role-screen" id="gameRoleScreen">
+            <div class="role-screen-bg"></div>
+            <div class="role-screen-content">
+                <h2 class="role-screen-title">Giai đoạn 2: Chọn Vai Trò</h2>
+                <div class="role-selection-grid">
+                    <div class="role-selection-card" data-role="state">
+                        <div class="role-avatar-wrapper">
+                            <img src="public/image/role-state.png" alt="Nhà nước">
+                        </div>
+                        <div class="role-card-content">
+                            <h3>Nhà nước</h3>
+                            <p class="role-flag state-color">ARMOR_MACRO</p>
+                            <button class="role-select-btn" data-role="state">Chọn</button>
+                        </div>
+                    </div>
+                    <div class="role-selection-card" data-role="collective">
+                        <div class="role-avatar-wrapper">
+                            <img src="public/image/role-collective.png" alt="Tập thể">
+                        </div>
+                        <div class="role-card-content">
+                            <h3>Tập thể</h3>
+                            <p class="role-flag collective-color">DISCOUNT_GROUP</p>
+                            <button class="role-select-btn" data-role="collective">Chọn</button>
+                        </div>
+                    </div>
+                    <div class="role-selection-card" data-role="private">
+                        <div class="role-avatar-wrapper">
+                            <img src="public/image/role-private.png" alt="Tư nhân">
+                        </div>
+                        <div class="role-card-content">
+                            <h3>Tư nhân</h3>
+                            <p class="role-flag private-color">SPEED_RISK</p>
+                            <button class="role-select-btn" data-role="private">Chọn</button>
+                        </div>
+                    </div>
+                    <div class="role-selection-card" data-role="fdi">
+                        <div class="role-avatar-wrapper">
+                            <img src="public/image/role-fdi.png" alt="FDI">
+                        </div>
+                        <div class="role-card-content">
+                            <h3>FDI</h3>
+                            <p class="role-flag fdi-color">TECH_TRANSFER</p>
+                            <button class="role-select-btn" data-role="fdi">Chọn</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Role Celebrate Overlay -->
+        <div class="role-celebrate-overlay" id="roleCelebrateOverlay">
+            <div class="role-celebrate-card" id="roleCelebrateCard">
+                <div class="celebrate-particles" id="celebrateParticles"></div>
+                <div class="celebrate-avatar" id="celebrateAvatar">
+                    <img id="celebrateAvatarImg" src="" alt="">
+                </div>
+                <p class="celebrate-congrats">Chúc mừng bạn đã chọn</p>
+                <h2 class="celebrate-role-name" id="celebrateRoleName"></h2>
+                <p class="celebrate-passive" id="celebratePassive"></p>
+                <div class="celebrate-divider"></div>
+
+                <!-- Thông tin nhóm sở hữu -->
+                <div class="celebrate-ownership-info">
+                    <h3 class="ownership-title">Nhóm sở hữu</h3>
+                    <p class="ownership-group" id="celebrateGroupName"></p>
+                    <p class="ownership-subgroup" id="celebrateSubGroup"></p>
+                </div>
+
+                <div class="celebrate-divider"></div>
+                <p class="celebrate-desc" id="celebrateDesc"></p>
+
+                <!-- Buttons -->
+                <div class="celebrate-buttons">
+                    <button class="celebrate-change-btn" id="celebrateChangeBtn">
+                        ← Chọn thẻ khác
+                    </button>
+                    <button class="celebrate-continue-btn" id="celebrateContinueBtn">
+                        Tiếp tục →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Play Screen -->
+        <div id="gamePlayScreen" class="game-play-screen"></div>
+    </section>
+
+    <!-- Game Guide Modal -->
+    <div id="gameGuideModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Hướng Dẫn Chơi Game</h2>
+                <button class="modal-close" id="closeGuideBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Game Stats -->
+                <section class="guide-section">
+                    <h3>Hệ Thống Chỉ Số</h3>
+                    <div class="stats-list">
+                        <div class="stat-item">
+                            <img src="public/image/icon-capital.png" alt="Vốn" width="32" height="32">
+                            <div>
+                                <h4>Vốn (Capital)</h4>
+                                <p>Nguồn lực tài chính chính. Khởi tạo: 120. Game Over nếu &lt; 0.</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <img src="public/image/icon-hp.png" alt="Sức khỏe" width="32" height="32">
+                            <div>
+                                <h4>Sức khỏe</h4>
+                                <p>Thể lực doanh nghiệp trước rủi ro. Khởi tạo: 100. Phá sản nếu &lt;= 0.</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <img src="public/image/icon-synergy.png" alt="Tương thích" width="32" height="32">
+                            <div>
+                                <h4>Tương thích</h4>
+                                <p>Điểm tương thích lực lượng sản xuất. Giới hạn: 0-10. Tăng tốc độ tiến độ mỗi lượt.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <img src="public/image/icon-reputation.png" alt="Uy tín" width="32" height="32">
+                            <div>
+                                <h4>Uy tín (Reputation)</h4>
+                                <p>Quyết định tốc độ tiến độ (Buff/Debuff). Giới hạn: 0-100.</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <img src="public/image/icon-progress.png" alt="Tiến độ" width="32" height="32">
+                            <div>
+                                <h4>Progress (Tiến độ)</h4>
+                                <p>Tiến độ hoàn thành. Chạm 100% → Chuyển sang End Game.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Game Roles -->
+                <section class="guide-section">
+                    <h3>Vai Trò Kinh Tế</h3>
+                    <div class="roles-list">
+                        <div class="role-item role-state">
+                            <img src="public/image/role-state.png" alt="Nhà nước" width="40" height="40">
+                            <div>
+                                <h4>Nhà nước</h4>
+                                <p class="role-passive">Armor_Macro</p>
+                                <p>HP &lt; 30 hồi 20 HP. Giảm mọi thiệt hại Vốn từ sự kiện đi 15%</p>
+                            </div>
+                        </div>
+                        <div class="role-item role-collective">
+                            <img src="public/image/role-collective.png" alt="Tập thể" width="40" height="40">
+                            <div>
+                                <h4>Tập thể</h4>
+                                <p class="role-passive">Discount_Group</p>
+                                <p>Giảm giá Item 20%. Cộng thêm 2 Vốn mỗi lượt chơi</p>
+                            </div>
+                        </div>
+                        <div class="role-item role-private">
+                            <img src="public/image/role-private.png" alt="Tư nhân" width="40" height="40">
+                            <div>
+                                <h4>Tư nhân</h4>
+                                <p class="role-passive">Speed_Risk</p>
+                                <p>Progress x1.15, Sát thương HP x1.4</p>
+                            </div>
+                        </div>
+                        <div class="role-item role-fdi">
+                            <img src="public/image/role-fdi.png" alt="FDI" width="40" height="40">
+                            <div>
+                                <h4>FDI</h4>
+                                <p class="role-passive">Tech_Transfer</p>
+                                <p>SP += 2, Vốn ±20. Giảm mất Uy tín 10%</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Game Flow -->
+                <section class="guide-section">
+                    <h3>Tiến Trình Game</h3>
+                    <div class="flow-list">
+                        <div class="flow-item">
+                            <div class="flow-num">1</div>
+                            <div>
+                                <h4>The Hook</h4>
+                                <p>Màn hình chờ - Bạn có 120 Vốn</p>
+                            </div>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-num">2</div>
+                            <div>
+                                <h4>Chọn Role</h4>
+                                <p>Định hình quan hệ sản xuất</p>
+                            </div>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-num">3</div>
+                            <div>
+                                <h4>Chợ Item</h4>
+                                <p>Xây dựng lực lượng sản xuất (Chọn 2 items)</p>
+                            </div>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-num">4</div>
+                            <div>
+                                <h4>Gameplay Loop</h4>
+                                <p>Đối mặt với các sự kiện và đưa ra quyết định</p>
+                            </div>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-num">5</div>
+                            <div>
+                                <h4>Endings</h4>
+                                <p>Điểm chuyển hóa - 4 kết cục khác nhau</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Game Tips -->
+                <section class="guide-section">
+                    <h3>Mẹo Chơi Game</h3>
+                    <ul class="tips-list">
+                        <li>Cân bằng giữa Vốn và HP để tránh phá sản</li>
+                        <li>Chọn Items phù hợp với Role để tăng SP</li>
+                        <li>Uy tín cao (≥70) tăng tốc độ Progress</li>
+                        <li>Mỗi quyết định đều có hậu quả - suy nghĩ kỹ!</li>
+                        <li>Có 4 endings khác nhau tùy vào cách chơi của bạn</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="src/js/game-main.js"></script>
+</body>
+
+</html>
