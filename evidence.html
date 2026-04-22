@@ -7,7 +7,13 @@
   <title>Dẫn Chứng – Sở Hữu & Phân Phối Kinh Tế XHCN</title>
   <meta name="description"
     content="Bảng dẫn chứng thực tiễn về các hình thức sở hữu, thành phần kinh tế và phân phối tại Việt Nam." />
+  <meta name="keywords" content="kinh tế XHCN, EVN, Vingroup, sở hữu, phân phối, Việt Nam" />
+  <meta name="author" content="Nhóm 4" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Sans+3:wght@300;400;500;600&display=swap"
+    as="style" />
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Sans+3:wght@300;400;500;600&display=swap"
     rel="stylesheet" />
@@ -23,7 +29,7 @@
     <div class="progress-bar" id="readingProgress"></div>
   </div>
 
-  <nav class="navbar">
+  <nav class="navbar" aria-label="Main Navigation">
     <a class="navbar-brand" href="index.html"><span class="brand-code">MLN122</span> · Nhóm 4</a>
     <ul class="navbar-nav">
       <li><a href="index.html">Home</a></li>
@@ -43,10 +49,10 @@
       phần kinh tế và cơ chế phân phối thông qua các doanh nghiệp đại diện và chính sách điều tiết tại Việt Nam.</p>
   </header>
   <!-- PART 1 -->
-  <div class="main-content">
+  <main class="main-content">
 
     <!-- STATS -->
-    <div class="stats-bar" data-aos="zoom-in" data-aos-duration="800">
+    <div class="stats-bar" data-aos="fade-up" data-aos-duration="1000">
       <div class="stat-card">
         <span class="stat-num">3</span>
         <span class="stat-label">Doanh nghiệp phân tích</span>
@@ -66,35 +72,36 @@
     </div>
 
     <!-- COMPARISON SECTION -->
-    <div data-aos="fade-right" data-aos-duration="800">
+    <section data-aos="fade-right" data-aos-duration="800">
       <span class="section-tag">Bảng tổng hợp</span>
       <h2 class="section-heading">Đối chiếu theo tiêu chí Marxist</h2>
       <div class="title-bar"></div>
       <p class="section-caption">Bảng phân loại các doanh nghiệp tiêu biểu theo ba tiêu chí cốt lõi của quan hệ sản
         xuất.</p>
-    </div>
+    </section>
 
     <div class="table-wrapper" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
       <table>
+        <caption>Bảng so sánh các doanh nghiệp theo hình thức sở hữu và phân phối</caption>
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Cơ quan / Doanh nghiệp</th>
-            <th>Hình thức Sở hữu</th>
-            <th>Thành phần Kinh tế</th>
-            <th>Cơ chế Phân phối Thu nhập</th>
+            <th scope="col">STT</th>
+            <th scope="col">Cơ quan / Doanh nghiệp</th>
+            <th scope="col">Hình thức Sở hữu</th>
+            <th scope="col">Thành phần Kinh tế</th>
+            <th scope="col">Cơ chế Phân phối Thu nhập</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="font-weight: 700; color: var(--crimson);">01</td>
+            <td class="stt-col">01</td>
             <td>
-              <strong>EVN</strong><br />
-              <span style="font-size:0.82rem; color:var(--gray-lt);">Tập đoàn điện lực Việt Nam</span>
+              <strong><abbr title="Tập đoàn Điện lực Việt Nam">EVN</abbr></strong><br />
+              <span class="subtitle">Tập đoàn điện lực Việt Nam</span>
             </td>
             <td><span class="badge badge-state">Sở hữu toàn dân</span></td>
             <td>Kinh tế nhà nước</td>
-            <td style="font-size: 0.9rem;">
+            <td class="phun-phoi-col">
               • Phân phối lao động & hiệu quả kinh tế<br />
               • Phân phối theo giá cả sức lao động<br />
               • Phân phối theo vốn và tài sản<br />
@@ -102,27 +109,27 @@
             </td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: var(--crimson);">02</td>
+            <td class="stt-col">02</td>
             <td>
               <strong>Saigon Co.op</strong><br />
-              <span style="font-size:0.82rem; color:var(--gray-lt);">Liên hiệp Hợp tác xã Thương mại TP.HCM</span>
+              <span class="subtitle">Liên hiệp Hợp tác xã Thương mại TP.HCM</span>
             </td>
             <td><span class="badge badge-collective">Sở hữu tập thể</span></td>
             <td>Kinh tế tập thể</td>
-            <td style="font-size: 0.9rem;">
+            <td class="phun-phoi-col">
               • Phân phối lao động & hiệu quả kinh tế<br />
               • Phân phối theo giá cả sức lao động
             </td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: var(--crimson);">03</td>
+            <td class="stt-col">03</td>
             <td>
               <strong>VinGroup</strong><br />
-              <span style="font-size:0.82rem; color:var(--gray-lt);">Tập đoàn VinGroup</span>
+              <span class="subtitle">Tập đoàn VinGroup</span>
             </td>
             <td><span class="badge badge-private">Sở hữu tư nhân</span></td>
             <td>Kinh tế tư bản tư nhân</td>
-            <td style="font-size: 0.9rem;">
+            <td class="phun-phoi-col">
               • Phân phối lao động & hiệu quả kinh tế<br />
               • Phân phối theo giá cả sức lao động<br />
               • Phân phối theo vốn và tài sản
@@ -133,17 +140,17 @@
     </div>
 
     <!-- PROFILES GRID -->
-    <div data-aos="fade-right" data-aos-duration="800" style="margin-top: 4rem;">
+    <section data-aos="fade-right" data-aos-duration="800" class="mt-4">
       <span class="section-tag">Hồ sơ chi tiết</span>
       <h2 class="section-heading">Đặc điểm doanh nghiệp</h2>
       <div class="title-bar"></div>
       <p class="section-caption">Nhấn vào mỗi thẻ để xem phân tích chi tiết về vai trò và cơ chế hoạt động của từng đơn
         vị.</p>
-    </div>
+    </section>
 
-    <div class="detail-grid" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+    <div class="detail-grid" data-aos="fade-up" data-aos-duration="1000">
       <div class="detail-card" onclick="openEvidenceModal('evn')">
-        <div class="detail-card-logo"><img src="src/assets/images/env.png" alt="EVN" /></div>
+        <div class="detail-card-logo"><img src="src/assets/images/evn.png" alt="EVN" loading="lazy" /></div>
         <h3>Tập đoàn Điện lực Việt Nam</h3>
         <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Toàn dân</span></div>
         <div class="detail-row"><span class="key">Kinh tế</span><span class="val">Nhà nước</span></div>
@@ -152,7 +159,7 @@
       </div>
 
       <div class="detail-card" onclick="openEvidenceModal('saigon-coop')">
-        <div class="detail-card-logo"><img src="src/assets/images/coop.png" alt="Saigon Co.op" /></div>
+        <div class="detail-card-logo"><img src="src/assets/images/coop.png" alt="Saigon Co.op" loading="lazy" /></div>
         <h3>Liên hiệp HTX Thương mại TP.HCM</h3>
         <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Tập thể</span></div>
         <div class="detail-row"><span class="key">Kinh tế</span><span class="val">Tập thể</span></div>
@@ -161,7 +168,7 @@
       </div>
 
       <div class="detail-card" onclick="openEvidenceModal('vingroup')">
-        <div class="detail-card-logo"><img src="src/assets/images/vin.png" alt="Vingroup" /></div>
+        <div class="detail-card-logo"><img src="src/assets/images/vin.png" alt="Vingroup" loading="lazy" /></div>
         <h3>Tập đoàn VinGroup</h3>
         <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Tư nhân</span></div>
         <div class="detail-row"><span class="key">Kinh tế</span><span class="val">Tư bản tư nhân</span></div>
@@ -173,14 +180,14 @@
     <article id="part-4" class="dossier-part" data-aos="fade-up">
       <h3>II. Bảng biểu thống kê</h3>
 
-      <h4>1. Hệ thống công cụ điều tiết</h4>
+      <h4>Hệ thống công cụ điều tiết</h4>
       <div class="table-wrapper">
         <table>
           <thead>
             <tr>
-              <th>Công cụ thuế</th>
-              <th>An sinh & Dịch vụ công</th>
-              <th>Thị trường lao động</th>
+              <th scope="col">Công cụ thuế</th>
+              <th scope="col">An sinh & Dịch vụ công</th>
+              <th scope="col">Thị trường lao động</th>
             </tr>
           </thead>
           <tbody>
@@ -194,27 +201,27 @@
         </table>
       </div>
 
-      <h4 style="margin-top: 3rem;">Luật Thuế TNCN sửa đổi được Quốc hội thông qua ngày 10/12/2025 và có hiệu lực từ
-        ngày 01/07/202</h4>
+      <h4 class="mt-3">Luật Thuế TNCN sửa đổi được Quốc hội thông qua ngày 10/12/2025 và có hiệu lực từ
+        ngày 01/07/2026</h4>
       <div class="table-wrapper">
-        <table style="border: 1px solid #000;" cellpadding="8" cellspacing="0">
+        <table class="tax-table">
           <tbody>
             <!-- 1. Nâng mức giảm trừ gia đình -->
             <tr>
-              <td colspan="2" style="background-color: var(--crimson);color: #fff;">1. Nâng mức giảm trừ gia đình</td>
+              <td colspan="2" class="table-header-crimson">1. Nâng mức giảm trừ gia đình</td>
             </tr>
             <tr>
               <td>Bản thân người nộp thuế</td>
-              <td>11.000.000/tháng → <span style="color:red;font-weight:700;">15.500.000/tháng</span></td>
+              <td>11.000.000/tháng → <span class="highlight-red">15.500.000/tháng</span></td>
             </tr>
             <tr>
               <td>Mỗi người phụ thuộc</td>
-              <td>4.400.000/tháng → <span style="color:red;font-weight:700;">6.200.000/tháng</span></td>
+              <td>4.400.000/tháng → <span class="highlight-red">6.200.000/tháng</span></td>
             </tr>
 
             <!-- 2. Biểu thuế lũy tiến -->
             <tr>
-              <td colspan="2" style="background-color: var(--crimson);color: #fff;">2. Rút gọn biểu thuế lũy tiến (bậc 5
+              <td colspan="2" class="table-header-crimson">2. Rút gọn biểu thuế lũy tiến (bậc 5
                 xuống bậc 7)</td>
             </tr>
             <tr>
@@ -228,47 +235,47 @@
 
             <!-- 3. Hộ kinh doanh nhỏ lẻ -->
             <tr>
-              <td colspan="2" style="background-color: var(--crimson);color: #fff;">3. Hộ kinh doanh nhỏ lẻ</td>
+              <td colspan="2" class="table-header-crimson">3. Hộ kinh doanh nhỏ lẻ</td>
             </tr>
             <tr>
               <td>Ngưỡng miễn thuế TNCN, GTGT</td>
-              <td>200.000.000/năm → <span style="color:red;font-weight:700;">500.000.000/năm</span></td>
+              <td>200.000.000/năm → <span class="highlight-red">500.000.000/năm</span></td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h4 style="margin-top: 3rem;">Nghị định 293/2025/NĐ-CP ngày 10/11/2025 (Phó Thủ tướng Hồ Đức Phớc ký), lương tối
+      <h4 class="mt-3">Nghị định 293/2025/NĐ-CP ngày 10/11/2025 (Phó Thủ tướng Hồ Đức Phớc ký), lương tối
         thiểu vùng tăng bình quân 7,2%, có hiệu lực từ 01/01/2026</h4>
       <div class="table-wrapper">
         <table>
           <thead>
             <tr>
-              <th>Vùng</th>
-              <th>Mức cũ (VNĐ)</th>
-              <th>Mức mới (VNĐ)</th>
+              <th scope="col">Vùng</th>
+              <th scope="col">Mức cũ (VNĐ)</th>
+              <th scope="col">Mức mới (VNĐ)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>Vùng I</strong></td>
               <td>4.960.000</td>
-              <td style="color: var(--crimson); font-weight: 700;">5.310.000</td>
+              <td class="highlight-red">5.310.000</td>
             </tr>
             <tr>
               <td><strong>Vùng II</strong></td>
               <td>4.410.000</td>
-              <td style="color: var(--crimson); font-weight: 700;">4.730.000</td>
+              <td class="highlight-red">4.730.000</td>
             </tr>
             <tr>
               <td><strong>Vùng III</strong></td>
               <td>3.860.000</td>
-              <td style="color: var(--crimson); font-weight: 700;">4.140.000</td>
+              <td class="highlight-red">4.140.000</td>
             </tr>
             <tr>
               <td><strong>Vùng IV</strong></td>
               <td>3.450.000</td>
-              <td style="color: var(--crimson); font-weight: 700;">3.700.000</td>
+              <td class="highlight-red">3.700.000</td>
             </tr>
           </tbody>
         </table>
@@ -277,69 +284,99 @@
 
     <!-- PART 3 -->
     <article id="part-5" class="dossier-part" data-aos="fade-up">
-      <div class="part-label">PHẦN 5/5</div>
-      <h3>V. Nguồn tham khảo</h3>
+      <h3>III. Nguồn tham khảo</h3>
 
       <div class="sub-box">
-        <h5 style="margin-bottom: 1rem;"><i class="fa-solid fa-file-pdf"></i> Tài liệu pháp lý gốc</h5>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
-          <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf" target="_blank"
-            class="badge badge-state" style="text-decoration: none; padding: 0.8rem; text-align: center;">Luật Thuế
-            TNCN 109/2025</a>
-          <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/3/68-ndcp.signed.pdf" target="_blank"
-            class="badge badge-state" style="text-decoration: none; padding: 0.8rem; text-align: center;">Nghị định
-            68/2026/NĐ-CP</a>
-          <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/11/293-cp.signed.pdf" target="_blank"
-            class="badge badge-state" style="text-decoration: none; padding: 0.8rem; text-align: center;">Nghị định
-            293/2025/NĐ-CP</a>
-          <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2024/7/74-cp.signed.pdf" target="_blank"
-            class="badge badge-state" style="text-decoration: none; padding: 0.8rem; text-align: center;">Nghị định
-            74/2024/NĐ-CP</a>
-          <a href="https://baochinhphu.vn/phuong-phap-tinh-thue-ho-kinh-doanh-co-doanh-thu-duoi-3-ty-102260408162033979.htm"
-            target="_blank" class="badge badge-state"
-            style="text-decoration: none; padding: 0.8rem; text-align: center;">Phương pháp tính thuế hộ kinh doanh
-            có doanh thu dưới 3 tỷ</a>
-          <a href="https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Luat-Thue-gia-tri-gia-tang-2024-so-48-2024-QH15-556390.aspx"
-            target="_blank" class="badge badge-state"
-            style="text-decoration: none; padding: 0.8rem; text-align: center;">Luật Thuế giá trị gia tăng 2024</a>
-        </div>
+        <h5><i class="fa-solid fa-file-pdf"></i> Tài liệu pháp lý gốc</h5>
+
+        <ol class="reference-list">
+          <li>
+            <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf" target="_blank">
+              Luật Thuế TNCN 109/2025
+            </a>
+          </li>
+          <li>
+            <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/3/68-ndcp.signed.pdf" target="_blank">
+              Nghị định 68/2026/NĐ-CP
+            </a>
+          </li>
+          <li>
+            <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/11/293-cp.signed.pdf" target="_blank">
+              Nghị định 293/2025/NĐ-CP
+            </a>
+          </li>
+          <li>
+            <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2024/7/74-cp.signed.pdf" target="_blank">
+              Nghị định 74/2024/NĐ-CP
+            </a>
+          </li>
+          <li>
+            <a href="https://baochinhphu.vn/phuong-phap-tinh-thue-ho-kinh-doanh-co-doanh-thu-duoi-3-ty-102260408162033979.htm"
+              target="_blank">
+              Phương pháp tính thuế hộ kinh doanh có doanh thu dưới 3 tỷ
+            </a>
+          </li>
+          <li>
+            <a href="https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Luat-Thue-gia-tri-gia-tang-2024-so-48-2024-QH15-556390.aspx"
+              target="_blank">
+              Luật Thuế giá trị gia tăng 2024
+            </a>
+          </li>
+        </ol>
       </div>
 
       <div class="sub-box">
-        <h5 style="margin-bottom: 1rem;"><i class="fa-solid fa-newspaper"></i> Tin tức & Báo chí</h5>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-          <a href="https://vietnamnet.vn/evn-bao-co-lai-nam-2025-de-xuat-dua-chi-phi-van-hanh-va-bao-tri-vao-gia-dien-2477006.html"
-            target="_blank" class="badge badge-state"
-            style="text-decoration: none; padding: 0.8rem; text-align: center;">
-            Vietnamnet, "EVN báo có lãi năm 2025, đề xuất đưa chi phí vận hành và bảo trì vào giá điện", 29/12/2025.
-          </a>
-          <a href="https://www.sggp.org.vn/suc-manh-cua-mo-hinh-hop-tac-xa-hien-dai-post825098.html" target="_blank"
-            class="badge badge-state" style="text-decoration: none; padding: 0.8rem; text-align: center;">Báo Sài Gòn
-            Giải Phóng, "Sức mạnh của
-            mô hình hợp tác xã hiện đại", 24/11/2025.</a>
-          <a href="https://vnexpress.net/vingroup-dat-doanh-thu-ky-luc-hon-7-5-ty-usd-4842985.html" target="_blank"
-            class="badge badge-state" style="text-decoration: none; padding: 0.8rem; text-align: center;">VnExpress,
-            "Vingroup đạt doanh thu
-            kỷ lục hơn 7,5 tỷ USD", 24/1/2026.</a>
-          <a href="https://npc.com.vn/tuyen-giao-dang-uy/dang-uy-tap-doan-dien-luc-viet-nam-evn-to-chuc-hoi-nghi-tong-ket-cong-tac-dang-nam-2025-trien-khai-nhiem-vu-nam-2026-47993.html"
-            target="_blank" class="badge badge-state"
-            style="text-decoration: none; padding: 0.8rem; text-align: center;">EVN NPC, “Đảng uỷ Tập đoàn Điện lực Việt
-            Nam (EVN) tổ chức Hội nghị tổng kết công tác Đảng năm 2025, triển khai nhiệm vụ năm 2026”.</a>
-        </div>
+        <h5><i class="fa-solid fa-newspaper"></i> Tin tức & Báo chí</h5>
+
+        <ol class="reference-list">
+          <li>
+            Vietnamnet,
+            <a href="https://vietnamnet.vn/evn-bao-co-lai-nam-2025-de-xuat-dua-chi-phi-van-hanh-va-bao-tri-vao-gia-dien-2477006.html"
+              target="_blank">
+              EVN báo có lãi năm 2025, đề xuất đưa chi phí vận hành và bảo trì vào giá điện
+            </a>,
+            29/12/2025.
+          </li>
+          <li>
+            Báo Sài Gòn Giải Phóng,
+            <a href="https://www.sggp.org.vn/suc-manh-cua-mo-hinh-hop-tac-xa-hien-dai-post825098.html" target="_blank">
+              Sức mạnh của mô hình hợp tác xã hiện đại
+            </a>,
+            24/11/2025.
+          </li>
+          <li>
+            VnExpress,
+            <a href="https://vnexpress.net/vingroup-dat-doanh-thu-ky-luc-hon-7-5-ty-usd-4842985.html" target="_blank">
+              Vingroup đạt doanh thu kỷ lục hơn 7,5 tỷ USD
+            </a>,
+            24/1/2026.
+          </li>
+          <li>
+            EVN NPC,
+            <a href="https://npc.com.vn/tuyen-giao-dang-uy/dang-uy-tap-doan-dien-luc-viet-nam-evn-to-chuc-hoi-nghi-tong-ket-cong-tac-dang-nam-2025-trien-khai-nhiem-vu-nam-2026-47993.html"
+              target="_blank">
+              Đảng uỷ Tập đoàn Điện lực Việt Nam (EVN) tổ chức Hội nghị tổng kết công tác Đảng năm 2025,
+              triển khai nhiệm vụ năm 2026
+            </a>,
+            06/01/2026.
+          </li>
+        </ol>
       </div>
     </article>
 
-  </div>
+  </main>
 
   <footer>
     <p><strong>Sở hữu và Phân phối trong Nền kinh tế Thị trường định hướng XHCN ở Việt Nam</strong></p>
     <p>MLN122 · FPT University · 2026</p>
-    <div style="margin-top:1rem;">
+    <p style="margin-top:1rem;">
       <a href="index.html">Home</a>
       <a href="content.html">Nội dung</a>
       <a href="game.html">Game</a>
+      <a href="ai-usage.html">AI Usage</a>
       <a href="evidence.html">Dẫn chứng</a>
-    </div>
+      <a href="about.html">About Us</a>
+    </p>
   </footer>
 
   <!-- Modal Structure -->
@@ -456,17 +493,11 @@
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
       document.getElementById("readingProgress").style.width = scrolled + "%";
+    });
 
-      // Update Active TOC
-      const sections = document.querySelectorAll("section[id], article[id]");
-      let current = "";
-      sections.forEach(section => {
-        if (winScroll >= section.offsetTop - 200) current = section.getAttribute("id");
-      });
-      document.querySelectorAll(".sticky-toc a").forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === "#" + current) link.classList.add("active");
-      });
+    // Close modal on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeEvidenceModal();
     });
 
     // Modal
@@ -491,7 +522,7 @@
     // Init
     document.addEventListener('DOMContentLoaded', () => {
       AOS.init({ once: true, duration: 800 });
-      VanillaTilt.init(document.querySelectorAll(".stat-card, .detail-card, .sub-box, .callout"), {
+      VanillaTilt.init(document.querySelectorAll(".detail-card"), {
         max: 6, speed: 600, glare: true, "max-glare": 0.1
       });
     });
