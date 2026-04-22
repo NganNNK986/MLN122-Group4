@@ -19,6 +19,10 @@
 
 <body>
 
+  <div class="progress-container">
+    <div class="progress-bar" id="readingProgress"></div>
+  </div>
+
   <nav class="navbar">
     <a class="navbar-brand" href="index.html"><span class="brand-code">MLN122</span> · Nhóm 4</a>
     <ul class="navbar-nav">
@@ -91,9 +95,10 @@
             <td><span class="badge badge-state">Sở hữu toàn dân</span></td>
             <td>Kinh tế nhà nước</td>
             <td>
-              - Phân phối lao động và hiệu quả kinh tế<br/>
-              - Phân phối theo giá cả sức lao động<br/>
-              - Phân phối theo vốn và tài sản
+              - Phân phối lao động và hiệu quả kinh tế<br />
+              - Phân phối theo giá cả sức lao động<br />
+              - Phân phối theo vốn và tài sản<br />
+              - Phân phối qua công cụ điều tiết của Nhà nước
             </td>
           </tr>
           <tr>
@@ -105,7 +110,7 @@
             <td><span class="badge badge-collective">Sở hữu tập thể</span></td>
             <td>Kinh tế tập thể</td>
             <td>
-              - Phân phối theo giá cả sức lao động và hiệu quả kinh tế<br/>
+              - Phân phối theo lao động và hiệu quả kinh tế<br />
               - Phân phối theo giá cả sức lao động
             </td>
           </tr>
@@ -118,8 +123,8 @@
             <td><span class="badge badge-private">Sở hữu tư nhân</span></td>
             <td>Kinh tế tư bản tư nhân</td>
             <td>
-              - Phân phối theo giá cả sức lao động và hiệu quả kinh tế<br/>
-              - Phân phối theo giá cả sức lao động<br/>
+              - Phân phối theo lao động và hiệu quả kinh tế<br />
+              - Phân phối theo giá cả sức lao động<br />
               - Phân phối theo vốn và tài sản
             </td>
           </tr>
@@ -140,23 +145,22 @@
 
       <div class="detail-card" style="cursor: pointer;" onclick="openEvidenceModal('evn')" title="Nhấn để xem chi tiết">
         <div class="detail-card-logo logo-1">
-          <img
-            src="src/assets/images/env.png"
-            alt="EVN logo" />
+          <img src="src/assets/images/env.png" alt="EVN logo" />
         </div>
         <h3>Tập đoàn điện lực Việt Nam</h3>
         <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Toàn dân</span></div>
         <div class="detail-row"><span class="key">Thành phần</span><span class="val">Kinh tế nhà nước</span></div>
         <div class="detail-row"><span class="key">Quy mô</span><span class="val">DT 645.195 tỷ (2025)</span></div>
-        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Lao động, Giá cả sức LĐ, Vốn</span></div>
-        <div class="detail-row"><span class="key">Vai trò</span><span class="val">Đảm bảo an ninh năng lượng</span></div>
+        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Lao động, Giá cả sức LĐ, Vốn</span>
+        </div>
+        <div class="detail-row"><span class="key">Vai trò</span><span class="val">Đảm bảo an ninh năng lượng</span>
+        </div>
       </div>
 
-      <div class="detail-card" style="cursor: pointer;" onclick="openEvidenceModal('saigon-coop')" title="Nhấn để xem chi tiết">
+      <div class="detail-card" style="cursor: pointer;" onclick="openEvidenceModal('saigon-coop')"
+        title="Nhấn để xem chi tiết">
         <div class="detail-card-logo logo-2">
-          <img
-            src="src/assets/images/coop.png"
-            alt="Saigon Co.op logo" style="max-height: 50px;" />
+          <img src="src/assets/images/coop.png" alt="Saigon Co.op logo" style="max-height: 50px;" />
         </div>
         <h3>Liên hiệp HTX Thương mại TP.HCM</h3>
         <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Tập thể</span></div>
@@ -166,30 +170,383 @@
         <div class="detail-row"><span class="key">Vai trò</span><span class="val">Bình ổn giá 9 nhóm hàng</span></div>
       </div>
 
-      <div class="detail-card" style="cursor: pointer;" onclick="openEvidenceModal('vingroup')" title="Nhấn để xem chi tiết">
+      <div class="detail-card" style="cursor: pointer;" onclick="openEvidenceModal('vingroup')"
+        title="Nhấn để xem chi tiết">
         <div class="detail-card-logo logo-3">
-          <img
-            src="src/assets/images/vin.png"
-            alt="Vingroup logo" />
+          <img src="src/assets/images/vin.png" alt="Vingroup logo" />
         </div>
         <h3>Tập đoàn VinGroup</h3>
         <div class="detail-row"><span class="key">Sở hữu</span><span class="val">Tư nhân</span></div>
         <div class="detail-row"><span class="key">Thành phần</span><span class="val">Tư bản tư nhân</span></div>
         <div class="detail-row"><span class="key">Quy mô</span><span class="val">DT 332.770 tỷ (2025)</span></div>
-        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Lao động, Giá cả sức LĐ, Vốn</span></div>
+        <div class="detail-row"><span class="key">Phân phối</span><span class="val">Lao động, Giá cả sức LĐ, Vốn</span>
+        </div>
         <div class="detail-row"><span class="key">Vai trò</span><span class="val">Động lực phát triển</span></div>
       </div>
 
     </div>
 
-    <!-- NOTE -->
-    <div class="note-box" data-aos="zoom-in" data-aos-duration="800">
+    <!-- DOSSIER LAYOUT -->
+    <div class="dossier-layout">
+
+      <!-- STICKY TOC -->
+      <aside class="sticky-toc" data-aos="fade-right">
+        <h4>Mục lục hồ sơ</h4>
+        <ul>
+          <li><a href="#intro" class="active"><span class="num">0.</span> Tổng quan điều tiết</a></li>
+          <li><a href="#part-1"><span class="num">1.</span> Khái niệm & Vai trò</a></li>
+          <li><a href="#part-2"><span class="num">2.</span> Chính sách Thuế TNCN</a></li>
+          <li><a href="#part-3"><span class="num">3.</span> Lương tối thiểu vùng</a></li>
+          <li><a href="#part-4"><span class="num">4.</span> Bảng biểu thống kê</a></li>
+          <li><a href="#part-5"><span class="num">5.</span> Nguồn tham khảo</a></li>
+        </ul>
+      </aside>
+
+      <div class="dossier-container">
+
+        <!-- INTRO SECTION -->
+        <section id="intro" data-aos="fade-up" style="margin-bottom: 6rem;">
+          <div class="note-box note-box-light" style="margin-bottom: 3rem;">
+            <div class="icon" style="color: var(--crimson);"><i class="fa-solid fa-quote-left"></i></div>
+            <p style="font-style: italic; color: var(--crimson-dk); font-weight: 500;">
+              "Nếu thực hiện phương thức tái phân phối theo thu nhập của nhà nước thì thực hiện ra làm sao, cụ thể như
+              thế
+              nào, năm ngoái các chính sách đã thay đổi như thế nào -> đưa mục này vào ví dụ thực tiễn?"
+            </p>
+          </div>
+
+          <div style="line-height: 1.8; color: var(--gray-md);">
+            <p>
+              Tái phân phối thu nhập là cách Nhà nước đóng vai trò như một "người điều tiết", lấy một phần từ sự phồn
+              vinh
+              của nhóm có thu nhập cao để hỗ trợ, bù đắp cho nhóm yếu thế hoặc có thu nhập thấp hơn. Mục tiêu cuối cùng
+              là
+              thu hẹp khoảng cách giàu nghèo và đảm bảo công bằng xã hội.
+            </p>
+            <p style="margin-top: 1.5rem;">
+              <strong>1. Để thực hiện việc điều tiết này, Nhà nước không thể đơn thuần "lấy của người giàu chia cho
+                người
+                nghèo" một cách trực tiếp, mà phải thông qua một hệ thống các công cụ kinh tế vĩ mô tinh vi:</strong>
+            </p>
+            <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+              <li style="margin-bottom: 0.8rem;"><strong>Công cụ Thuế:</strong> Thông qua Thuế thu nhập cá nhân (TNCN)
+                đánh theo biểu thuế "lũy tiến từng phần", người kiếm được càng nhiều tiền thì tỷ lệ đóng thuế càng cao.
+                Các loại thuế tài sản, thuế tiêu thụ đặc biệt (đánh vào hàng hóa xa xỉ) cũng phục vụ mục đích này.</li>
+              <li style="margin-bottom: 0.8rem;"><strong>Chi ngân sách cho An sinh xã hội và Dịch vụ công:</strong> Dòng
+                tiền thu được từ thuế sẽ được Nhà nước bơm ngược lại vào xã hội thông qua các hình thức:
+                <ul style="padding-left: 1.2rem; margin-top: 0.5rem;">
+                  <li>+ Trợ cấp trực tiếp: cho người nghèo, người khuyết tật, người có công</li>
+                  <li>+ Miễn giảm học phí, cung cấp bảo hiểm y tế miễn phí hoặc giá rẻ cho các nhóm yếu thế.</li>
+                  <li>+ Đầu tư cơ sở hạ tầng như điện, đường, trường, trạm ở các vùng sâu, vùng xa để người dân ở đây có
+                    cơ
+                    hội phát triển ngang bằng với thành thị</li>
+                </ul>
+              </li>
+              <li><strong>Can thiệp vào thị trường lao động:</strong> Quy định mức lương tối thiểu vùng để bảo vệ người
+                lao
+                động yếu thế không bị bóc lột sức lao động với mức giá quá rẻ mạt; đồng thời liên tục cải cách tiền
+                lương
+                cho khu vực công</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- PART 1 -->
+        <section class="dossier-part" id="part-1" data-aos="fade-up">
+          <div class="part-label">Phần 1/5</div>
+          <h3>I. Khái niệm và vai trò</h3>
+          <p>
+            Tái phân phối thu nhập là cơ chế Nhà nước đóng vai trò "người điều tiết" — thu một phần từ nhóm có thu nhập
+            cao để hỗ trợ nhóm yếu thế và thu nhập thấp. Mục tiêu cuối cùng là thu hẹp khoảng cách giàu nghèo và đảm bảo
+            công bằng xã hội, phù hợp với định hướng kinh tế thị trường xã hội chủ nghĩa của Việt Nam.
+          </p>
+          <p style=<div style="margin-top: 2rem;">
+            <!-- PART 2 -->
+          <section class="dossier-part" id="part-2" data-aos="fade-up">
+            <div class="part-label">Phần 2/5</div>
+            <h3>II. Ví dụ thực tiễn: Thuế TNCN</h3>
+            <h4 style="margin-top: 0;">1. Luật Thuế TNCN sửa đổi - Quốc hội thông qua ngày 10/12/2025</h4>
+            <p>
+              Luật Thuế TNCN sửa đổi được Quốc hội thông qua ngày 10/12/2025 và có hiệu lực từ ngày 1/7/2026, đánh dấu
+              bước
+              thay đổi lớn trong chính sách thuế, giúp giảm gánh nặng cho hàng chục triệu người dân có thu nhập từ tiền
+              lương, tiền công.
+            </p>
+
+            <h4 style="font-size: 1.1rem; color: var(--crimson-dk);">Thay đổi 1: Nâng mức giảm trừ gia cảnh</h4>
+            <p>
+              Ngày 17/10/2025, tại Phiên họp thứ 50, Ủy ban Thường vụ Quốc hội đã thông qua Nghị quyết 110/2025/UBTVQH15
+              điều chỉnh mức giảm trừ gia cảnh của thuế TNCN, có hiệu lực từ ngày 01/01/2026.
+            </p>
+            <p>
+              Cụ thể: Mức giảm trừ cho bản thân người nộp thuế tăng lên 15,5 triệu đồng/tháng (tương đương 186 triệu
+              đồng/năm), mức giảm trừ cho mỗi người phụ thuộc tăng lên 6,2 triệu đồng/tháng - tăng gần 41% so với mức cũ
+              theo Nghị quyết 954/2020.
+            </p>
+            <div class="note-box note-box-light"
+              style="padding: 1rem 1.5rem; border-left: 4px solid var(--gold); margin: 1.5rem 0;">
+              <p style="margin-bottom: 0; font-size: 0.95rem; font-style: italic;">
+                <strong>Ý nghĩa:</strong> Khi Luật có hiệu lực, cá nhân không có người phụ thuộc với thu nhập 17 triệu
+                đồng/tháng sẽ không phải
+                nộp thuế. Dòng tiền được giữ lại tay người lao động, trực tiếp nâng cao mức sống tầng lớp trung lưu và
+                thu
+                nhập tầm trung.
+              </p>
+            </div>
+
+            <h4 style="font-size: 1.1rem; color: var(--crimson-dk); margin-top: 2.5rem;">Thay đổi 2: Rút gọn biểu thuế
+              lũy tiến</h4>
+            <p>
+              Mức thuế suất thấp nhất 5% áp dụng cho thu nhập tính thuế đến 10 triệu đồng/tháng và mức tối đa 35% áp
+              dụng
+              cho phần thu nhập vượt 100 triệu đồng/tháng. Biểu thuế mới giúp tất cả các cá nhân đang thực hiện nộp thuế
+              ở
+              các bậc hiện nay đều được giảm nghĩa vụ thuế.
+            </p>
+            <div class="note-box note-box-light"
+              style="padding: 1rem 1.5rem; border-left: 4px solid var(--gold); margin: 1.5rem 0;">
+              <p style="margin-bottom: 0; font-size: 0.95rem; font-style: italic;">
+                <strong>Ý nghĩa tái phân phối:</strong> Nhóm siêu giàu (thu nhập trên 100 triệu/tháng) vẫn đóng thuế
+                suất cao nhất 35% - tiếp
+                tục là nguồn đóng góp chủ lực cho ngân sách. Nhóm thu nhập trung bình được "giãn bậc", nộp ít đi.
+              </p>
+            </div>
+
+            <h4 style="font-size: 1.1rem; color: var(--crimson-dk); margin-top: 2.5rem;">Thay đổi 3: Hộ kinh doanh nhỏ
+              lẻ</h4>
+            <p>
+              Mức doanh thu không phải nộp thuế của hộ và cá nhân kinh doanh được nâng từ 200 triệu đồng/năm lên 500
+              triệu
+              đồng/năm. Cá nhân và hộ kinh doanh có doanh thu dưới 500 triệu đồng sẽ không phải chịu cả thuế TNCN lẫn
+              thuế
+              GTGT.
+            </p>
+            <div class="note-box note-box-light"
+              style="padding: 1rem 1.5rem; border-left: 4px solid var(--gold); margin: 1.5rem 0;">
+              <p style="margin-bottom: 0; font-size: 0.95rem; font-style: italic;">
+                <strong>Ý nghĩa:</strong> Nhà nước chấp nhận hụt thu ngân sách để bảo vệ sinh kế cho những hàng rong,
+                tiệm tạp hóa nhỏ, xe ôm
+                công nghệ - những người dễ bị tổn thương nhất trong nền kinh tế.
+              </p>
+            </div>
+          </section>
+
+          <!-- PART 3 -->
+          <section class="dossier-part" id="part-3" data-aos="fade-up">
+            <div class="part-label">Phần 3/5</div>
+            <h3>III. Lương tối thiểu vùng</h3>
+            <h4>Nghị định 293/2025/NĐ-CP</h4>
+            <p>
+              Thay mặt Chính phủ, Phó Thủ tướng Hồ Đức Phớc ký ban hành Nghị định số 293/2025/NĐ-CP ngày 10/11/2025 quy
+              định
+              mức lương tối thiểu đối với người lao động làm việc theo hợp đồng lao động, có hiệu lực từ 01/01/2026.
+            </p>
+            <p>
+              Mức lương tối thiểu được điều chỉnh tăng bình quân 7,2%, tương ứng từ 250.000–350.000 đồng/tháng tùy theo
+              vùng:
+            </p>
+            <div class="note-box note-box-light" style="margin: 2rem 0; text-align: center;">
+              <p style="margin-bottom: 0; font-weight: 600; color: var(--crimson-dk);">
+                Vùng I: 5.310.000 VNĐ | Vùng II: 4.730.000 VNĐ | Vùng III: 4.140.000 VNĐ | Vùng IV: 3.700.000 VNĐ
+              </p>
+            </div>
+            <div class="note-box note-box-dark">
+              <div class="icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <p style="margin-bottom: 0;">
+                <strong>Ý nghĩa:</strong> Đây là công cụ can thiệp trực tiếp vào thị trường lao động - bảo vệ người lao
+                động yếu thế khỏi bị trả lương quá thấp, góp phần thu hẹp khoảng cách thu nhập giữa các tầng lớp xã hội.
+              </p>
+            </div>
+          </section>
+
+          <!-- PART 4 -->
+          <section class="dossier-part" id="part-4" data-aos="fade-up">
+            <div class="part-label">Phần 4/5</div>
+            <h3>IV. Bảng biểu thống kê</h3>
+
+            <h4>Bảng Hệ thống công cụ điều tiết</h4>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Công cụ thuế</th>
+                    <th>An sinh xã hội & Dịch vụ công</th>
+                    <th>Thị trường lao động</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      - Thuế TNCN lũy tiến<br />
+                      - Thuế tiêu thụ đặc biệt<br />
+                      - Thuế tài sản
+                    </td>
+                    <td>
+                      - Trợ cấp trực tiếp (người nghèo, người<br />có công<br />
+                      - Miễn giảm học phí, BHYT cho nhóm<br />yếu thế<br />
+                      - Đầu tư hạ tầng vùng sâu, vùng xa
+                    </td>
+                    <td>
+                      - Quy định lương tối thiểu vùng<br />
+                      - Cải cách tiền lương khu vực công
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="note-box note-box-light"
+              style="padding: 1rem; font-size: 0.85rem; border-style: dotted; margin-top: 1rem;">
+              <p style="margin-bottom: 0;"><strong>Ghi chú trích xuất:</strong> Trong ô “An sinh xã hội & Dịch vụ công”,
+                dòng “- Trợ cấp trực tiếp
+                (người nghèo, người” và dòng “có công” bị ngắt dòng/thiếu dấu đóng ngoặc đúng như bản trích xuất nguyên
+                văn.
+              </p>
+            </div>
+
+            <h4 style="margin-top: 4rem;">So sánh mức giảm trừ gia cảnh (Dự kiến 2026)</h4>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Đối tượng</th>
+                    <th>Mức cũ (Nghị quyết 954)</th>
+                    <th>Mức mới (Nghị quyết 110)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Bản thân người nộp thuế</strong></td>
+                    <td>11.000.000/tháng</td>
+                    <td><strong style="color: var(--crimson);">15.500.000/tháng</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mỗi người phụ thuộc</strong></td>
+                    <td>4.400.000/tháng</td>
+                    <td><strong style="color: var(--crimson);">6.200.000/tháng</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="margin-top: 4rem;">Lương tối thiểu vùng (Áp dụng từ 01/01/2026)</h4>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Vùng</th>
+                    <th style="text-align: right;">Mức cũ (VNĐ)</th>
+                    <th style="text-align: right;">Mức mới (VNĐ)</th>
+                    <th style="text-align: right;">Tăng trưởng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Vùng I</strong></td>
+                    <td style="text-align: right;">4.960.000</td>
+                    <td style="text-align: right; font-weight: 700; color: var(--crimson);">5.310.000</td>
+                    <td style="text-align: right;">+350.000</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Vùng II</strong></td>
+                    <td style="text-align: right;">4.410.000</td>
+                    <td style="text-align: right; font-weight: 700; color: var(--crimson);">4.730.000</td>
+                    <td style="text-align: right;">+320.000</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Vùng III</strong></td>
+                    <td style="text-align: right;">3.860.000</td>
+                    <td style="text-align: right; font-weight: 700; color: var(--crimson);">4.140.000</td>
+                    <td style="text-align: right;">+280.000</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Vùng IV</strong></td>
+                    <td style="text-align: right;">3.450.000</td>
+                    <td style="text-align: right; font-weight: 700; color: var(--crimson);">3.700.000</td>
+                    <td style="text-align: right;">+250.000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- PART 5 -->
+          <section class="dossier-part" id="part-5" data-aos="fade-up">
+            <div class="part-label">Phần 5/5</div>
+            <h3>V. Nguồn tham khảo</h3>
+
+            <div class="note-box note-box-light" style="margin-bottom: 2rem;">
+              <div style="width: 100%;">
+                <p
+                  style="font-size: 1.1rem; color: var(--crimson-dk); font-weight: 700; margin-bottom: 1.2rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
+                  <i class="fa-solid fa-file-shield" style="margin-right: 0.5rem;"></i> Liên kết tài liệu gốc
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+                  <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf" target="_blank"
+                    style="color: var(--gray-md); text-decoration: none; padding: 0.8rem; border-radius: 8px; background: #fff; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s; display: block;">
+                    <i class="fa-solid fa-file-pdf" style="color: var(--crimson);"></i> Luật Thuế TNCN 109/2025
+                  </a>
+                  <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/3/68-ndcp.signed.pdf" target="_blank"
+                    style="color: var(--gray-md); text-decoration: none; padding: 0.8rem; border-radius: 8px; background: #fff; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s; display: block;">
+                    <i class="fa-solid fa-file-pdf" style="color: var(--crimson);"></i> Nghị định 68/2026/NĐ-CP
+                  </a>
+                  <a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/11/293-cp.signed.pdf" target="_blank"
+                    style="color: var(--gray-md); text-decoration: none; padding: 0.8rem; border-radius: 8px; background: #fff; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s; display: block;">
+                    <i class="fa-solid fa-file-pdf" style="color: var(--crimson);"></i> Nghị định 293/2025/NĐ-CP
+                  </a>
+                  <a href="https://baochinhphu.vn/phuong-phap-tinh-thue-ho-kinh-doanh-co-doanh-thu-duoi-3-ty-102260408162033979.htm"
+                    target="_blank"
+                    style="color: var(--gray-md); text-decoration: none; padding: 0.8rem; border-radius: 8px; background: #fff; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s; display: block;">
+                    <i class="fa-solid fa-globe" style="color: var(--crimson);"></i> Thuế hộ kinh doanh - Chính phủ
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-box note-box-light">
+              <div style="width: 100%;">
+                <p
+                  style="font-size: 1.1rem; color: var(--crimson-dk); font-weight: 700; margin-bottom: 1.2rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
+                  <i class="fa-solid fa-newspaper" style="margin-right: 0.5rem;"></i> Tin tức & Báo chí
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;">
+                  <div
+                    style="background: #fff; padding: 1.2rem; border-radius: 12px; border-left: 4px solid var(--crimson); box-shadow: var(--shadow-sm);">
+                    <strong style="color: var(--gray);">Vietnamnet (29/12/2025):</strong><br />
+                    <span style="font-size: 0.9rem; color: var(--gray-md); display: block; margin: 0.4rem 0;">"EVN báo
+                      có lãi năm 2025, đề xuất đưa chi phí vận hành..."</span>
+                    <a href="https://vietnamnet.vn/evn-bao-co-lai-nam-2025-de-xuat-dua-chi-phi-van-hanh-va-bao-tri-vao-gia-dien-2477006.html"
+                      target="_blank"
+                      style="color: var(--crimson); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Truy
+                      cập bài viết &rarr;</a>
+                  </div>
+                  <div
+                    style="background: #fff; padding: 1.2rem; border-radius: 12px; border-left: 4px solid var(--crimson); box-shadow: var(--shadow-sm);">
+                    <strong style="color: var(--gray);">VnExpress (24/1/2026):</strong><br />
+                    <span style="font-size: 0.9rem; color: var(--gray-md); display: block; margin: 0.4rem 0;">"Vingroup
+                      đạt doanh thu kỷ lục hơn 7,5 tỷ USD..."</span>
+                    <a href="https://vnexpress.net/vingroup-dat-doanh-thu-ky-luc-hon-7-5-ty-usd-4842985.html"
+                      target="_blank"
+                      style="color: var(--crimson); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Truy
+                      cập bài viết &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+      </div>
+    </div>
+
+    <!-- FINAL NOTE -->
+    <div class="note-box note-box-dark" data-aos="zoom-in" data-aos-duration="800" style="margin-top: 6rem;">
       <div class="icon"><i class="fa-solid fa-thumbtack"></i></div>
-      <p>
-        Bốn doanh nghiệp trên <strong>minh hoạ sinh động</strong> sự đan xen và cùng tồn tại của nhiều hình thức sở hữu
-        trong nền kinh tế Việt Nam. Không một hình thức nào bị triệt tiêu; thay vào đó, chúng bổ sung cho nhau dưới sự
-        định hướng của Nhà nước, <strong>thể hiện bản chất kinh tế thị trường định hướng xã hội chủ nghĩa</strong> đúng
-        theo lý luận Marxist về quan hệ sản xuất trong thời kỳ quá độ.
+      <p style="margin-bottom: 0;">
+        Sự kết hợp giữa <strong>phân phối lần đầu</strong> tại doanh nghiệp và <strong>tái phân phối</strong> qua ngân
+        sách Nhà nước
+        tạo nên một hệ thống phân phối đa dạng, công bằng. Điều này không chỉ thúc đẩy động lực kinh tế (qua Vingroup,
+        EVN...)
+        mà còn đảm bảo tính nhân văn, định hướng xã hội chủ nghĩa, giúp mọi tầng lớp nhân dân đều được thụ hưởng thành
+        quả phát triển.
       </p>
     </div>
 
@@ -198,14 +555,14 @@
   <footer>
     <p><strong>Sở hữu và Phân phối trong Nền kinh tế Thị trường định hướng XHCN ở Việt Nam</strong></p>
     <p>MLN122 · FPT University · 2026</p>
-    <p style="margin-top:0.5rem;">
-      <a href="index.html">Home</a> &nbsp;·&nbsp;
-      <a href="content.html">Nội dung</a> &nbsp;·&nbsp;
-      <a href="game.html">Game</a> &nbsp;·&nbsp;
-      <a href="ai-usage.html">AI Usage</a> &nbsp;·&nbsp;
-      <a href="evidence.html">Dẫn chứng</a> &nbsp;·&nbsp;
+    <div style="margin-top:1.5rem; display: flex; justify-content: center; gap: 1.5rem;">
+      <a href="index.html">Home</a>
+      <a href="content.html">Nội dung</a>
+      <a href="game.html">Game</a>
+      <a href="ai-usage.html">AI Usage</a>
+      <a href="evidence.html">Dẫn chứng</a>
       <a href="about.html">About Us</a>
-    </p>
+    </div>
   </footer>
 
   <!-- Modal Structure -->
@@ -219,44 +576,133 @@
   <!-- Hidden Content Templates -->
   <template id="modal-evn">
     <h3>1. Tập đoàn điện lực Việt Nam (EVN)</h3>
-    <p><strong>Hình thức sở hữu:</strong> Sở hữu toàn dân — toàn bộ tư liệu sản xuất chiến lược bao gồm hệ thống nhà máy điện, đường dây truyền tải 500kV, trạm biến áp và hạ tầng lưới điện quốc gia đều thuộc sở hữu của toàn thể nhân dân, do Nhà nước đại diện quản lý và định đoạt.</p>
-    <p><strong>Quy mô:</strong> Tổng doanh thu hợp nhất năm 2025 ước đạt 645.195 tỷ đồng, tăng 10,3% so với 2024; vốn chủ sở hữu ước đạt 245.000 tỷ đồng. Về hạ tầng, tổng công suất nguồn điện toàn hệ thống đạt khoảng 87.600 MW, đứng thứ 2 khu vực ASEAN — phản ánh quy mô khổng lồ của khối tư liệu sản xuất đang được đặt dưới chế độ sở hữu toàn dân.</p>
-    <p><strong>Thành phần kinh tế:</strong> Thuộc kinh tế nhà nước — EVN hoạt động theo định hướng Nhà nước giao, đảm bảo an ninh năng lượng quốc gia và cung cấp điện ổn định cho toàn bộ nền kinh tế, kể cả các vùng sâu vùng xa không có giá trị thương mại, không thuần túy vì lợi nhuận. Điều này thể hiện đúng vai trò "chủ đạo" mà Đại hội X xác định cho kinh tế nhà nước trong nền kinh tế thị trường định hướng xã hội chủ nghĩa.</p>
+    <p><strong>Hình thức sở hữu:</strong> Sở hữu toàn dân — toàn bộ tư liệu sản xuất chiến lược bao gồm hệ thống nhà máy
+      điện, đường dây truyền tải 500kV, trạm biến áp và hạ tầng lưới điện quốc gia đều thuộc sở hữu của toàn thể nhân
+      dân, do Nhà nước đại diện quản lý và định đoạt.</p>
+    <p><strong>Quy mô:</strong> Tổng doanh thu hợp nhất năm 2025 ước đạt 645.195 tỷ đồng, tăng 10,3% so với 2024; vốn
+      chủ sở hữu ước đạt 245.000 tỷ đồng. Về hạ tầng, tổng công suất nguồn điện toàn hệ thống đạt khoảng 87.600 MW, đứng
+      thứ 2 khu vực ASEAN — phản ánh quy mô khổng lồ của khối tư liệu sản xuất đang được đặt dưới chế độ sở hữu toàn
+      dân.</p>
+    <p><strong>Thành phần kinh tế:</strong> Thuộc kinh tế nhà nước — EVN hoạt động theo định hướng Nhà nước giao, đảm
+      bảo an ninh năng lượng quốc gia và cung cấp điện ổn định cho toàn bộ nền kinh tế, kể cả các vùng sâu vùng xa không
+      có giá trị thương mại, không thuần túy vì lợi nhuận. Điều này thể hiện đúng vai trò "chủ đạo" mà Đại hội X xác
+      định cho kinh tế nhà nước trong nền kinh tế thị trường định hướng xã hội chủ nghĩa.</p>
     <p><strong>Hình thức phân phối:</strong></p>
     <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
-      <li><strong>Phân phối theo lao động và hiệu quả kinh tế:</strong> người lao động được trả lương dựa trên vị trí, đóng góp, và năng suất làm việc; năm 2025, tập đoàn EVN nộp ngân sách nhà nước đạt 26.351 tỷ đồng, phần lợi nhuận còn lại tái đầu tư vào hạ tầng điện theo quyết định của Nhà nước</li>
-      <li><strong>Phân phối theo giá cả sức lao động:</strong> Đối với lao động hợp đồng ngắn hạn, lao động thời vụ (thi công đường dây, bảo trì...), EVN trả lương theo thỏa thuận hợp đồng, phản ánh quan hệ cung–cầu lao động trên thị trường</li>
-      <li><strong>Phân phối theo vốn và tài sản:</strong> EVN sở hữu hệ thống cơ sở hạ tầng điện lực như nhà máy, đường dây, trạm biến áp... do Nhà nước đầu tư vốn. Lợi nhuận từ hoạt động kinh doanh điện được phân phối lại cho Nhà nước với tư cách là chủ sở hữu vốn. Ngoài ra, EVN có phát hành trái phiếu để huy động vốn — người mua trái phiếu nhận lãi suất theo tỷ lệ đầu tư</li>
+      <li><strong>Phân phối theo lao động và hiệu quả kinh tế:</strong> người lao động được trả lương dựa trên vị trí,
+        đóng góp, và năng suất làm việc; năm 2025, tập đoàn EVN nộp ngân sách nhà nước đạt 26.351 tỷ đồng, phần lợi
+        nhuận còn lại tái đầu tư vào hạ tầng điện theo quyết định của Nhà nước</li>
+      <li><strong>Phân phối theo giá cả sức lao động:</strong> Đối với lao động hợp đồng ngắn hạn, lao động thời vụ (thi
+        công đường dây, bảo trì...), EVN trả lương theo thỏa thuận hợp đồng, phản ánh quan hệ cung–cầu lao động trên thị
+        trường</li>
+      <li><strong>Phân phối theo vốn và tài sản:</strong> EVN sở hữu hệ thống cơ sở hạ tầng điện lực như nhà máy, đường
+        dây, trạm biến áp... do Nhà nước đầu tư vốn. Lợi nhuận từ hoạt động kinh doanh điện được phân phối lại cho Nhà
+        nước với tư cách là chủ sở hữu vốn. Ngoài ra, EVN có phát hành trái phiếu để huy động vốn — người mua trái phiếu
+        nhận lãi suất theo tỷ lệ đầu tư</li>
+      <li><strong>Phân phối thông qua các công cụ điều tiết của Nhà nước:</strong> EVN là doanh nghiệp thuộc sở hữu toàn
+        dân, do Nhà nước nắm giữ 100% vốn. Vì vậy, EVN còn có nghĩa vụ nộp toàn bộ lợi nhuận sau thuế về ngân sách Nhà
+        nước. Nguồn thu này sau đó được Nhà nước sử dụng để tái phân phối lại cho xã hội thông qua các hình thức như trợ
+        giá điện cho hộ nghèo và vùng sâu vùng xa, đầu tư kéo điện lưới đến những khu vực không có lợi nhuận thương mại,
+        xây dựng đường, trường, trạm y tế tại các địa bàn khó khăn.</li>
     </ul>
-    <p><strong>&rarr;</strong> EVN là doanh nghiệp thuộc sở hữu toàn dân, do Nhà nước nắm giữ 100% vốn. Vì vậy, EVN còn có nghĩa vụ nộp toàn bộ lợi nhuận sau thuế về ngân sách Nhà nước. Nguồn thu này sau đó được Nhà nước sử dụng để tái phân phối lại cho xã hội thông qua các hình thức như trợ giá điện cho hộ nghèo và vùng sâu vùng xa, đầu tư kéo điện lưới đến những khu vực không có lợi nhuận thương mại, xây dựng đường, trường, trạm y tế tại các địa bàn khó khăn.</p>
   </template>
 
   <template id="modal-saigon-coop">
     <h3>2. Liên hiệp Hợp tác xã Thương mại TP.HCM (Saigon Co.op)</h3>
-    <p><strong>Hình thức sở hữu:</strong> Sở hữu tập thể — toàn bộ tư liệu sản xuất và hệ thống phân phối bao gồm chuỗi siêu thị, kho bãi, hạ tầng logistics đều thuộc sở hữu chung của tập thể thành viên. Các thành viên cùng góp vốn, cùng quản lý và cùng thụ hưởng lợi ích theo nguyên tắc dân chủ, bình đẳng.</p>
-    <p><strong>Quy mô:</strong> Tổng doanh thu năm 2025 đạt hơn 32.000 tỷ đồng, với hơn 800 điểm bán trên toàn quốc và gần 15.000 lao động, là hợp tác xã bán lẻ lớn nhất Việt Nam.</p>
-    <p><strong>Thành phần kinh tế:</strong> Thuộc kinh tế tập thể — lợi nhuận phân chia theo mức đóng góp của từng thành viên, không tồn tại quan hệ thuê mướn lao động như trong kinh tế tư bản tư nhân. Saigon Co.op không chỉ kinh doanh vì lợi nhuận mà còn thực hiện vai trò bình ổn giá 9 nhóm hàng thiết yếu theo định hướng Nhà nước — thể hiện đúng bản chất kinh tế tập thể theo quan điểm Marx: quan hệ sở hữu chung phục vụ lợi ích chung, đặt dưới sự quản lý và định hướng của Nhà nước xã hội chủ nghĩa.</p>
+    <p><strong>Hình thức sở hữu:</strong> Sở hữu tập thể — toàn bộ tư liệu sản xuất và hệ thống phân phối bao gồm chuỗi
+      siêu thị, kho bãi, hạ tầng logistics đều thuộc sở hữu chung của tập thể thành viên. Các thành viên cùng góp vốn,
+      cùng quản lý và cùng thụ hưởng lợi ích theo nguyên tắc dân chủ, bình đẳng.</p>
+    <p><strong>Quy mô:</strong> Tổng doanh thu năm 2025 đạt hơn 32.000 tỷ đồng, with hơn 800 điểm bán trên toàn quốc và
+      gần 15.000 lao động, là hợp tác xã bán lẻ lớn nhất Việt Nam.</p>
+    <p><strong>Thành phần kinh tế:</strong> Thuộc kinh tế tập thể — lợi nhuận phân chia theo mức đóng góp của từng thành
+      viên, không tồn tại quan hệ thuê mướn lao động như trong kinh tế tư bản tư nhân. Saigon Co.op không chỉ kinh doanh
+      vì lợi nhuận mà còn thực hiện vai trò bình ổn giá 9 nhóm hàng thiết yếu theo định hướng Nhà nước — thể hiện đúng
+      bản chất kinh tế tập thể theo quan điểm Marx: quan hệ sở hữu chung phục vụ lợi ích chung, đặt dưới sự quản lý và
+      định hướng của Nhà nước xã hội chủ nghĩa.</p>
     <p><strong>Hình thức phân phối:</strong></p>
     <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
-      <li><strong>Phân phối theo lao động và hiệu quả kinh tế:</strong> Các xã viên được phân phối thu nhập dựa trên mức độ tham gia lao động và đóng góp thực tế vào hoạt động của hợp tác xã. Ngoài ra, một phần lợi nhuận của toàn hệ thống (Co.opmart, Co.opXtra...) được chia lại cho xã viên theo tỷ lệ giao dịch và đóng góp lao động</li>
-      <li><strong>Phân phối theo giá cả sức lao động:</strong> Saigon Co.op thuê số lượng lớn nhân viên bán hàng, kho vận, bảo vệ... theo hợp đồng lao động. Nhóm lao động làm thuê này được trả lương theo thỏa thuận và quan hệ cung–cầu thị trường lao động</li>
+      <li><strong>Phân phối theo lao động và hiệu quả kinh tế:</strong> Các xã viên được phân phối thu nhập dựa trên mức
+        độ tham gia lao động và đóng góp thực tế vào hoạt động của hợp tác xã. Ngoài ra, một phần lợi nhuận của toàn hệ
+        thống (Co.opmart, Co.opXtra...) được chia lại cho xã viên theo tỷ lệ giao dịch và đóng góp lao động</li>
+      <li><strong>Phân phối theo giá cả sức lao động:</strong> Saigon Co.op thuê số lượng lớn nhân viên bán hàng, kho
+        vận, bảo vệ... theo hợp đồng lao động. Nhóm lao động làm thuê này được trả lương theo thỏa thuận và quan hệ
+        cung–cầu thị trường lao động</li>
     </ul>
   </template>
 
   <template id="modal-vingroup">
     <h3>3. Tập đoàn VinGroup</h3>
-    <p><strong>Hình thức sở hữu:</strong> Sở hữu tư nhân — toàn bộ tư liệu sản xuất bao gồm nhà máy VinFast, hệ thống Vinhomes, Vinmec, Vinschool và các cơ sở kinh doanh khác đều thuộc sở hữu tư nhân của các cổ đông, do Hội đồng quản trị đại diện quản lý và định đoạt.</p>
-    <p><strong>Quy mô:</strong> Doanh thu thuần hợp nhất năm 2025 đạt 332.770 tỷ đồng, tăng 76% so với năm trước — mốc cao nhất lịch sử tập đoàn; lợi nhuận sau thuế đạt 11.146 tỷ đồng, tăng 111%. Đặc biệt, doanh thu Vingroup tương đương khoảng 2,6% GDP toàn quốc, là doanh nghiệp tư nhân đầu tiên đứng ngang hàng với các tập đoàn năng lượng quốc gia.</p>
-    <p><strong>Thành phần kinh tế:</strong> Thuộc kinh tế tư bản tư nhân — vận hành theo cơ chế thị trường vì mục tiêu lợi nhuận, có quan hệ thuê mướn lao động với hơn 104.000 nhân viên. Vingroup là "động lực quan trọng" mà Đại hội X xác định cho kinh tế tư nhân — vừa thúc đẩy lực lượng sản xuất thông qua đầu tư công nghệ cao, vừa chịu sự điều tiết của pháp luật và định hướng Nhà nước. Đây là điểm sáng tạo của Việt Nam: không xóa bỏ sở hữu tư nhân mà để nó phát triển có kiểm soát, phù hợp với trình độ lực lượng sản xuất trong thời kỳ quá độ.</p>
+    <p><strong>Hình thức sở hữu:</strong> Sở hữu tư nhân — toàn bộ tư liệu sản xuất bao gồm nhà máy VinFast, hệ thống
+      Vinhomes, Vinmec, Vinschool và các cơ sở kinh doanh khác đều thuộc sở hữu tư nhân của các cổ đông, do Hội đồng
+      quản trị đại diện quản lý và định đoạt.</p>
+    <p><strong>Quy mô:</strong> Doanh thu thuần hợp nhất năm 2025 đạt 332.770 tỷ đồng, tăng 76% so với năm trước — mốc
+      cao nhất lịch sử tập đoàn; lợi nhuận sau thuế đạt 11.146 tỷ đồng, tăng 111%. Đặc biệt, doanh thu Vingroup tương
+      đương khoảng 2,6% GDP toàn quốc, là doanh nghiệp tư nhân đầu tiên đứng ngang hàng với các tập đoàn năng lượng quốc
+      gia.</p>
+    <p><strong>Thành phần kinh tế:</strong> Thuộc kinh tế tư bản tư nhân — vận hành theo cơ chế thị trường vì mục tiêu
+      lợi nhuận, có quan hệ thuê mướn lao động with hơn 104.000 nhân viên. Vingroup là "động lực quan trọng" mà Đại hội
+      X
+      xác định cho kinh tế tư nhân — vừa thúc đẩy lực lượng sản xuất thông qua đầu tư công nghệ cao, vừa chịu sự điều
+      tiết của pháp luật và định hướng Nhà nước. Đây là điểm sáng tạo của Việt Nam: không xóa bỏ sở hữu tư nhân mà để nó
+      phát triển có kiểm soát, phù hợp with trình độ lực lượng sản xuất trong thời kỳ quá độ.</p>
     <p><strong>Hình thức phân phối:</strong></p>
     <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
-      <li><strong>Phân phối theo lao động và hiệu quả kinh tế:</strong> Thu nhập của người lao động được xác định qua thương lượng, phụ thuộc vào cung–cầu lao động trong ngành. Ví dụ: kỹ sư phần mềm tại VinAI hay VinFast được trả mức lương cạnh tranh theo giá thị trường công nghệ; Lợi nhuận sau thuế (11.146 tỷ đồng năm 2025) được tái đầu tư vào mở rộng sản xuất theo quyết định của ban lãnh đạo tập đoàn</li>
-      <li><strong>Phân phối theo vốn và tài sản:</strong> Vingroup là công ty cổ phần niêm yết trên sàn chứng khoán (VIC). Cổ đông góp vốn được nhận cổ tức theo tỷ lệ sở hữu cổ phần. Tỷ phú Phạm Nhật Vượng - cổ đông lớn nhất hưởng lợi nhuận tương ứng với phần vốn đầu tư.</li>
-      <li><strong>Phân phối theo giá cả sức lao động:</strong> Vingroup áp dụng hệ thống KPI và đánh giá hiệu suất rõ ràng. Nhân viên, quản lý được thưởng doanh số, hoa hồng hoặc lương tháng 13–14 tùy theo đóng góp thực tế vào kết quả kinh doanh của từng mảng. Ví dụ: nhân viên Sales BĐS Vinhomes bán được nhiều căn hộ sẽ nhận hoa hồng cao hơn</li>
+      <li><strong>Phân phối theo lao động and hiệu quả kinh tế:</strong> Thu nhập của người lao động được xác định qua
+        thương lượng, phụ thuộc vào cung–cầu lao động trong ngành. Ví dụ: kỹ sư phần mềm tại VinAI hay VinFast được trả
+        mức lương cạnh tranh theo giá thị trường công nghệ; Lợi nhuận sau thuế (11.146 tỷ đồng năm 2025) được tái đầu tư
+        vào mở rộng sản xuất theo quyết định của ban lãnh đạo tập đoàn</li>
+      <li><strong>Phân phối theo vốn and tài sản:</strong> Vingroup là công ty cổ phần niêm yết trên sàn chứng khoán
+        (VIC). Cổ đông góp vốn được nhận cổ tức theo tỷ lệ sở hữu cổ phần. Tỷ phú Phạm Nhật Vượng - cổ đông lớn nhất
+        hưởng lợi nhuận tương ứng with phần vốn đầu tư.</li>
+      <li><strong>Phân phối theo giá cả sức lao động:</strong> Vingroup áp dụng hệ thống KPI and đánh giá hiệu suất rõ
+        ràng. Nhân viên, quản lý được thưởng doanh số, hoa hồng hoặc lương tháng 13–14 tùy theo đóng góp thực tế vào kết
+        quả kinh doanh của từng mảng. Ví dụ: nhân viên Sales BĐS Vinhomes bán được nhiều căn hộ sẽ nhận hoa hồng cao hơn
+      </li>
     </ul>
   </template>
 
+  <!-- AOS & Tilt Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
   <script>
+    // Reading Progress & Scroll Tracking
+    window.addEventListener('scroll', function () {
+      updateProgress();
+      updateActiveToc();
+    });
+
+    function updateProgress() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const progressBar = document.getElementById("readingProgress");
+      if (progressBar) progressBar.style.width = scrolled + "%";
+    }
+
+    function updateActiveToc() {
+      const sections = document.querySelectorAll(".dossier-part, section[id], #intro");
+      const tocLinks = document.querySelectorAll(".sticky-toc a");
+      let current = "";
+
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 250) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      if (current) {
+        tocLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+          }
+        });
+      }
+    }
+
+    // Modal Functions
     function openEvidenceModal(targetId) {
       const modal = document.getElementById('evidenceModal');
       const modalBody = document.getElementById('evidenceModalBody');
@@ -270,38 +716,121 @@
 
     function closeEvidenceModal() {
       const modal = document.getElementById('evidenceModal');
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     }
 
-    document.getElementById('evidenceModal').addEventListener('click', function(e) {
+    document.getElementById('evidenceModal').addEventListener('click', function (e) {
       if (e.target === this) {
         closeEvidenceModal();
       }
     });
-  </script>
 
-  <!-- AOS Animation Script -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      once: true,
-      offset: 80,
-      easing: 'ease-in-out',
+    // Initializations
+    document.addEventListener('DOMContentLoaded', () => {
+      AOS.init({
+        once: true,
+        offset: 80,
+        easing: 'ease-in-out',
+        duration: 800
+      });
+
+      VanillaTilt.init(document.querySelectorAll(".stat-card, .detail-card, .note-box"), {
+        max: 8,
+        speed: 600,
+        glare: true,
+        "max-glare": 0.15,
+        scale: 1.03
+      });
     });
   </script>
+</body>
 
-  <!-- 3D Animation Script (Vanilla Tilt) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-  <script>
-    VanillaTilt.init(document.querySelectorAll(".stat-card, .detail-card, .note-box"), {
-      max: 8,
-      speed: 600,
-      glare: true,
-      "max-glare": 0.15,
-      scale: 1.03
-    });
-  </script>
+</html>��c chia lại cho xã viên theo tỷ lệ giao dịch và đóng góp lao động</li>
+<li><strong>Phân phối theo giá cả sức lao động:</strong> Saigon Co.op thuê số lượng lớn nhân viên bán hàng, kho
+  vận, bảo vệ... theo hợp đồng lao động. Nhóm lao động làm thuê này được trả lương theo thỏa thuận và quan hệ
+  cung–cầu thị trường lao động</li>
+</ul>
+</template>
+
+<template id="modal-vingroup">
+  <h3>3. Tập đoàn VinGroup</h3>
+  <p><strong>Hình thức sở hữu:</strong> Sở hữu tư nhân — toàn bộ tư liệu sản xuất bao gồm nhà máy VinFast, hệ thống
+    Vinhomes, Vinmec, Vinschool và các cơ sở kinh doanh khác đều thuộc sở hữu tư nhân của các cổ đông, do Hội đồng
+    quản trị đại diện quản lý và định đoạt.</p>
+  <p><strong>Quy mô:</strong> Doanh thu thuần hợp nhất năm 2025 đạt 332.770 tỷ đồng, tăng 76% so với năm trước — mốc
+    cao nhất lịch sử tập đoàn; lợi nhuận sau thuế đạt 11.146 tỷ đồng, tăng 111%. Đặc biệt, doanh thu Vingroup tương
+    đương khoảng 2,6% GDP toàn quốc, là doanh nghiệp tư nhân đầu tiên đứng ngang hàng với các tập đoàn năng lượng quốc
+    gia.</p>
+  <p><strong>Thành phần kinh tế:</strong> Thuộc kinh tế tư bản tư nhân — vận hành theo cơ chế thị trường vì mục tiêu
+    lợi nhuận, có quan hệ thuê mướn lao động với hơn 104.000 nhân viên. Vingroup là "động lực quan trọng" mà Đại hội X
+    xác định cho kinh tế tư nhân — vừa thúc đẩy lực lượng sản xuất thông qua đầu tư công nghệ cao, vừa chịu sự điều
+    tiết của pháp luật và định hướng Nhà nước. Đây là điểm sáng tạo của Việt Nam: không xóa bỏ sở hữu tư nhân mà để nó
+    phát triển có kiểm soát, phù hợp với trình độ lực lượng sản xuất trong thời kỳ quá độ.</p>
+  <p><strong>Hình thức phân phối:</strong></p>
+  <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+    <li><strong>Phân phối theo lao động và hiệu quả kinh tế:</strong> Thu nhập của người lao động được xác định qua
+      thương lượng, phụ thuộc vào cung–cầu lao động trong ngành. Ví dụ: kỹ sư phần mềm tại VinAI hay VinFast được trả
+      mức lương cạnh tranh theo giá thị trường công nghệ; Lợi nhuận sau thuế (11.146 tỷ đồng năm 2025) được tái đầu tư
+      vào mở rộng sản xuất theo quyết định của ban lãnh đạo tập đoàn</li>
+    <li><strong>Phân phối theo vốn và tài sản:</strong> Vingroup là công ty cổ phần niêm yết trên sàn chứng khoán
+      (VIC). Cổ đông góp vốn được nhận cổ tức theo tỷ lệ sở hữu cổ phần. Tỷ phú Phạm Nhật Vượng - cổ đông lớn nhất
+      hưởng lợi nhuận tương ứng với phần vốn đầu tư.</li>
+    <li><strong>Phân phối theo giá cả sức lao động:</strong> Vingroup áp dụng hệ thống KPI và đánh giá hiệu suất rõ
+      ràng. Nhân viên, quản lý được thưởng doanh số, hoa hồng hoặc lương tháng 13–14 tùy theo đóng góp thực tế vào kết
+      quả kinh doanh của từng mảng. Ví dụ: nhân viên Sales BĐS Vinhomes bán được nhiều căn hộ sẽ nhận hoa hồng cao hơn
+    </li>
+  </ul>
+</template>
+
+<script>
+  function openEvidenceModal(targetId) {
+    const modal = document.getElementById('evidenceModal');
+    const modalBody = document.getElementById('evidenceModalBody');
+    const template = document.getElementById('modal-' + targetId);
+    if (template) {
+      modalBody.innerHTML = template.innerHTML;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeEvidenceModal() {
+    const modal = document.getElementById('evidenceModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('evidenceModal').addEventListener('click', function (e) {
+    if (e.target === this) {
+      closeEvidenceModal();
+    }
+  });
+</script>
+
+<!-- AOS Animation Script -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    once: true,
+    offset: 80,
+    easing: 'ease-in-out',
+  });
+</script>
+
+<!-- 3D Animation Script (Vanilla Tilt) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<script>
+  VanillaTilt.init(document.querySelectorAll(".stat-card, .detail-card, .note-box"), {
+    max: 8,
+    speed: 600,
+    glare: true,
+    "max-glare": 0.15,
+    scale: 1.03
+  });
+</script>
 </body>
 
 </html>
