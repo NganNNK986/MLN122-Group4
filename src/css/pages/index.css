@@ -205,6 +205,335 @@
     }
 
     /* ============================================================
+       SCROLL SEQUENCE ANIMATION
+    ============================================================ */
+    
+    /* Hide scrollbar for home page */
+    body {
+      overflow: hidden; /* Hide both horizontal and vertical scrollbars */
+    }
+    
+    #scroll-sequence {
+      height: 100vh; /* Single viewport height - no long scroll */
+      position: relative;
+      background: #fff;
+      overflow: hidden; /* Prevent scrolling */
+    }
+
+    .scroll-canvas-container {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    #hero-lightpass {
+      max-width: 90%;
+      max-height: 90%;
+      width: auto;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .scroll-content-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .scroll-step {
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 2rem;
+      align-items: flex-start;
+      padding: 80px 3% 0 3%;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(20px);
+      color: #1a1a1a;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      z-index: 101;
+    }
+
+    .scroll-step.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+      z-index: 102;
+    }
+
+    /* Ensure first step is visible initially - but can be overridden by JS */
+    #step-part1-1 {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+    }
+
+    /* Center top zone - spans both columns, below navbar */
+    .scroll-step-center-top {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      text-align: center !important;
+      padding: 1rem 2rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scroll-step-center-top .definition-title {
+      text-align: center !important;
+      margin: 0 auto 1rem auto;
+    }
+
+    .scroll-step-center-top .definition-text {
+      text-align: center !important;
+      margin: 0 auto;
+      max-width: 800px;
+    }
+
+    /* Left zone */
+    .scroll-step-left {
+      grid-column: 1;
+      grid-row: 2;
+      text-align: left;
+      padding-right: 2rem;
+      padding-left: 0;
+      max-width: 400px;
+    }
+
+    /* Right zone */
+    .scroll-step-right {
+      grid-column: 2;
+      grid-row: 2;
+      text-align: left;
+      padding-left: 3rem;
+      padding-right: 0;
+      max-width: 420px;
+      margin-left: auto;
+      margin-top: 60px; /* Increased from 40px to move down more */
+    }
+
+    .scroll-step-center {
+      grid-column: 1 / -1; /* Span across all columns */
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* Align to left instead of center */
+      text-align: left; /* Left align text */
+      padding: 0 2rem 0 0; /* Remove left padding for closer to edge */
+      position: absolute;
+      top: 35%; /* Move up from 50% to 35% */
+      left: 3%; /* Match the container left padding */
+      width: calc(100% - 3%); /* Adjust width to account for left position */
+    }
+
+    /* Special styling for Part 6 centered content - REMOVED BACKGROUND */
+    #step-part6-1 .scroll-step-center-top,
+    #step-part6-2 .scroll-step-center-top,
+    #step-part6-3 .scroll-step-center-top,
+    #step-part6-4 .scroll-step-center-top,
+    #step-part6-5 .scroll-step-center-top,
+    #step-part6-6 .scroll-step-center-top {
+      /* No background, no border, no shadow - just text */
+      background: none;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+    }
+
+    #step-part6-1 .definition-title,
+    #step-part6-2 .definition-text,
+    #step-part6-3 .definition-text,
+    #step-part6-4 .definition-text,
+    #step-part6-5 .definition-text,
+    #step-part6-6 .definition-text {
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+      color: #1a1a1a;
+      text-align: center !important;
+    }
+
+    #step-part6-1 .definition-title {
+      color: #8B0000;
+      font-size: 1.8rem;
+      margin-bottom: 0;
+      text-align: center !important;
+    }
+
+    /* Text styling without backgrounds */
+    .scroll-step .hero-label {
+      display: inline-block;
+      color: #666;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.25rem 0;
+      margin-bottom: 1rem;
+      border-left: 3px solid #8B0000;
+      padding-left: 1rem;
+    }
+
+    .scroll-step h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+    }
+
+    .scroll-step .subtitle {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #2c2c2c;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+    }
+
+    .scroll-step .definition-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #8B0000;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+    }
+
+    .scroll-step .definition-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #2c2c2c;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+    }
+
+    .scroll-step .definition-text p {
+      margin-bottom: 0.8rem;
+    }
+
+    .scroll-step .definition-text strong,
+    .scroll-step .definition-text b {
+      color: #8B0000;
+      font-weight: 700;
+    }
+
+    .scroll-step .hero-label {
+      display: inline-block;
+      color: #1a1a1a;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .scroll-step h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem; /* Reduced from 3.5rem - down 2 sizes */
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+      line-height: 1.1;
+    }
+
+    .scroll-step .subtitle {
+      font-size: 1.1rem; /* Reduced from 1.4rem - down 2 more sizes */
+      line-height: 1.4;
+      color: #1a1a1a;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .scroll-step p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      line-height: 1.8;
+      color: #333333;
+    }
+
+    .scroll-step .definition-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #8B0000;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.01em;
+    }
+
+    .scroll-step .definition-text {
+      font-size: 1.05rem; /* Reduced from 1.15rem - down 1 size */
+      line-height: 1.8;
+      color: #2c2c2c;
+      font-weight: 400;
+      letter-spacing: 0.005em;
+    }
+
+    @media (max-width: 1024px) {
+      .scroll-step {
+        grid-template-columns: 1fr;
+        padding: 100px 6% 2rem; /* Adjust top padding for mobile */
+        gap: 2rem;
+      }
+      
+      .scroll-step h2 {
+        font-size: 2.5rem;
+      }
+      
+      .scroll-step .subtitle,
+      .scroll-step .definition-title {
+        font-size: 1.25rem;
+      }
+      
+      .scroll-step-left,
+      .scroll-step-right {
+        padding: 0;
+      }
+    }
+
+    .scroll-step .hero-label {
+      display: inline-block;
+      color: #1a1a1a;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+
+    /* ============================================================
        SECTION SHARED
     ============================================================ */
     .section {

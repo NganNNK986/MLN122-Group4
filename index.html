@@ -15,6 +15,10 @@
   <link rel="stylesheet" href="src/css/pages/index.css" />
   <!-- AOS Animation CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- GSAP for smooth animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 </head>
 
 <body>
@@ -32,236 +36,183 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-label" data-aos="fade-down" data-aos-duration="1000">Tiểu luận học thuật · MLN122</div>
-    <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-      Sở hữu và phân phối trong nền kinh tế thị trường<br />
-      <span>định hướng xã hội chủ nghĩa ở Việt Nam</span>
-    </h1>
-    <div class="hero-divider" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000"></div>
-    <p class="hero-desc" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
-      Nhìn từ lý luận Marxist về quan hệ sản xuất – phân tích sâu các hình thức sở hữu, thành phần kinh tế và cơ chế
-      phân phối trong bối cảnh chuyển đổi kinh tế Việt Nam.
-    </p>
-    <div class="hero-meta" data-aos="fade-up" data-aos-delay="650" data-aos-duration="1000">
-      <div class="hero-meta-item">
-        <span class="label">Môn học</span>
-        <span class="value">MLN122</span>
+  <!-- SCROLL SEQUENCE SECTION -->
+  <section id="scroll-sequence">
+    <div class="scroll-canvas-container">
+      <canvas id="hero-lightpass"></canvas>
+      <!-- Frame Debug Overlay - HIDDEN -->
+      <div id="frame-debug" style="display: none; position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.7); color: #0f0; padding: 10px; border-radius: 5px; font-family: monospace; z-index: 1000; pointer-events: none; font-size: 14px; border: 1px solid #0f0;">
+        Frame: <span id="debug-frame-num">1</span> / 258
       </div>
-      <div class="hero-meta-item">
-        <span class="label">Trường</span>
-        <span class="value">FPT University</span>
-      </div>
-      <div class="hero-meta-item">
-        <span class="label">Năm học</span>
-        <span class="value">2026</span>
+      <!-- Progress Milestones Overlay -->
+      <div id="part-indicator" style="position: fixed; top: 80px; right: 20px; background: rgba(139,0,0,0.85); color: #fff; padding: 12px 20px; border-radius: 30px; font-family: 'Playfair Display', serif; z-index: 1000; pointer-events: none; font-weight: 700; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease;">
+        <span id="current-part-text">Phần 1: Tổng quan & Định nghĩa</span>
       </div>
     </div>
-  </section>
 
-  <!-- OVERVIEW CARDS -->
-  <section class="section">
-    <span class="section-label" data-aos="fade-right" data-aos-duration="800">Tổng quan nghiên cứu</span>
-    <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Các vấn đề trọng tâm</h2>
-    <div class="title-decor" data-aos="fade-right" data-aos-delay="200" data-aos-duration="800"></div>
-    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
-    </p>
+    <div class="scroll-content-overlay">
+      <!-- Part 1: Intro & Definition -->
+      <div class="scroll-step active" id="step-part1-1">
+        <div class="scroll-step-left">
+          <div class="hero-label">Tiểu luận học thuật · MLN122</div>
+          <h2>Sở hữu và phân phối trong nền kinh tế thị trường</h2>
+          <p class="subtitle">Phân tích sâu các hình thức sở hữu, thành phần kinh tế và cơ chế phân phối trong bối cảnh Việt Nam.</p>
+        </div>
+        <div class="scroll-step-right"></div>
+      </div>
 
-    <div class="cards-grid">
-      <!-- CARD 1 -->
-      <div class="card" data-aos="zoom-in-up" data-aos-delay="100" data-aos-duration="800">
-        <div class="card-scroll-area">
-          <div class="card-front">
-            <div class="card-icon"><i class="fa-solid fa-landmark"></i></div>
-            <div class="card-title">Kinh tế thị trường định hướng xã hội chủ nghĩa</div>
-            <div class="scroll-hint">Cuộn để xem chi tiết <i class="fa-solid fa-chevron-down"></i></div>
-          </div>
-          <div class="card-body">
-            <div class="section-badge">Phần 1: Khái niệm</div>
-            <p>
-              Nền kinh tế vận hành theo các quy luật thị trường, hướng tới xác lập xã hội <strong>dân giàu, nước mạnh, công bằng, văn minh</strong> dưới sự lãnh đạo của Đảng.
-            </p>
-            
-            <h3><i class="fa-solid fa-gears"></i> Cơ chế vận hành</h3>
-            <p>Vận hành khách quan theo các quy luật cung cầu, giá cả và cạnh tranh.</p>
-            
-            <h3><i class="fa-solid fa-shield-halved"></i> Vai trò Nhà nước</h3>
-            <ul>
-              <li>Điều tiết nền kinh tế vĩ mô.</li>
-              <li>Khắc phục các khuyết tật của thị trường.</li>
-              <li>Bảo đảm định hướng XHCN trong phát triển.</li>
-            </ul>
-            
-            <div class="callout">
-              <div class="callout-icon"><i class="fa-solid fa-bullseye"></i></div>
-              <p><strong>Mục tiêu:</strong> Giải phóng sức sản xuất, nâng cao đời sống nhân dân.</p>
-            </div>
-          </div>
+      <div class="scroll-step" id="step-part1-2">
+        <div class="scroll-step-left"></div>
+        <div class="scroll-step-right">
+          <h3 class="definition-title">Kinh tế thị trường định hướng xã hội chủ nghĩa:</h3>
+          <p class="definition-text">Kinh tế thị trường định hướng xã hội chủ nghĩa là nền kinh tế vận hành theo các quy luật của thị trường đồng thời góp phần hướng tới từng bước xác lập một xã hội mà ở đó dân giàu, nước mạnh, dân chủ, công bằng, văn minh; có sự điều tiết của Nhà nước do Đảng Cộng sản Việt Nam lãnh đạo.</p>
         </div>
       </div>
 
-      <!-- CARD 2 -->
-      <div class="card" data-aos="zoom-in-up" data-aos-delay="250" data-aos-duration="800">
-        <div class="card-scroll-area">
-          <div class="card-front">
-            <div class="card-icon"><i class="fa-solid fa-flag"></i></div>
-            <div class="card-title">Các hình thức sở hữu tư liệu sản xuất</div>
-            <div class="scroll-hint">Cuộn để xem chi tiết <i class="fa-solid fa-chevron-down"></i></div>
-          </div>
-          <div class="card-body">
-            <div class="section-badge">Phần 2: Sở hữu</div>
-            <p>Hệ thống sở hữu đa dạng là nền tảng cho sự phát triển linh hoạt của nền kinh tế.</p>
-            
-            <div class="callout">
-              <div class="callout-icon"><i class="fa-solid fa-lightbulb"></i></div>
-              <p>Việt Nam vận dụng sáng tạo: Nhiều hình thức sở hữu, nhiều thành phần kinh tế cùng phát triển.</p>
-            </div>
-
-            <h3><i class="fa-solid fa-layer-group"></i> Hình thức sở hữu</h3>
-            <div class="chip-row">
-              <span class="chip">Toàn dân</span>
-              <span class="chip">Tập thể</span>
-              <span class="chip">Tư nhân</span>
-              <span class="chip">Hỗn hợp</span>
-            </div>
-
-            <h3><i class="fa-solid fa-diagram-project"></i> Thành phần kinh tế</h3>
-            <div class="sub-box">
-              <h4>Kinh tế Nhà nước</h4>
-              <p>Giữ vai trò chủ đạo, là công cụ điều tiết vĩ mô quan trọng.</p>
-            </div>
-            <div class="sub-box">
-              <h4>Kinh tế Tư nhân</h4>
-              <p>Động lực quan trọng của nền kinh tế thị trường.</p>
-            </div>
-          </div>
+      <!-- Part 2: Forms of Ownership Theory - Combined into 1 step -->
+      <div class="scroll-step" id="step-part2">
+        <div class="scroll-step-left">
+          <h3 class="definition-title">Các hình thức sở hữu tư liệu sản xuất</h3>
+          <p class="definition-text">Theo quan điểm của Mác, chung quy lại, trong lịch sử phát triển của nền sản xuất xã hội có hai loại hình sở hữu cơ bản về tư liệu sản xuất: sở hữu công cộng và sở hữu tư nhân.</p>
+        </div>
+        <div class="scroll-step-right">
+          <p class="definition-text">Tuy nhiên, quan điểm này đã được vận dụng một cách sáng tạo ở Việt Nam. Kinh tế thị trường định hướng xã hội chủ nghĩa ở Việt Nam là nền kinh tế có nhiều hình thức sở hữu, nhiều thành phần kinh tế.</p>
         </div>
       </div>
 
-      <!-- CARD 3 -->
-      <div class="card" data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="800">
-        <div class="card-scroll-area">
-          <div class="card-front">
-            <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
-            <div class="card-title">Phân phối</div>
-            <div class="scroll-hint">Cuộn để xem chi tiết <i class="fa-solid fa-chevron-down"></i></div>
-          </div>
-          <div class="card-body">
-            <div class="section-badge">Phần 3: Phân phối</div>
-            <p>Phân phối công bằng tạo động lực tăng trưởng và đảm bảo an sinh xã hội.</p>
-            
-            <h3><i class="fa-solid fa-hand-holding-dollar"></i> Hình thức phân phối</h3>
-            <div class="sub-box">
-              <h4>Theo lao động</h4>
-              <p>Dựa trên kết quả lao động và hiệu quả kinh tế.</p>
-            </div>
-            
-            <h3><i class="fa-solid fa-scale-balanced"></i> Phân phối lại</h3>
-            <ul>
-              <li>Qua hệ thống an sinh và phúc lợi.</li>
-              <li>Qua thuế và ngân sách Nhà nước.</li>
-              <li>Đầu tư công cho hạ tầng thiết yếu.</li>
-            </ul>
-
-            <div class="callout">
-              <div class="callout-icon"><i class="fa-solid fa-circle-check"></i></div>
-              <p>Đảm bảo tăng trưởng kinh tế đi đôi với tiến bộ và công bằng xã hội.</p>
-            </div>
-          </div>
+      <!-- Part 3: Basic & Specific Ownership Forms - Combined into 1 step -->
+      <div class="scroll-step" id="step-part3">
+        <div class="scroll-step-left">
+          <h3 class="definition-title">Nhiều hình thức sở hữu</h3>
+          <p class="definition-text">Chủ nghĩa xã hội ở nước ta tồn tại ba hình thức sở hữu cơ bản về tư liệu sản xuất, đó chính là ba chế độ sở hữu: toàn dân, tập thể và tư nhân.</p>
+        </div>
+        <div class="scroll-step-right">
+          <p class="definition-text">Trên cơ sở của ba chế độ sở hữu đó hình thành nhiều hình thức sở hữu ở những mức độ chín muồi khác nhau: sở hữu toàn dân (sở hữu nhà nước), sở hữu tập thể, sở hữu cá thể, sở hữu tư bản tư nhân, sở hữu hỗn hợp giữa nhà nước và tư nhân.</p>
         </div>
       </div>
 
-      <!-- CARD 4 -->
-      <div class="card" data-aos="zoom-in-up" data-aos-delay="550" data-aos-duration="800">
-        <div class="card-scroll-area">
-          <div class="card-front">
-            <div class="card-icon"><i class="fa-solid fa-building-columns"></i></div>
-            <div class="card-title">Đánh giá bản chất định hướng XHCN</div>
-            <div class="scroll-hint">Cuộn để xem chi tiết <i class="fa-solid fa-chevron-down"></i></div>
-          </div>
-          <div class="card-body">
-            <div class="section-badge">Phần 4: Đánh giá</div>
-            
-            <div class="sub-box">
-              <h4><i class="fa-solid fa-heart-pulse"></i> Bản chất nhân văn</h4>
-              <p>Mọi hoạt động kinh tế đều hướng tới phục vụ lợi ích của nhân dân.</p>
-            </div>
-            
-            <div class="sub-box">
-              <h4><i class="fa-solid fa-code-merge"></i> Tính thống nhất</h4>
-              <p>Gắn kết chặt chẽ giữa kinh tế và xã hội trong từng bước phát triển.</p>
-            </div>
-
-            <h3><i class="fa-solid fa-user-check"></i> Vai trò Đảng lãnh đạo</h3>
-            <p>Bảo đảm nền kinh tế phát triển đúng định hướng, vì mục tiêu chủ nghĩa xã hội.</p>
-
-            <div class="callout">
-              <div class="callout-icon"><i class="fa-solid fa-crown"></i></div>
-              <p>Nền kinh tế thị trường Việt Nam mang bản chất khác biệt, ưu việt hơn nhờ định hướng xã hội.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ DROPDOWNS -->
-  <!--  <section class="faq-section">
-    <span class="section-label" data-aos="fade-right" data-aos-duration="800">Câu hỏi nghiên cứu</span>
-    <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Hai câu hỏi trọng tâm</h2>
-    <div class="title-decor" data-aos="fade-right" data-aos-delay="200" data-aos-duration="800"></div>
-    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">Mở rộng để xem phân tích
-      sơ bộ cho từng câu hỏi nghiên cứu chính của bài tiểu luận.</p>
-  
-    <div class="faq-list">-->
-
-  <!-- FAQ 1 -->
-  <!--        <div class="faq-item" data-aos="fade-up" data-aos-delay="150" data-aos-duration="800">
-        <input type="checkbox" id="faq1" class="faq-toggle" />
-        <label class="faq-label" for="faq1">
-          Hình thức sở hữu và vận dụng tại Việt Nam là gì?
-        </label>
-        <div class="faq-body">
-          <p>Tại Việt Nam, Nhà nước hiến định <strong>ba hình thức sở hữu</strong> về tư liệu sản xuất theo quan điểm
-            Marxist:</p>
-          <ul>
-            <li><strong>Sở hữu toàn dân</strong> – do Nhà nước làm đại diện chủ sở hữu; bao gồm đất đai, tài nguyên,
-              doanh nghiệp nhà nước.</li>
-            <li><strong>Sở hữu tập thể</strong> – thuộc về tập hợp người lao động trong các hợp tác xã, tổ hợp tác.</li>
-            <li><strong>Sở hữu tư nhân</strong> – của cá nhân, hộ kinh doanh, doanh nghiệp tư nhân và vốn đầu tư nước
-              ngoài.</li>
-          </ul>
-          <p style="margin-top:0.7rem;">Ba hình thức này không tồn tại riêng lẻ mà đan xen, hình thành nên <strong>5
-              thành phần kinh tế</strong> cùng phát triển theo định hướng XHCN.</p>
-        </div>
-      </div>-->
-
-  <!-- FAQ 2 -->
-  <!--       <div class="faq-item" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
-        <input type="checkbox" id="faq2" class="faq-toggle" />
-        <label class="faq-label" for="faq2">
-          Phân phối và tái phân phối diễn ra như thế nào?
-        </label>
-        <div class="faq-body">
-          <p>Cơ chế phân phối trong nền kinh tế thị trường định hướng XHCN được thực hiện theo <strong>hai cấp</strong>:
+      <!-- Part 4: Economic Components -->
+      <div class="scroll-step" id="step-part4">
+        <div class="scroll-step-left">
+          <h3 class="definition-title">Nhiều thành phần kinh tế</h3>
+          <p class="definition-text">
+            Thành phần kinh tế là khu vực kinh tế, kiểu quan hệ kinh tế dựa trên một hình thức sở hữu nhất định về tư liệu sản xuất. Qua thực tiễn của 20 năm đổi mới, tại Đại hội đại biểu toàn quốc lần thứ X, Đảng ta đã xác định nền kinh tế nước ta có năm thành phần kinh tế.
           </p>
-          <ul>
-            <li><strong>Phân phối lần đầu</strong> – theo lao động và hiệu quả kinh tế; ngoài ra còn theo vốn (cổ tức),
-              theo quan hệ thị trường lao động.</li>
-            <li><strong>Tái phân phối</strong> (phân phối lại) – Nhà nước thực hiện qua thuế lũy tiến, ngân sách nhà
-              nước, đầu tư công và hệ thống phúc lợi xã hội (bảo hiểm, y tế, giáo dục).</li>
-          </ul>
-          <p style="margin-top:0.7rem;">Mục tiêu: <strong>giảm bất bình đẳng</strong>, đảm bảo an sinh xã hội và thực
-            hiện công bằng xã hội theo tinh thần XHCN.</p>
+        </div>
+        <div class="scroll-step-right">
+          <div class="definition-text">
+            <p><b>Đó là:</b></p>
+            <p>• <b>Kinh tế nhà nước</b></p>
+            <p>• <b>Kinh tế tập thể</b></p>
+            <p>• <b>Kinh tế tư nhân</b></p>
+            <p>• <b>Kinh tế cá thể, tiểu chủ, tư bản tư nhân</b></p>
+            <p>• <b>Kinh tế tư bản nhà nước</b></p>
+            <p>• <b>Kinh tế có vốn đầu tư nước ngoài</b></p>
+          </div>
         </div>
       </div>
-  
-    </div>
-  </section>-->
 
-  <!-- CTA -->
-  <div class="cta-strip">
+      <!-- Part 5: Distribution -->
+      <div class="scroll-step" id="step-part5-1">
+        <div class="scroll-step-center-top">
+          <h3 class="definition-title">Phân phối</h3>
+          <p class="definition-text">Trong nền kinh tế thị trường định hướng XHCN tại Việt Nam, quan hệ phân phối đóng vai trò thúc đẩy tăng trưởng kinh tế và thực hiện công bằng xã hội.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" id="step-part5-2">
+        <div class="scroll-step-center-top">
+          <h3 class="definition-title">1. Phân phối theo lao động và hiệu quả</h3>
+          <p class="definition-text">Thu nhập phụ thuộc vào kết quả lao động và hiệu quả kinh tế. Hình thức này tạo động lực trực tiếp để không ngừng sáng tạo và nâng cao năng suất.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" id="step-part5-3">
+        <div class="scroll-step-center-top">
+          <h3 class="definition-title">2. Phân phối theo đóng góp của các nguồn lực khác</h3>
+        </div>
+        <div class="scroll-step-left">
+          <p class="definition-text">
+            <b>Theo vốn và tài sản:</b> Những chủ thể có vốn đầu tư, cổ phiếu hoặc tài sản đưa vào kinh doanh sẽ được hưởng lợi nhuận tương ứng.
+          </p>
+        </div>
+        <div class="scroll-step-right">
+          <p class="definition-text">
+            <b>Giá cả sức lao động:</b> Diễn ra chủ yếu trong khu vực kinh tế tư nhân, nơi sức lao động được mua bán như một hàng hóa trên thị trường.
+          </p>
+        </div>
+      </div>
+
+      <div class="scroll-step" id="step-part5-4">
+        <div class="scroll-step-center-top">
+          <h3 class="definition-title">3. Phân phối thông qua các công cụ điều tiết của Nhà nước</h3>
+        </div>
+        <div class="scroll-step-left">
+          <div class="definition-text">
+            <p><b>Hệ thống an sinh và phúc lợi xã hội:</b> Hỗ trợ nhóm thu nhập thấp, người gặp rủi ro, đảm bảo tiếp cận giáo dục, y tế.</p>
+            <p><b>Thuế và ngân sách:</b> Điều tiết thu nhập giữa các tầng lớp, tài trợ chương trình xóa đói giảm nghèo.</p>
+          </div>
+        </div>
+        <div class="scroll-step-right">
+          <p class="definition-text">
+            <b>Đầu tư công:</b> Phát triển hạ tầng (giao thông, điện, nước...) tạo môi trường thuận lợi cho sản xuất.
+          </p>
+        </div>
+      </div>
+
+      <!-- Part 6: Evaluation - All using center-top layout -->
+      <div class="scroll-step" id="step-part6-1">
+        <div class="scroll-step-center-top">
+          <h3 class="definition-title">Đánh giá bản chất định hướng XHCN của nền kinh tế thị trường Việt Nam</h3>
+        </div>
+      </div>
+
+      <div class="scroll-step" id="step-part6-2">
+        <div class="scroll-step-center-top">
+          <div class="definition-text">
+            <p><b>1. Mục tiêu phát triển vì con người:</b> Hướng tới xã hội "dân giàu, nước mạnh, dân chủ, công bằng, văn minh".</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-step" id="step-part6-3">
+        <div class="scroll-step-center-top">
+          <div class="definition-text">
+            <p><b>2. Đa dạng hình thức sở hữu và thành phần kinh tế:</b> Nền kinh tế có nhiều hình thức sở hữu, nhiều thành phần kinh tế, trong đó kinh tế nhà nước giữ vai trò chủ đạo để điều tiết, hỗ trợ các thành phần khác cùng hợp tác và phát triển.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-step" id="step-part6-4">
+        <div class="scroll-step-center-top">
+          <div class="definition-text">
+            <p><b>3. Quan hệ phân phối công bằng:</b> Phân phối kết quả làm ra (đầu ra) chủ yếu theo kết quả lao động, hiệu quả kinh tế, theo mức đóng góp vốn cùng các nguồn lực khác.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-step" id="step-part6-5">
+        <div class="scroll-step-center-top">
+          <div class="definition-text">
+            <p><b>4. Gắn kết tăng trưởng kinh tế với tiến bộ và công bằng xã hội:</b> Ưu tiên đầu tư cho các dịch vụ công cơ bản và hỗ trợ các nhóm yếu thế để tạo cơ hội phát triển bình đẳng cho mọi cá nhân.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-step" id="step-part6-6">
+        <div class="scroll-step-center-top">
+          <div class="definition-text">
+            <p><b>5. Vai trò của Đảng và Nhà nước:</b> Lãnh đạo và quản lý nền kinh tế tác động vào thị trường nhằm bảo đảm cân đối kinh tế vĩ mô và khắc phục các khuyết tật của kinh tế thị trường như khủng hoảng, thiên tai, nhân tai.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- CTA - HIDDEN -->
+  <div class="cta-strip" style="display: none;">
     <div data-aos="fade-right" data-aos-duration="800">
       <h2>Xem toàn bộ nội dung</h2>
       <p>Phân tích chi tiết lý luận, vận dụng và kết luận đầy đủ.</p>
@@ -270,16 +221,16 @@
       →</a>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
+  <!-- FOOTER - HIDDEN -->
+  <footer style="display: none;">
     <p><strong>Sở hữu và Phân phối trong Nền kinh tế Thị trường định hướng XHCN ở Việt Nam</strong></p>
     <p> MLN122 · FPT University · 2026</p>
     <p style="margin-top:0.5rem;">
       <a href="index.html">Home</a> &nbsp;·&nbsp;
       <a href="content.html">Nội dung</a> &nbsp;·&nbsp;
+      <a href="evidence.html">Dẫn chứng</a> &nbsp;·&nbsp;
       <a href="game.html">Game</a> &nbsp;·&nbsp;
       <a href="ai-usage.html">AI Usage</a> &nbsp;·&nbsp;
-      <a href="evidence.html">Dẫn chứng</a> &nbsp;·&nbsp;
       <a href="about.html">About Us</a>
     </p>
   </footer>
@@ -319,6 +270,331 @@
         }
       }, { passive: false });
     });
+  </script>
+  <!-- Scroll Sequence Animation Script with GSAP -->
+  <script>
+    // Register GSAP plugins
+    gsap.registerPlugin(ScrollTrigger);
+    
+    const canvas = document.getElementById("hero-lightpass");
+    const context = canvas.getContext("2d");
+
+    const frameCount = 258;
+    const framesPerScroll = 7;
+    const currentFrame = index => (
+      `public/image/landingpage/ezgif-frame-${index.toString().padStart(3, '0')}.png`
+    );
+
+    const images = [];
+    const airbnb = {
+      frame: 0
+    };
+
+    // Preload images
+    for (let i = 1; i <= frameCount; i++) {
+      const img = new Image();
+      img.src = currentFrame(i);
+      images.push(img);
+    }
+
+    const updateCanvas = index => {
+      const img = images[index - 1];
+      if (!img || !img.complete) return;
+      
+      // Draw image to fit canvas (contain effect)
+      const canvasRatio = canvas.width / canvas.height;
+      const imgRatio = img.width / img.height;
+      let drawWidth, drawHeight, offsetX, offsetY;
+
+      if (canvasRatio > imgRatio) {
+        // Window is wider than image
+        drawHeight = canvas.height;
+        drawWidth = canvas.height * imgRatio;
+        offsetX = (canvas.width - drawWidth) / 2;
+        offsetY = 0;
+      } else {
+        // Window is taller than image
+        drawWidth = canvas.width;
+        drawHeight = canvas.width / imgRatio;
+        offsetX = 0;
+        offsetY = (canvas.height - drawHeight) / 2;
+      }
+
+      // Fill background with white to match frames
+      context.fillStyle = "white";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+    };
+
+    function render() {
+      updateCanvas(1);
+    }
+
+    // Discrete scrolling variables - declare first
+    let currentStepIndex = 0;
+    let isAnimating = false;
+    
+    const contentSteps = [
+      { frames: [1, 15], id: 'step-part1-1', title: 'Phần 1: Tổng quan & Định nghĩa' },
+      { frames: [16, 39], id: 'step-part1-2', title: 'Phần 1: Định nghĩa Kinh tế thị trường định hướng xã hội chủ nghĩa' },
+      { frames: [50, 75], id: 'step-part2', title: 'Phần 2: Lý luận về Sở hữu' },
+      { frames: [85, 110], id: 'step-part3', title: 'Phần 3: Nhiều hình thức Sở hữu' },
+      { frames: [130, 155], id: 'step-part4', title: 'Phần 4: Năm thành phần Kinh tế' },
+      { frames: [175, 182], id: 'step-part5-1', title: 'Phần 5: Giới thiệu Phân phối' },
+      { frames: [183, 190], id: 'step-part5-2', title: 'Phần 5: Phân phối theo Lao động' },
+      { frames: [191, 198], id: 'step-part5-3', title: 'Phần 5: Phân phối theo Nguồn lực' },
+      { frames: [199, 205], id: 'step-part5-4', title: 'Phần 5: Phân phối qua Nhà nước' },
+      { frames: [225, 230], id: 'step-part6-1', title: 'Phần 6: Đánh giá bản chất xã hội chủ nghĩa' },
+      { frames: [231, 236], id: 'step-part6-2', title: 'Phần 6: Mục tiêu phát triển' },
+      { frames: [237, 242], id: 'step-part6-3', title: 'Phần 6: Đa dạng sở hữu' },
+      { frames: [243, 248], id: 'step-part6-4', title: 'Phần 6: Phân phối công bằng' },
+      { frames: [249, 254], id: 'step-part6-5', title: 'Phần 6: Tăng trưởng & Công bằng' },
+      { frames: [255, 258], id: 'step-part6-6', title: 'Phần 6: Vai trò Đảng & Nhà nước' }
+    ];
+
+    // Set canvas size
+    const setCanvasSize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      render();
+    };
+
+    window.addEventListener('resize', setCanvasSize);
+    setCanvasSize();
+
+    // Scroll animation - disabled in favor of discrete scrolling
+    const scrollContainer = document.getElementById("scroll-sequence");
+    
+    // Disable normal scroll behavior - use discrete scrolling only
+    window.addEventListener("scroll", (e) => {
+      // Prevent default scroll behavior
+      if (isAnimating) {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Keep scroll position at top to prevent page scrolling
+      window.scrollTo(0, 0);
+    }, { passive: false });
+
+    // Initial load - ensure ONLY step-part1-1 is visible at frame 1
+    const initializeFirstStep = () => {
+      console.log('Initializing first step...');
+      
+      // Set initial frame and step
+      currentStepIndex = 0;
+      
+      // FORCE hide ALL steps first
+      document.querySelectorAll('.scroll-step').forEach(step => {
+        step.classList.remove('active');
+        step.style.opacity = '0';
+        step.style.visibility = 'hidden';
+        step.style.pointerEvents = 'none';
+      });
+      
+      // Then show ONLY step 1
+      const step1 = document.getElementById('step-part1-1');
+      if (step1) {
+        step1.classList.add('active');
+        step1.style.opacity = '1';
+        step1.style.visibility = 'visible';
+        step1.style.transform = 'translateY(0)';
+        step1.style.pointerEvents = 'auto';
+        console.log('First step initialized:', step1);
+      }
+      
+      // Set initial debug info
+      if (document.getElementById('debug-frame-num')) {
+        document.getElementById('debug-frame-num').textContent = '1';
+      }
+      if (document.getElementById('current-part-text')) {
+        document.getElementById('current-part-text').textContent = 'Phần 1: Tổng quan & Định nghĩa';
+      }
+      
+      // Ensure canvas shows frame 1
+      requestAnimationFrame(() => updateCanvas(1));
+    };
+
+    // Call initialization immediately
+    console.log('DOM loaded, initializing...');
+    initializeFirstStep();
+    
+    images[0].onload = () => {
+      console.log('First image loaded, re-initializing...');
+      render();
+      initializeFirstStep(); // Ensure it's called after image loads too
+    };
+
+    const goToStep = (stepIndex) => {
+      if (stepIndex < 0 || stepIndex >= contentSteps.length || isAnimating) return;
+      
+      console.log('Going to step:', stepIndex, contentSteps[stepIndex]);
+      
+      isAnimating = true;
+      const previousStepIndex = currentStepIndex;
+      currentStepIndex = stepIndex;
+      const step = contentSteps[stepIndex];
+      
+      // STEP 1: FORCE hide ALL content immediately
+      document.querySelectorAll('.scroll-step').forEach(stepEl => {
+        stepEl.classList.remove('active');
+        stepEl.style.transition = 'opacity 0.3s ease-out';
+        stepEl.style.opacity = '0';
+        stepEl.style.visibility = 'hidden';
+        stepEl.style.pointerEvents = 'none';
+      });
+      
+      // Update part indicator immediately
+      if (document.getElementById('current-part-text')) {
+        document.getElementById('current-part-text').textContent = step.title;
+      }
+      
+      // STEP 2: Animate frames from current to target
+      const targetFrame = step.frames[0];
+      const currentDisplayFrame = parseInt(document.getElementById('debug-frame-num').textContent) || 1;
+      
+      console.log('Animating from frame', currentDisplayFrame, 'to', targetFrame);
+      
+      // Calculate animation parameters
+      const frameDistance = Math.abs(targetFrame - currentDisplayFrame);
+      const frameStep = targetFrame > currentDisplayFrame ? 5 : -5; // 5 frames per step
+      const totalSteps = Math.ceil(frameDistance / Math.abs(frameStep));
+      let animationStep = 0;
+      let animatedFrame = currentDisplayFrame;
+      
+      // Start frame animation after content fades out
+      setTimeout(() => {
+        const frameAnimation = setInterval(() => {
+          animationStep++;
+          
+          if (animationStep >= totalSteps) {
+            // Final frame reached
+            animatedFrame = targetFrame;
+            clearInterval(frameAnimation);
+            
+            // STEP 3: Show ONLY the new content with fade in animation
+            setTimeout(() => {
+              // Double-check all steps are hidden first
+              document.querySelectorAll('.scroll-step').forEach(stepEl => {
+                stepEl.classList.remove('active');
+                stepEl.style.opacity = '0';
+                stepEl.style.visibility = 'hidden';
+                stepEl.style.pointerEvents = 'none';
+              });
+              
+              // Now show only the target step
+              const targetEl = document.getElementById(step.id);
+              if (targetEl) {
+                console.log('Showing ONLY step:', step.id);
+                targetEl.classList.add('active');
+                targetEl.style.visibility = 'visible';
+                targetEl.style.pointerEvents = 'auto';
+                targetEl.style.transition = 'opacity 0.4s ease-in';
+                // Force reflow
+                targetEl.offsetHeight;
+                targetEl.style.opacity = '1';
+              }
+              
+              // Animation complete
+              setTimeout(() => {
+                isAnimating = false;
+              }, 400);
+            }, 150);
+          } else {
+            // Intermediate frame
+            animatedFrame += frameStep;
+            animatedFrame = Math.max(1, Math.min(frameCount, animatedFrame));
+          }
+          
+          // Update canvas and debug display
+          requestAnimationFrame(() => updateCanvas(animatedFrame));
+          if (document.getElementById('debug-frame-num')) {
+            document.getElementById('debug-frame-num').textContent = animatedFrame;
+          }
+        }, 60); // 60ms per step for smooth animation
+      }, 350); // Wait for fade out to complete
+    };
+
+    // Enhanced wheel event for automatic frame animation to next content
+    let lastWheelTime = 0;
+    let wheelDelta = 0;
+    
+    window.addEventListener('wheel', (e) => {
+      const now = Date.now();
+      const delta = e.deltaY;
+      
+      // Accumulate wheel delta
+      wheelDelta += delta;
+      
+      // Prevent too frequent scrolling
+      if (now - lastWheelTime < 50) {
+        e.preventDefault();
+        return;
+      }
+      
+      // Check for any scroll to trigger discrete mode
+      if (Math.abs(wheelDelta) > 50) {
+        e.preventDefault();
+        lastWheelTime = now;
+        
+        if (isAnimating) {
+          wheelDelta = 0;
+          return;
+        }
+        
+        let targetStep = currentStepIndex;
+        
+        if (wheelDelta > 0) { // Scroll down - next step
+          targetStep = Math.min(currentStepIndex + 1, contentSteps.length - 1);
+        } else { // Scroll up - previous step  
+          targetStep = Math.max(currentStepIndex - 1, 0);
+        }
+        
+        wheelDelta = 0; // Reset delta
+        
+        if (targetStep !== currentStepIndex) {
+          goToStep(targetStep);
+        }
+      }
+    }, { passive: false });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (isAnimating) return;
+      
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        goToStep(Math.min(currentStepIndex + 1, contentSteps.length - 1));
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        goToStep(Math.max(currentStepIndex - 1, 0));
+      }
+    });
+
+    // Touch/swipe support for mobile
+    let touchStartY = 0;
+    
+    scrollContainer?.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    });
+
+    scrollContainer?.addEventListener('touchend', (e) => {
+      if (isAnimating) return;
+      
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaY = touchStartY - touchEndY;
+      
+      if (Math.abs(deltaY) > 50) { // Minimum swipe distance
+        if (deltaY > 0) { // Swipe up - next step
+          goToStep(Math.min(currentStepIndex + 1, contentSteps.length - 1));
+        } else { // Swipe down - previous step
+          goToStep(Math.max(currentStepIndex - 1, 0));
+        }
+      }
+    });
+
+    console.log('Discrete scrolling initialized with', contentSteps.length, 'steps');
+
   </script>
 </body>
 
