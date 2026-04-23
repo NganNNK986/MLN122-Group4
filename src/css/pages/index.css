@@ -304,12 +304,14 @@
     .scroll-step-center-top .definition-title {
       text-align: center !important;
       margin: 0 auto 1rem auto;
+      /* USE GLOBAL font-size: 2.5rem from main CSS */
     }
 
     .scroll-step-center-top .definition-text {
       text-align: center !important;
       margin: 0 auto;
       max-width: 800px;
+      /* USE GLOBAL font-size: 2rem from main CSS */
     }
 
     /* Left zone */
@@ -347,7 +349,7 @@
       width: calc(100% - 3%); /* Adjust width to account for left position */
     }
 
-    /* Special styling for Part 6 centered content - REMOVED BACKGROUND */
+    /* Special styling for Part 6 centered content - REMOVED BACKGROUND + UNIFIED FONT SIZES */
     #step-part6-1 .scroll-step-center-top,
     #step-part6-2 .scroll-step-center-top,
     #step-part6-3 .scroll-step-center-top,
@@ -373,20 +375,21 @@
       text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
       color: #1a1a1a;
       text-align: center !important;
+      /* REMOVE font-size override - use global sizes */
     }
 
     #step-part6-1 .definition-title {
       color: #8B0000;
-      font-size: 1.8rem;
+      /* REMOVE font-size override - use global 2.5rem */
       margin-bottom: 0;
       text-align: center !important;
     }
 
-    /* Text styling without backgrounds */
+    /* Text styling without backgrounds - FORCE LARGER SIZES */
     .scroll-step .hero-label {
       display: inline-block;
       color: #666;
-      font-size: 0.75rem;
+      font-size: 1.6rem !important; /* Force tăng lên 1.6rem */
       font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -398,7 +401,7 @@
 
     .scroll-step h2 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-size: 4.5rem !important; /* Force tăng lên 4.5rem */
       font-weight: 900;
       margin-bottom: 1.5rem;
       color: #1a1a1a;
@@ -408,7 +411,7 @@
     }
 
     .scroll-step .subtitle {
-      font-size: 1.1rem;
+      font-size: 2.2rem !important; /* Force tăng lên 2.2rem */
       line-height: 1.7;
       color: #2c2c2c;
       margin-bottom: 1rem;
@@ -419,7 +422,7 @@
 
     .scroll-step .definition-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-size: 2.2rem !important; /* Force tăng lên 2.2rem */
       font-weight: 700;
       color: #8B0000;
       margin-bottom: 1rem;
@@ -428,7 +431,7 @@
     }
 
     .scroll-step .definition-text {
-      font-size: 1rem;
+      font-size: 1.6rem !important; /* Force tăng lên 1.6rem */
       line-height: 1.7;
       color: #2c2c2c;
       text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
@@ -436,12 +439,69 @@
 
     .scroll-step .definition-text p {
       margin-bottom: 0.8rem;
+      font-size: 1.6rem !important; /* Force override cho tất cả p tags */
     }
 
     .scroll-step .definition-text strong,
     .scroll-step .definition-text b {
       color: #8B0000;
       font-weight: 700;
+      font-size: inherit !important;
+    }
+
+    /* FORCE OVERRIDE ALL TEXT SIZES */
+    #step-part1-1 .hero-label,
+    #step-part1-2 .hero-label,
+    #step-part2 .hero-label,
+    #step-part3 .hero-label,
+    #step-part4 .hero-label,
+    #step-part5-1 .hero-label,
+    #step-part5-2 .hero-label,
+    #step-part5-3 .hero-label,
+    #step-part5-4 .hero-label,
+    #step-part6-1 .hero-label,
+    #step-part6-2 .hero-label,
+    #step-part6-3 .hero-label,
+    #step-part6-4 .hero-label,
+    #step-part6-5 .hero-label,
+    #step-part6-6 .hero-label {
+      font-size: 1.6rem !important;
+    }
+
+    #step-part1-1 h2,
+    #step-part1-2 h2,
+    #step-part2 h2,
+    #step-part3 h2,
+    #step-part4 h2,
+    #step-part5-1 h2,
+    #step-part5-2 h2,
+    #step-part5-3 h2,
+    #step-part5-4 h2,
+    #step-part6-1 h2,
+    #step-part6-2 h2,
+    #step-part6-3 h2,
+    #step-part6-4 h2,
+    #step-part6-5 h2,
+    #step-part6-6 h2 {
+      font-size: 4.5rem !important;
+    }
+
+    #step-part1-1 .subtitle,
+    #step-part1-2 .subtitle,
+    #step-part2 .subtitle,
+    #step-part3 .subtitle,
+    #step-part4 .subtitle,
+    #step-part5-1 .subtitle,
+    #step-part5-2 .subtitle,
+    #step-part5-3 .subtitle,
+    #step-part5-4 .subtitle,
+    #step-part6-1 .subtitle,
+    #step-part6-2 .subtitle,
+    #step-part6-3 .subtitle,
+    #step-part6-4 .subtitle,
+    #step-part6-5 .subtitle,
+    #step-part6-6 .subtitle {
+      font-size: 2.2rem !important;
     }
 
     .scroll-step .hero-label {
@@ -1072,3 +1132,76 @@
     }
 
 
+
+/* ============================================================
+   EMERGENCY FONT SIZE OVERRIDE - FORCE LARGE TEXT
+============================================================ */
+
+/* Test override - make everything huge */
+#step-part1-1 .hero-label {
+  font-size: 1rem !important;
+  background: rgba(255,0,0,0.2) !important; /* Red background to test */
+}
+
+#step-part1-1 h2 {
+  font-size: 4rem !important;
+  background: rgba(0,255,0,0.2) !important; /* Green background to test */
+}
+
+#step-part1-1 .subtitle {
+  font-size: 1.5rem !important;
+  background: rgba(0,0,255,0.2) !important; /* Blue background to test */
+}
+
+/* Force all text in all steps to be larger */
+.scroll-step .hero-label {
+  font-size: 2rem !important;
+}
+
+.scroll-step h2 {
+  font-size: 6rem !important;
+}
+
+.scroll-step .subtitle {
+  font-size: 3rem !important;
+}
+
+.scroll-step .definition-title {
+  font-size: 2rem !important;
+}
+
+.scroll-step .definition-text {
+  font-size: 1.2rem !important;
+}
+
+.scroll-step .definition-text p {
+  font-size: 1.5rem !important;
+}
+
+/* FORCE PART 6 TO USE SAME SIZES */
+#step-part6-1 .definition-title,
+#step-part6-2 .definition-title,
+#step-part6-3 .definition-title,
+#step-part6-4 .definition-title,
+#step-part6-5 .definition-title,
+#step-part6-6 .definition-title {
+  font-size: 2rem !important;
+}
+
+#step-part6-1 .definition-text,
+#step-part6-2 .definition-text,
+#step-part6-3 .definition-text,
+#step-part6-4 .definition-text,
+#step-part6-5 .definition-text,
+#step-part6-6 .definition-text {
+  font-size: 1.5rem !important;
+}
+
+#step-part6-1 .definition-text p,
+#step-part6-2 .definition-text p,
+#step-part6-3 .definition-text p,
+#step-part6-4 .definition-text p,
+#step-part6-5 .definition-text p,
+#step-part6-6 .definition-text p {
+  font-size: 1.5rem !important;
+}
