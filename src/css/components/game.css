@@ -31,7 +31,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('../../../public/image/bg-main-menu.png.jpg');
+  background-image: url('../../../public/image/bg-main-menu.webp');
   background-size: 100% 100%;
   background-position: center center;
   background-repeat: no-repeat;
@@ -1364,7 +1364,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../../public/image/background2.jpg');
+  background-image: url('../../../public/image/background2.webp');
   background-size: 120%;
   background-position: center;
   background-repeat: no-repeat;
@@ -1995,7 +1995,7 @@
   display: none;
   align-items: center;
   justify-content: center;
-  background-image: url('../../../public/image/background2.jpg');
+  background-image: url('../../../public/image/background2.webp');
   background-size: 120%; /* Scale ảnh nền lên 120% */
   background-position: center;
   background-repeat: no-repeat;

@@ -1,0 +1,344 @@
+/* Game UI Styles extracted from game-guide.js */
+
+.gps-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.gps-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.gps-role-badge {
+    background: var(--primary-color, #3b82f6);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.gps-turn {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+.gps-stats-row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.gps-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.gps-stat-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.gps-stat-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.gps-stat-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.gps-stat-value.val-good { color: #10b981; }
+.gps-stat-value.val-warning { color: #f59e0b; }
+.gps-stat-value.val-danger { color: #ef4444; }
+
+.gps-float-text {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-weight: 800;
+    font-size: 1.2rem;
+    animation: floatUp 1.5s ease-out forwards;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-30px); opacity: 0; }
+}
+
+.gps-body {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.gps-center-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 150px);
+}
+
+.gps-phase-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.gps-phase-tag {
+    color: #3b82f6;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.9rem;
+}
+
+.gps-phase-title {
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+    color: white;
+}
+
+.gps-phase-desc {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.gps-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.gps-item-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.gps-item-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.gps-item-card.selected {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: #3b82f6;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.gps-item-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+}
+
+.gps-item-name {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.gps-item-tag {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 0.75rem;
+}
+
+.gps-item-tag.tag-match {
+    color: #10b981;
+    font-weight: 700;
+}
+
+.gps-item-price {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #3b82f6;
+}
+
+.gps-item-discount {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #10b981;
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.gps-action-row {
+    display: flex;
+    justify-content: center;
+}
+
+.gps-btn {
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    font-size: 1rem;
+}
+
+.gps-btn-primary {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+}
+
+.gps-btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 20px -5px rgba(59, 130, 246, 0.5);
+}
+
+.gps-btn-primary:disabled {
+    background: #475569;
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+.gps-event-card {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 650px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.gps-card-top-bar {
+    height: 6px;
+    width: 100%;
+}
+
+.gps-event-main-content {
+    padding: 2.5rem;
+}
+
+.gps-event-tier {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+}
+
+.gps-event-name {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.gps-event-story {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.gps-event-sep {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.gps-event-actions-area {
+    padding: 2rem 2.5rem;
+}
+
+.gps-event-option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.gps-event-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateX(5px);
+}
+
+.gps-opt-key {
+    background: rgba(255, 255, 255, 0.1);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.gps-ending-screen {
+    background: #0f172a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gps-ending-container {
+    display: flex;
+    width: 90vw;
+    height: 85vh;
+    max-width: 1400px;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.gps-ending-image-side {
+    flex: 1.2;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gps-ending-content-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    overflow-y: auto;
+    background: rgba(15, 23, 42, 0.4);
+}

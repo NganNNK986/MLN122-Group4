@@ -113,7 +113,7 @@
           rgba(255,255,255,0.02) 40px,
           rgba(255,255,255,0.02) 41px
         ),
-        url('../../assets/images/index_header_bg_v2.png') center/cover no-repeat;
+        url('../../assets/images/index_header_bg_v2.webp') center/cover no-repeat;
       background-attachment: fixed;
       display: flex;
       flex-direction: column;
@@ -230,15 +230,42 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      background: #fff;
     }
 
-    #hero-lightpass {
+    .frame-img {
+      position: absolute;
       max-width: 90%;
       max-height: 90%;
       width: auto;
       height: auto;
       display: block;
       object-fit: contain;
+      transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1), 
+                  filter 0.8s ease, 
+                  opacity 0.8s ease;
+      will-change: transform, filter, opacity;
+    }
+
+    .frame-img.outgoing {
+      transform: translateY(-30%) scale(0.95);
+      filter: blur(15px);
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .frame-img.incoming {
+      transform: translateY(30%) scale(1.05);
+      filter: blur(15px);
+      opacity: 0;
+      z-index: 2;
+    }
+
+    .frame-img.active {
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+      opacity: 1;
+      z-index: 2;
     }
 
     .scroll-content-overlay {
@@ -709,7 +736,7 @@
     ============================================================ */
     .faq-section {
       background: linear-gradient(135deg, rgba(96,0,0,0.9) 0%, rgba(139,0,0,0.85) 100%),
-                  url('../../assets/images/index_faq_bg.png') center/cover no-repeat;
+                  url('../../assets/images/index_faq_bg.webp') center/cover no-repeat;
       background-attachment: fixed;
       padding: 5rem 6%;
     }
